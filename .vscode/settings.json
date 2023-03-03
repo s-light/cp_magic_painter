@@ -1,0 +1,6 @@
+{
+    "editor.defaultFoldingRangeProvider": "joedevivo.vscode-circuitpython",
+    "python.formatting.provider": "black",
+    "python.languageServer": "Pylance",
+    "python.linting.pylintEnabled": false
+}
