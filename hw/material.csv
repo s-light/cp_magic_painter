@@ -1,0 +1,34 @@
+"Material übersicht";;;;;;;
+;;;;;;;
+"Bereich";"Produkt";"url";"Preis";"anzahl je TN";"preis TN";"comment";"comment zwei"
+"Power";"INTENSO Powerbank 10000mAh";"https://www.reichelt.de/powerbank-li-po-10000-mah-usb-c-petrol-intenso-7313537-p283039.html?&trstct=vrt_pdn&nbc=1";18,45 €;0;0,00 €;;
+;"INTENSO Powerbank 5000mAh";"https://www.reichelt.de/powerbank-li-po-5000-mah-usb-c-petrol-intenso-7313527-p283036.html";13,65 €;1;13,65 €;;
+;"Akku";"https://www.reichelt.de/powerbank-li-po-5000-mah-usb-c-petrol-intenso-7313527-p283036.html";13,65 €;1;13,65 €;;
+;;;;;0,00 €;;
+"LEDs";"LED-Pixel-Band";"https://www.amazon.de/dp/B07BPX2KFD";40,00 €;0,25;10,00 €;;
+;;;;;;;
+"controller";"Adafruit ESP32-S3 TFT reverse";"https://www.adafruit.com/product/5691";33,00 €;0;0,00 €;" 4MB Flash 2MB PSRAM";
+;"Adafruit ESP32-S3 TFT";"https://eckstein-shop.de/Adafruit-ESP32-S3-TFT-Display-Feather-Board-4MB-Flash-2MB-PSRAM-STEMMA-QT";33,00 €;0;0,00 €;" 4MB Flash 2MB PSRAM";
+;"FeatherS3 - ESP32-S3 ";"https://www.exp-tech.de/plattformen/esp32/10679/feathers3-esp32-s3-development-board";29,00 €;0;0,00 €;"16MB Flash 8MB PSRAM";
+;"Adafruit ESP32-S3 Feather";"https://www.exp-tech.de/plattformen/esp32/10678/adafruit-esp32-s3-feather-with-stemma-qt/qwiic";17,50 €;0;0,00 €;"4MB Flash 2MB PSRAM or 8MB Flash No PS";
+;"ProS3 - ESP32-S3";"https://www.exp-tech.de/plattformen/esp32/10681/pros3-esp32-s3-development-board";32,00 €;0;0,00 €;"16MB Flash 8MB PSRAM";
+;"Adafruit QT Py ESP32-S3";"https://www.adafruit.com/product/5426";15,00 €;0;0,00 €;"8 MB Flash / No PSRAM";
+;"ESP32-S3-DevKitC-1-N8R8";"https://www.mouser.de/c/?q=ESP32-S3-DevKitC-1-N8R8";14,10 €;1;14,10 €;"8MB Flash 8MB PSRAM";
+;"ESP32-S3-DevKitC-1-N32R8V";"https://www.mouser.de/c/?q=ESP32-S3-DevKitC-1-N32R8V";17,00 €;0;0,00 €;"32MB Flash 8MB PSRAM";
+;;;;;;;
+"accel sensor";"MSA301 Triple Axis Accelerometer";"https://eckstein-shop.de/Adafruit-MSA311-Triple-Axis-Accelerometer-STEMMA-QT-Qwiic";6,00 €;1;6,00 €;"should work";
+;"BNO085 - 9-DOF Orientation IMU Fusion";"https://learn.adafruit.com/adafruit-9-dof-orientation-imu-fusion-breakout-bno085/python-circuitpython";31,00 €;0;0,00 €;"mega nices spielzeug..";
+;;;;;;;
+"cable";"STEMMA QT JST SH 4-pin Cable - 100mm";"https://eckstein-shop.de/STEMMAQT2FQwiicJSTSH4-pinCable-100mmLongforallSensor2FDriverBoardswithQwiic";1,50 €;1;1,50 €;"für sensor..";
+;"usb c - usb c 0.5m";"https://www.reichelt.de/usb-2-0-kabel-c-stecker-auf-c-stecker-0-5-m-efb-usbcusb20ck5-p330175.html?&nbc=1";3,20 €;0;0,00 €;"powerbank - board";"oder halbiert für powerbank - led streifen"
+;"usb c - freie enden 0.2m";"https://www.reichelt.de/usb-c-stecker-auf-freie-enden-sw-20-cm-usb-c-awg22-20-p292505.html";2,05 €;0;0,00 €;"powerbank - led streifen";
+;"usb c - freie enden 0.5m";"https://www.reichelt.de/usb-c-stecker-auf-freie-enden-sw-50-cm-usb-c-awg22-50-p292506.html?&trstct=vrt_pdn&nbc=1";2,41 €;0;0,00 €;"powerbank - led streifen";
+;"usb c - usb c 1m";"https://www.reichelt.de/usb-2-0-kabel-c-stecker-auf-c-stecker-2-0-m-efb-usbcusb20ck2-p330177.html?&trstct=vrt_pdn&nbc=1";5,30 €;0;0,00 €;"halbiert für powerbank - led streifen";
+;"usb c - usb c 2m";"https://www.reichelt.de/usb-2-0-kabel-c-stecker-auf-c-stecker-2-0-m-efb-usbcusb20ck2-p330177.html?&trstct=vrt_pdn&nbc=1";5,30 €;0;0,00 €;"praktisch fürs testen";
+;;;;;;;
+"gehäuse & co";"Schrumpfschluach";"https://www.reichelt.de/schrumpfschlauch-box-5m-transparent-25-4mm-sdb-25-4-tr-p53815.html?&trstct=pos_7&nbc=1";7,01 €;0,08;0,56 €;;
+;"holz";;5,00 €;1,00 €;5,00 €;"TO BE DEFINED";
+;;;;;;;
+;;;;;;;
+;;;;;;;
+"Summe";;;;;64,46 €;;
