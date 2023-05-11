@@ -2,8 +2,10 @@
 # coding=utf-8
 
 """
-Magic Painter - POV Zauberstab
-based on https://learn.adafruit.com/circuitpython-painter
+Magic Painter
+based on 
+https://learn.adafruit.com/circuitpython-painter
+https://learn.adafruit.com/clue-light-paintstick    
 
 HW: some high speed processor...
 tested with ESP32-S3
@@ -14,7 +16,12 @@ tested with ESP32-S3
 import time
 import sys
 import board
+import digitalio
 from magicpainter import MagicPainter
+from rgblamp import RGBLamp
+
+button = digitalio.DigitalInOut(board.BUTTON)
+button.switch_to_input(pull=digitalio.Pull.UP)
 
 ##########################################
 # globals

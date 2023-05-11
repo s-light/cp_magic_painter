@@ -1,3 +1,9 @@
 {
-    "filename": "blinka.bmp"
+    "filename": "image.bmp",
+    "hw": {
+        "dotstar_spi": {
+            "clock": "D11",
+            "data": "D10"
+        }
+    }
 }

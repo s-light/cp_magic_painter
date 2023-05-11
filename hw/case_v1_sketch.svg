@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="210mm"
+     height="297mm"
+     viewBox="0 0 210 297"
+     version="1.1"
+     id="svg5"
+     inkscape:version="1.2.2 (1:1.2.2+202212051551+b0a8486541)"
+     sodipodi:docname="case_v1_sketch.svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview7"
+         pagecolor="#505050"
+         bordercolor="#eeeeee"
+         borderopacity="1"
+         inkscape:showpageshadow="0"
+         inkscape:pageopacity="0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#505050"
+         inkscape:document-units="mm"
+         showgrid="false"
+         inkscape:zoom="5.0611196"
+         inkscape:cx="385.98179"
+         inkscape:cy="758.03386"
+         inkscape:window-width="3840"
+         inkscape:window-height="2087"
+         inkscape:window-x="1"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1" />
+    <defs
+         id="defs2" />
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <path
+             style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+             d="m 55.498923,20.027146 -0.43787,80.971784 -17.809874,12.77769 0.160909,67.64582 58.112345,-0.18613 -0.64701,-63.43533 -16.437887,-17.12691 V 19.224904 Z"
+             id="path1103" />
+        <rect
+             style="opacity:1;fill:none;fill-opacity:0.8;fill-rule:evenodd;stroke:#0046ff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+             id="rect4396"
+             width="43.636875"
+             height="11.606946"
+             x="44.283504"
+             y="221.3322" />
+        <rect
+             style="opacity:1;fill:none;fill-opacity:0.8;fill-rule:evenodd;stroke:#2cff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+             id="rect5436"
+             width="26.916933"
+             height="7.5361547"
+             x="52.583645"
+             y="208.30052" />
+        <rect
+             style="opacity:1;fill:none;fill-opacity:0.8;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+             id="rect1217"
+             width="57.157398"
+             height="4.9917159"
+             x="38.367035"
+             y="216.34048" />
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:100%;font-family:Overlock;-inkscape-font-specification:Overlock;letter-spacing:0px;word-spacing:0px;fill:#2cff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="120.66941"
+             y="209.12659"
+             id="text6218"><tspan
+                 sodipodi:role="line"
+                 id="tspan6216"
+                 style="stroke-width:0.264583;font-size:10px;fill:#2cff00;fill-opacity:1"
+                 x="120.66941"
+                 y="209.12659">controller</tspan></text>
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:100%;font-family:Overlock;-inkscape-font-specification:Overlock;letter-spacing:0px;word-spacing:0px;fill:#0046ff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="117.57441"
+             y="238.45792"
+             id="text6218-3"><tspan
+                 sodipodi:role="line"
+                 id="tspan6216-6"
+                 style="font-size:10px;fill:#0046ff;fill-opacity:1;stroke-width:0.264583"
+                 x="117.57441"
+                 y="238.45792">powerbank</tspan></text>
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:100%;font-family:Overlock;-inkscape-font-specification:Overlock;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+             x="124.62334"
+             y="222.50134"
+             id="text6218-7"><tspan
+                 sodipodi:role="line"
+                 id="tspan6216-5"
+                 style="font-size:10px;stroke-width:0.264583"
+                 x="124.62334"
+                 y="222.50134">wood</tspan></text>
+        <path
+             style="fill:#000000;stroke:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1px"
+             d="m 162.86,776.10757 193.6069,4.06742"
+             id="path8334" />
+        <path
+             style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+             d="m 44.283505,205.46158 h 43.636874 c 5.038904,1.15161 11.341593,1.71716 13.237761,7.89094 v 9.24882 c -0.23404,14.64304 -2.943526,17.66559 -15.526777,17.33238 L 44.283505,239.6541 c -3.527835,-0.0239 -9.12877,-1.76415 -9.165796,-5.29187 l -0.202473,-19.29089 c 0.426387,-4.18432 5.471082,-9.60975 9.368269,-9.60975 2e-6,0 -3e-6,-1e-5 0,-1e-5 z"
+             id="path8336"
+             sodipodi:nodetypes="sccccssccs" />
+    </g>
+</svg>
