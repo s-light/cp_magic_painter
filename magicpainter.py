@@ -14,11 +14,12 @@
 Magic Painter - POV Zauberstab
 based on 
 https://learn.adafruit.com/circuitpython-painter
-https://learn.adafruit.com/
+https://learn.adafruit.com/clue-light-paintstick
 
 
 HW: some high speed processor...
 tested with ESP32-S3
+
 """
 
 

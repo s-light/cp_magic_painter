@@ -37,6 +37,8 @@ else:
     circuitpython_readonly = button.value
 
 
+
+
 print("set cp filesystem to:")
 if circuitpython_readonly:
     print(" → writeable for computer - readonly by CircuitPython")
@@ -44,12 +46,15 @@ if circuitpython_readonly:
 else:
     print(" → readonly for computer - writeable by CircuitPython")
     pixel.fill((255, 0, 200))
+    import storage
+    storage.disable_usb_drive()
 
 # mount this from the cp point of view
 storage.remount("/", readonly=circuitpython_readonly)
 
 time.sleep(1)
 pixel.fill((0, 1, 0))
+
 
 # USB things...
 # https://learn.adafruit.com/customizing-usb-devices-in-circuitpython/circuitpy-midi-serial
@@ -63,3 +68,12 @@ pixel.fill((0, 1, 0))
 # usb_midi.disable()
 # print("boot.py: usb_cdc enable console & data")
 # usb_cdc.enable(console=True, data=True)
+
+
+# if not circuitpython_readonly:
+#     import storage
+#     print("boot.py: disable usb_drive")
+#     storage.disable_usb_drive()
+#     import usb_cdc
+#     print("boot.py: usb_cdc enable console & data")
+#     usb_cdc.enable(console=True, data=True)

@@ -1,8 +1,11 @@
+# based on example
+# https://github.com/adafruit/Adafruit_CircuitPython_LIS3DH/blob/main/examples/lis3dh_simpletest.py
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
 import time
 import board
+import displayio
 import busio
 import adafruit_lis3dh
 
@@ -40,11 +43,13 @@ def speed_test(fn, msg, count=1000):
 
 def print_results(speed_tests):
     msg_max_length = max(len(x["msg"]) for x in speed_tests)
-    for test in messages:
+    # print(msg_max_length)
+    for test in speed_tests:
+        msg_template = (
+            "'{:<" + "{}".format(msg_max_length + 5) + "}'  needs {:10.3f}ms/call"
+        )
         print(
-            "'{:<"
-            + msg_max_length
-            + "}'  needs {:10.3f}ms/call".format(
+            msg_template.format(
                 test["msg"],
                 test["duration_ms"],
             )
@@ -55,13 +60,13 @@ print("\n" * 20)
 speed_tests = []
 
 
-lis3dh.data_rate = adafruit_lis3dh.DATARATE_1_HZ  # default → 1000s
-speed_tests.append(
-    speed_test(
-        lambda: lis3dh.acceleration[1],
-        msg="lis3dh.acceleration[1] → 1Hz (2.5ms)",
-    )
-)
+# lis3dh.data_rate = adafruit_lis3dh.DATARATE_1_HZ  # default → 1000ms
+# speed_tests.append(
+#     speed_test(
+#         lambda: lis3dh.acceleration[1],
+#         msg="lis3dh.acceleration[1] → 1Hz (1000ms)",
+#     )
+# )
 
 lis3dh.data_rate = adafruit_lis3dh.DATARATE_400_HZ  # default → 2,5ms
 speed_tests.append(
@@ -71,11 +76,43 @@ speed_tests.append(
     )
 )
 
-lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+
+# lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+# speed_tests.append(
+#     speed_test(
+#         lambda: lis3dh.acceleration[1],
+#         msg="lis3dh.acceleration[1] → 5kHz (0,2ms)",
+#     )
+# )
+
+
 speed_tests.append(
     speed_test(
-        lambda: lis3dh.acceleration[1],
-        msg="lis3dh.acceleration[1] → 5kHz (0,2ms)",
+        lambda: print(3.14159),
+        msg="print(i * 3.14159)",
+    )
+)
+
+lis3dh.data_rate = adafruit_lis3dh.DATARATE_400_HZ  # default → 2,5ms
+
+speed_tests.append(
+    speed_test(
+        lambda: print(lis3dh.acceleration[1]),
+        msg="print(lis3dh.acceleration[1]) 400Hz",
+        count=50,
+    )
+)
+
+
+
+print("deactivate display..")
+board.DISPLAY.auto_refresh = False
+board.DISPLAY.root_group = displayio.Group()
+
+speed_tests.append(
+    speed_test(
+        lambda: print(lis3dh.acceleration[1]),
+        msg="print(lis3dh.acceleration[1]) 400Hz no display",
     )
 )
 
@@ -88,11 +125,25 @@ speed_tests.append(
 
 speed_tests.append(
     speed_test(
-        lambda: print(lis3dh.acceleration[1]),
-        msg="print(lis3dh.acceleration[1])",
-        count=50,
+        lambda: print("{:10.3f}".format(lis3dh.acceleration[1])),
+        msg='print("{:10.3f}".format(lis3dh.acceleration[1])) 400Hz no display',
     )
 )
+
+speed_tests.append(
+    speed_test(
+        lambda: print("{:10.3f} {:10.3f} {:10.3f}".format(*lis3dh.acceleration)),
+        msg='print("{:10.3f} {:10.3f} {:10.3f}".format(*lis3dh.acceleration)) 400Hz no display',
+    )
+)
+
+
+
+print("activate display..")
+board.DISPLAY.auto_refresh = True
+board.DISPLAY.root_group = displayio.CIRCUITPYTHON_TERMINAL
+
+
 
 
 print("\n" * 20)

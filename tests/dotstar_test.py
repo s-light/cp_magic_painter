@@ -31,8 +31,11 @@ def rainbow_cycle(wait):
         time.sleep(wait)
 
 
+start = time.monotonic()
 print(3 * "\n")
 print("DotStar Rainbow")
+time.sleep(1.1)
+print("runtime: {:0.3f}min".format((time.monotonic() - start) / 60))
 while True:
     rainbow_cycle(0.4)
-    print(time)
+    print("runtime: {:0.3f}min".format((time.monotonic() - start) / 60))
