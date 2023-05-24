@@ -118,6 +118,13 @@ speed_tests.append(
 
 speed_tests.append(
     speed_test(
+        lambda: print(lis3dh.read_adc_raw(1)),
+        msg="print(lis3dh.read_adc_raw(1)) 400Hz no display",
+    )
+)
+
+speed_tests.append(
+    speed_test(
         lambda: print(3.14159),
         msg="print(i * 3.14159)",
     )
@@ -137,6 +144,15 @@ speed_tests.append(
     )
 )
 
+
+
+lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+speed_tests.append(
+    speed_test(
+        lambda: print(lis3dh.read_adc_raw(1)),
+        msg="print(lis3dh.read_adc_raw(1)) 5kHz no display",
+    )
+)
 
 
 print("activate display..")
