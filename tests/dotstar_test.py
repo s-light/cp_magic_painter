@@ -17,14 +17,14 @@ pixels = adafruit_dotstar.DotStar(
     board.D11,
     board.D10,
     num_pixels,
-    brightness=1,
+    brightness=0.08,
     auto_write=False,
 )
 
 
 def rainbow_cycle(wait):
     for j in range(255):
-        for i in range(num_pixels):
+        for i in range(num_pixels-5, num_pixels):
             rc_index = (i * 256 // (num_pixels * 3)) + j
             pixels[i] = colorwheel(rc_index & 255)
         pixels.show()
@@ -37,5 +37,5 @@ print("DotStar Rainbow")
 time.sleep(1.1)
 print("runtime: {:0.3f}min".format((time.monotonic() - start) / 60))
 while True:
-    rainbow_cycle(0.4)
+    rainbow_cycle(0.5)
     print("runtime: {:0.3f}min".format((time.monotonic() - start) / 60))

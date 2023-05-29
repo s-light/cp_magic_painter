@@ -1,7 +1,5 @@
 # SPDX-FileCopyrightText: 2018 Kattni Rembor for Adafruit Industries
-#
 # SPDX-License-Identifier: MIT
-
 # https://learn.adafruit.com/circuitpython-essentials/circuitpython-dotstar
 
 """CircuitPython Essentials DotStar example"""
@@ -19,8 +17,8 @@ class RGBLamp(object):
             board.SCK,
             board.MOSI,
             self.num_pixels,
-            # brightness=0.02,
-            brightness=1,
+            brightness=0.03,
+            # brightness=1,
             auto_write=False,
         )
 
@@ -29,12 +27,12 @@ class RGBLamp(object):
 
     def rainbow_cycle(wait):
         for j in range(255):
-            for i in range(self.num_pixels):
+            for i in range((self.num_pixels-5), self.num_pixels):
                 rc_index = (i * 256 // (num_pixels * 3)) + j
                 pixels[i] = colorwheel(rc_index & 255)
             self.pixels.show()
             time.sleep(wait)
 
     def main_loop():
-        rainbow_cycle(0.4)
+        rainbow_cycle(0.6)
         # print(time)

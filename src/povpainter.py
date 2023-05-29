@@ -1,11 +1,10 @@
 # SPDX-FileCopyrightText: 2023 Stefan Krüger s-light.eu
-#
 # SPDX-License-Identifier: MIT
-
+# 
 # original CircuitPython Painter:
 # SPDX-FileCopyrightText: 2017 Limor Fried for Adafruit Industries
-#
 # SPDX-License-Identifier: MIT
+# source https://learn.adafruit.com/circuitpython-painter
 
 # Dotstar painter! Can handle up to ~2300 pixel size image (e.g. 36 x 64)
 
@@ -14,7 +13,6 @@
 Magic Painter - POV Zauberstab
 based on 
 https://learn.adafruit.com/circuitpython-painter
-https://learn.adafruit.com/
 
 
 HW: some high speed processor...

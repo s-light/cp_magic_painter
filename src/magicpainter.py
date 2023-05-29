@@ -1,30 +1,40 @@
 # SPDX-FileCopyrightText: 2023 Stefan Krüger s-light.eu
-#
 # SPDX-License-Identifier: MIT
-
-# original CircuitPython Painter:
-# SPDX-FileCopyrightText: 2017 Limor Fried for Adafruit Industries
-#
-# SPDX-License-Identifier: MIT
-
-# Dotstar painter! Can handle up to ~2300 pixel size image (e.g. 36 x 64)
+# source https://github.com/s-light/cp_magic_painter/
 
 
 """
-Magic Painter - POV Zauberstab
-based on 
+# Magic Painter - POV Zauberstab
+based on & inspired by
 https://learn.adafruit.com/circuitpython-painter
 https://learn.adafruit.com/clue-light-paintstick
 
 
-HW: some high speed processor...
-tested with ESP32-S3
+## HW: 
+- Adafruit QT Py ESP32-S3 https://www.adafruit.com/product/5426
+- Adafruit LIS3DH breakout https://www.adafruit.com/product/2809
+- APA102 (Dotstar) Pixel-LED-Strip
+
+## Usage
+
+The Software has 4 Modes:
+- Lamp
+- POV (Persistence Of Vision) 
+- LightPainting Picture (TBD)
+- LightPainting Point (TBD)
+
 
 """
+
+# this file is the main entry point
+# and handles the User-Interface and the prepares the sub-parts.
 
 
 ##########################################
 # imports
+
+# import os
+import sys
 
 
 import gc
@@ -48,6 +58,10 @@ import adafruit_lis3dh
 # )
 # from adafruit_bno08x.i2c import BNO08X_I2C
 
+# from magicpainter import MagicPainter
+# from rgblamp import RGBLamp
+# button = digitalio.DigitalInOut(board.BUTTON)
+# button.switch_to_input(pull=digitalio.Pull.UP)
 
 ##########################################
 # main class
@@ -57,29 +71,7 @@ class MagicPainter(object):
     """MagicPainter."""
 
     config_defaults = {
-        # ItsiBitsy M4
-        "hw": {
-            "dotstar_spi": {
-                "clock": "SCK",
-                "data": "MOSI",
-            },
-            "accel_i2c": {
-                "clock": "SCL",
-                "data": "SDA",
-            },
-        },
-        # ESP32-S3
-        # "hw": {
-        #     "dotstar_spi": {
-        #         "clock": "D4",
-        #         "data": "D12",
-        #     },
-        #     "accel_i2c": {
-        #         "clock": "D8",
-        #         "data": "D9",
-        #     },
-        # },
-        # all sub defaults for the UI are defined there.
+        # all sub default parts are defined in the modules themselfes..
     }
     config = {}
 
@@ -94,9 +86,11 @@ class MagicPainter(object):
 
         self.load_config()
 
-        self.mode = "magic"
+        self.mode = "lamp"
         self.myMagicPainter = None
         self.myRGBLamp = None
+
+        self.init_userInput()
 
         # self.setup_hw()
         # self.setup_modes()
@@ -118,6 +112,19 @@ class MagicPainter(object):
                 raise e
         # extend with default config - thisway it is safe to use ;-)
         extend_deep(self.config, self.config_defaults.copy())
+
+    def init_userInput(self):
+        # self.button_io = digitalio.DigitalInOut(board.BUTTON)
+        # self.button_io.switch_to_input(pull=digitalio.Pull.UP)
+        # self.button = Button(self.button_io)
+
+        # https://learn.adafruit.com/key-pad-matrix-scanning-in-circuitpython/advanced-features#avoiding-storage-allocation-3099287
+        self.button = keypad.Keys(
+            (board.D0),
+            value_when_pressed=False,
+            pull=False,
+        )
+        self.button_event = keypad.Event()
 
     # def get_pin(self, bus_name, pin_name):
     #     board_pin_name = self.config["hw"][bus_name][pin_name]
@@ -164,18 +171,36 @@ class MagicPainter(object):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)
     #     pass
 
+    def switch_to_next_state():
+        if self.mode == "lamp":
+            self.mode = "magic"
+        elif self.mode == "magic":
+            self.mode = "lightpainting_image"
+        elif self.mode == "lightpainting_image":
+            self.mode = "lightpainting_color"
+        elif self.mode == "lightpainting_color":
+            self.mode = "lamp"
+        else:
+            self.mode = "lamp"
+
     ##########################################
     # main handling
 
     def main_loop(self):
+        if self.button.events.get_into(self.button_event):
+            if keys_event.pressed:
+                if keys_event.key_number == 0:
+                    switch_to_next_state()
+
         #    computer_readonly = not button.value
         # switch mode
-        # self.myMagicPainter = MagicPainter()
-        # self.myRGBLamp = RGBLamp()
-        if self.mode == "magic":
-            self.myMagicPainter.main_loop()
-        else:
+        if self.mode == "lamp":
             self.myRGBLamp.main_loop()
+        elif self.mode == "magic":
+            self.myMagicPainter.main_loop()
+        # elif self.mode == "lightpainting_image":
+        #     self.myMagicPainter.main_loop()
+
 
     # time.sleep(IMAGE_DELAY)
 
@@ -191,20 +216,3 @@ class MagicPainter(object):
             except KeyboardInterrupt as e:
                 self.print("KeyboardInterrupt - Stop Program.", e)
                 running = False
-
-
-##########################################
-
-
-def read_le(s):
-    # as of this writting, int.from_bytes does not have LE support, DIY!
-    result = 0
-    shift = 0
-    for byte in bytearray(s):
-        result += byte << shift
-        shift += 8
-    return result
-
-
-class BMPError(Exception):
-    pass
