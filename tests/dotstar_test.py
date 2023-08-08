@@ -12,19 +12,19 @@ import board
 
 num_pixels = 36
 pixels = adafruit_dotstar.DotStar(
-    # board.SCK,
-    # board.MOSI,
-    board.D11,
-    board.D10,
+    board.SCK,
+    board.MOSI,
+    # board.D11,
+    # board.D10,
     num_pixels,
-    brightness=0.08,
+    brightness=0.04,
     auto_write=False,
 )
 
 
 def rainbow_cycle(wait):
     for j in range(255):
-        for i in range(num_pixels-5, num_pixels):
+        for i in range(num_pixels-1, num_pixels):
             rc_index = (i * 256 // (num_pixels * 3)) + j
             pixels[i] = colorwheel(rc_index & 255)
         pixels.show()

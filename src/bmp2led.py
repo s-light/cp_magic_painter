@@ -51,23 +51,23 @@ class BMP2LED:
     Intended for light painting projects.
     """
 
-    def __init__(self, num_pixels, order='brg', gamma=2.4):
+    def __init__(self, pixel_count, color_order='brg', gamma=2.4):
         """
         Constructor for BMP2LED Class. Arguments are values that are not
         expected to change over the life of the object.
         Arguments:
-            num_pixels (int) : Number of pixels in DotStar strip.
-            order (string)   : DotStar data color order. Optional, default
+            pixel_count (int) : Number of pixels in DotStar strip.
+            color_order (string)   : DotStar data color order. Optional, default
                                is 'brg', used on most strips.
             gamma (float)    : Optional gamma-correction constant, for
                                more perceptually-linear output.
                                Optional; 2.4 if unspecified.
         """
-        order = order.lower()
-        self.red_index = order.find('r')
-        self.green_index = order.find('g')
-        self.blue_index = order.find('b')
-        self.num_pixels = num_pixels
+        color_order = color_order.lower()
+        self.red_index = color_order.find('r')
+        self.green_index = color_order.find('g')
+        self.blue_index = color_order.find('b')
+        self.pixel_count = pixel_count
         self.gamma = gamma
         self.bmp_file = None
         self.bmp_specs = None
@@ -216,8 +216,8 @@ class BMP2LED:
         # start markers and footer), with colors all '0' to start...these
         # will be filled later.
         dotstar_buffer = ulab.numpy.array([0] * 4 +
-                                    [255, 0, 0, 0] * self.num_pixels +
-                                    [255] * ((self.num_pixels + 15) // 16),
+                                    [255, 0, 0, 0] * self.pixel_count +
+                                    [255] * ((self.pixel_count + 15) // 16),
                                     dtype=ulab.numpy.uint8)
         dotstar_row_size = len(dotstar_buffer)
 
@@ -252,7 +252,7 @@ class BMP2LED:
                 #print("Image format OK, reading data...")
 
                 # Constrain bytes-to-read to pixel strip length
-                clipped_width = min(self.bmp_specs.width, self.num_pixels)
+                clipped_width = min(self.bmp_specs.width, self.pixel_count)
                 row_bytes = 3 * clipped_width
 
                 # Each output row is interpolated from two BMP rows,
@@ -386,9 +386,9 @@ class BMP2LED:
                         rows += 1
                         led_file.write(bytearray([0] * 4 +
                                                  [255, 0, 0, 0] *
-                                                 self.num_pixels +
+                                                 self.pixel_count +
                                                  [255] *
-                                                 ((self.num_pixels + 15) //
+                                                 ((self.pixel_count + 15) //
                                                   16)))
 
                 #print("Loaded OK!")

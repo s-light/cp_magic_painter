@@ -9,10 +9,16 @@ print("\n\n")
 print("board.board_id:", board.board_id)
 
 i2c = None
-if "itsybitsy_m4_express" in board.board_id:
+
+# if "itsybitsy_m4_express" in board.board_id:
+# elif board.board_id is 'adafruit_qtpy_esp32s3_nopsram':
+
+if hasattr(board, "STEMMA_I2C"):
+    i2c = board.STEMMA_I2C()
+elif hasattr(board, "I2C"):
     i2c = board.I2C()
-# elif board.board_id is 'itsybitsy_m4_express':
-# i2c = busio.I2C(board.IO8, board.IO9)
+else:
+    i2c = busio.I2C(board.IO8, board.IO9)
 
 while not i2c.try_lock():
     pass

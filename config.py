@@ -1,5 +1,5 @@
-{
-    "filename": "image.bmp",
+
+config = {
     "hw": {
         "dotstar_spi": {
             "clock": "SCK",

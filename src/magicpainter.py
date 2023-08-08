@@ -58,8 +58,12 @@ import adafruit_lis3dh
 # )
 # from adafruit_bno08x.i2c import BNO08X_I2C
 
-# from magicpainter import MagicPainter
-# from rgblamp import RGBLamp
+from povpainter import POVPainter
+from rgblamp import RGBLamp
+
+
+import keypad
+
 # button = digitalio.DigitalInOut(board.BUTTON)
 # button.switch_to_input(pull=digitalio.Pull.UP)
 
@@ -87,8 +91,9 @@ class MagicPainter(object):
         self.load_config()
 
         self.mode = "lamp"
-        self.myMagicPainter = None
-        self.myRGBLamp = None
+        self.myPOVPainter = None
+        # self.myPOVPainter = POVPainter()
+        self.myRGBLamp = RGBLamp()
 
         self.init_userInput()
 
@@ -120,9 +125,9 @@ class MagicPainter(object):
 
         # https://learn.adafruit.com/key-pad-matrix-scanning-in-circuitpython/advanced-features#avoiding-storage-allocation-3099287
         self.button = keypad.Keys(
-            (board.D0),
+            (board.BUTTON,),
             value_when_pressed=False,
-            pull=False,
+            pull=True,
         )
         self.button_event = keypad.Event()
 
@@ -171,38 +176,42 @@ class MagicPainter(object):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)
     #     pass
 
-    def switch_to_next_state():
+    def switch_to_next_state(self):
         if self.mode == "lamp":
             self.mode = "magic"
-        elif self.mode == "magic":
-            self.mode = "lightpainting_image"
-        elif self.mode == "lightpainting_image":
-            self.mode = "lightpainting_color"
-        elif self.mode == "lightpainting_color":
-            self.mode = "lamp"
+        # elif self.mode == "magic":
+        #     self.mode = "lightpainting_image"
+        # elif self.mode == "lightpainting_image":
+        #     self.mode = "lightpainting_color"
+        # elif self.mode == "lightpainting_color":
+        #     self.mode = "lamp"
         else:
             self.mode = "lamp"
+
+    ##########################################
+    # ui / button handling
+
+    def handle_buttons(self):
+        if self.button_event.pressed:
+                if self.button_event.key_number == 0:
+                    # self.switch_to_next_state()
+                    # self.myPOVPainter.switch_image()
+                    self.myPOVPainter.switch_image()
 
     ##########################################
     # main handling
 
     def main_loop(self):
         if self.button.events.get_into(self.button_event):
-            if keys_event.pressed:
-                if keys_event.key_number == 0:
-                    switch_to_next_state()
+            self.handle_buttons()
 
-        #    computer_readonly = not button.value
-        # switch mode
         if self.mode == "lamp":
             self.myRGBLamp.main_loop()
         elif self.mode == "magic":
-            self.myMagicPainter.main_loop()
+            self.myPOVPainter.main_loop()
         # elif self.mode == "lightpainting_image":
-        #     self.myMagicPainter.main_loop()
+        #     self.myPOVPainter.main_loop()
 
-
-    # time.sleep(IMAGE_DELAY)
 
     def run(self):
         self.print(42 * "*")

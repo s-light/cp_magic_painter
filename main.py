@@ -11,7 +11,14 @@ HW: some high speed processor...
 tested with ESP32-S3
 """
 
-from src import MagicPainter
+# add src as import path
+import sys
+sys.path.append('/src')
+
+import time
+import board
+
+from magicpainter import MagicPainter
 
 def wait_with_print(wait_duration = 5, step_duration = 0.25):
     for index in range(wait_duration * step_duration):

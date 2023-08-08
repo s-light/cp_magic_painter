@@ -22,6 +22,12 @@ import board
 import busio
 import displayio
 from digitalio import DigitalInOut, Direction
+
+
+# add src as import path
+import sys
+sys.path.append('/src')
+
 from bmp2led import BMP2LED, BMPError
 from neopixel_write import neopixel_write
 from richbutton import RichButton

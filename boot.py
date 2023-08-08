@@ -56,6 +56,12 @@ time.sleep(1)
 pixel.fill((0, 1, 0))
 
 
+# deactivate display.
+print("deactivate display backlight.")
+board.DISPLAY.brightness = 0
+
+
+
 # USB things...
 # https://learn.adafruit.com/customizing-usb-devices-in-circuitpython/circuitpy-midi-serial
 

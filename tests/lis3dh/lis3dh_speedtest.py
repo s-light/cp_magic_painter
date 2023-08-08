@@ -10,7 +10,10 @@ import busio
 import adafruit_lis3dh
 
 # uses board.SCL and board.SDA
-i2c = board.I2C()
+if hasattr(board, "STEMMA_I2C"):
+    i2c = board.STEMMA_I2C()
+elif hasattr(board, "I2C"):
+    i2c = board.I2C()
 lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
 
 # RANGE_2_G
@@ -105,42 +108,59 @@ speed_tests.append(
 
 
 
-print("deactivate display..")
-board.DISPLAY.auto_refresh = False
-board.DISPLAY.root_group = displayio.Group()
+
+# ++++++++++++++++++++++++++++++++++++++++++
+#  now with High Speed / without Display
+# ++++++++++++++++++++++++++++++++++++++++++
+
+
+msg=" fastI2C"
+if hasattr(board, "DISPLAY"):
+    print("deactivate display..")
+    board.DISPLAY.auto_refresh = False
+    board.DISPLAY.root_group = displayio.Group()
+    msg=" no display"
+
+i2c.deinit()
+if hasattr(board, "STEMMA_I2C"):
+    i2c = busio.I2C(scl=board.SCL1, sda=board.SDA1, frequency=400000)
+elif hasattr(board, "I2C"):
+    i2c = busio.I2C(scl=board.SCL, sda=board.SDA, frequency=400000)
+lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
+
 
 speed_tests.append(
     speed_test(
         lambda: print(lis3dh.acceleration[1]),
-        msg="print(lis3dh.acceleration[1]) 400Hz no display",
+        msg="print(lis3dh.acceleration[1]) 400Hz" + msg,
     )
 )
 
 speed_tests.append(
     speed_test(
         lambda: print(lis3dh.read_adc_raw(1)),
-        msg="print(lis3dh.read_adc_raw(1)) 400Hz no display",
+        msg="print(lis3dh.read_adc_raw(1)) 400Hz" + msg,
     )
 )
 
 speed_tests.append(
     speed_test(
         lambda: print(3.14159),
-        msg="print(i * 3.14159)",
+        msg="print(i * 3.14159)" + msg,
     )
 )
 
 speed_tests.append(
     speed_test(
         lambda: print("{:10.3f}".format(lis3dh.acceleration[1])),
-        msg='print("{:10.3f}".format(lis3dh.acceleration[1])) 400Hz no display',
+        msg='print("{:10.3f}".format(lis3dh.acceleration[1])) 400Hz' + msg,
     )
 )
 
 speed_tests.append(
     speed_test(
         lambda: print("{:10.3f} {:10.3f} {:10.3f}".format(*lis3dh.acceleration)),
-        msg='print("{:10.3f} {:10.3f} {:10.3f}".format(*lis3dh.acceleration)) 400Hz no display',
+        msg='print("{:10.3f} {:10.3f} {:10.3f}".format(*lis3dh.acceleration)) 400Hz' + msg,
     )
 )
 
@@ -150,14 +170,14 @@ lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
 speed_tests.append(
     speed_test(
         lambda: print(lis3dh.read_adc_raw(1)),
-        msg="print(lis3dh.read_adc_raw(1)) 5kHz no display",
+        msg="print(lis3dh.read_adc_raw(1)) 5kHz" + msg,
     )
 )
 
-
-print("activate display..")
-board.DISPLAY.auto_refresh = True
-board.DISPLAY.root_group = displayio.CIRCUITPYTHON_TERMINAL
+if hasattr(board, "DISPLAY"):
+    print("activate display..")
+    board.DISPLAY.auto_refresh = True
+    board.DISPLAY.root_group = displayio.CIRCUITPYTHON_TERMINAL
 
 
 
