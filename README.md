@@ -2,7 +2,7 @@
 
 Malen mit Licht - POV (Persistance Of Vision) Zauberstab
 
-![Zauberstab (CAD)](/home/stefan/mydata/github/cp_magic_painter/hw/case/case_assembly_screenshots/overview.png)
+![Zauberstab (CAD)](hw/case/case_assembly_screenshots/overview.png)
 ## HW
 
 -   APA102 ('Dotstar') LED-Pixel-Strip 144Pixel/m - **36 LEDs**

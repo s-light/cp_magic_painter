@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 # https://learn.adafruit.com/circuitpython-essentials/circuitpython-dotstar
 
-"""CircuitPython Essentials DotStar example"""
+"""RGB Lamp"""
 import time
 from rainbowio import colorwheel
 import adafruit_dotstar
@@ -18,7 +18,7 @@ class RGBLamp(object):
             board.MOSI,
             self.num_pixels,
             # brightness=0.03,
-            brightness=1,
+            brightness=0.4,
             auto_write=False,
         )
 
@@ -26,6 +26,7 @@ class RGBLamp(object):
         self.pixels.show()
 
     def rainbow_cycle(self, wait):
+        """based on CircuitPython Essentials DotStar example"""
         for j in range(255):
             # for i in range((self.num_pixels-5), self.num_pixels):
             for i in range(self.num_pixels):
