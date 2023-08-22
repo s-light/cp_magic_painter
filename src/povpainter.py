@@ -46,17 +46,22 @@ import digitalio
 
 import json
 
+from mode_base import ModeBaseClass 
+
 import adafruit_lis3dh
 
 from configdict import extend_deep
 
+import helper
+
 from bmp2led import BMP2LED, BMPError
+
 
 ##########################################
 # main class
 
 
-class POVPainter(object):
+class POVPainter(ModeBaseClass):
     """POVPainter."""
 
     config_defaults = {
@@ -150,6 +155,7 @@ class POVPainter(object):
         # self.time = (len(self.times) + 1) // 2  # default to center of range
 
         self.setup_hw()
+        self.spi_init()
 
         # Determine filesystem-to-LEDs throughput (also clears LED strip)
         self.rows_per_second, self.row_size = self.benchmark()
@@ -166,6 +172,25 @@ class POVPainter(object):
             self.load_image_v1(self.filename)
         else:
             self.load_image()
+
+        self.spi_deinit()
+
+    def spi_init(self):
+        self.dotstar = busio.SPI(
+            clock=self.get_pin("pixel_spi_pins", "clock"),
+            MOSI=self.get_pin("pixel_spi_pins", "data"),
+        )
+        while not self.dotstar.try_lock():
+            pass
+        self.dotstar.configure(baudrate=12000000)
+        # initially set to black
+        self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
+        for r in range(36 * 5):
+            self.dotstar.write(bytearray([0xFF, 0x00, 0x00, 0x00]))
+        self.dotstar.write(bytearray([0xFF, 0xFF, 0xFF, 0xFF]))
+
+    def spi_deinit(self):
+        self.dotstar.deinit()
 
     def load_config(self, filename="/config.json"):
         self.config = {}
@@ -190,18 +215,6 @@ class POVPainter(object):
 
     def setup_hw(self):
         # self.dotstar = busio.SPI(board.IO36, board.IO35)
-        self.dotstar = busio.SPI(
-            clock=self.get_pin("pixel_spi_pins", "clock"),
-            MOSI=self.get_pin("pixel_spi_pins", "data"),
-        )
-        while not self.dotstar.try_lock():
-            pass
-        self.dotstar.configure(baudrate=12000000)
-        # initially set to black
-        self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
-        for r in range(36 * 5):
-            self.dotstar.write(bytearray([0xFF, 0x00, 0x00, 0x00]))
-        self.dotstar.write(bytearray([0xFF, 0xFF, 0xFF, 0xFF]))
         # https://docs.circuitpython.org/en/latest/shared-bindings/neopixel_write/index.html
         # import neopixel_write
         # import digitalio
@@ -258,6 +271,7 @@ class POVPainter(object):
 
     ##########################################
     # dotstar helper
+
     def dotstar_set_pixel(self, pixel_begin, pixel_end, r, g, b):
         """
         Set range of dotstar pixel to color.
@@ -518,7 +532,7 @@ class POVPainter(object):
             self.clear_strip()  # LEDs off
         else:
             print("filesystem ReadOnly. we can only use old led_data files..")
-            self.dotstar_blink(blink_count=5, duration=1, r=1, g=0, b=1):
+            self.dotstar_blink(blink_count=5, duration=1, r=1, g=0, b=1)
 
     def paint(self):
         """
@@ -562,6 +576,16 @@ class POVPainter(object):
 
     ##########################################
     # ui
+
+    def handle_user_input(self, touch_id, touch):
+        if touch.fell:
+            print("POVPainter - handle_user_input: ", touch_id)
+            if touch_id == 0:
+                self.switch_image()
+            elif touch_id == 1:
+                pass
+            elif touch_id == 2:
+                pass
 
     def switch_image(self):
         """

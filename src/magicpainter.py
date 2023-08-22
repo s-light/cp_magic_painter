@@ -44,6 +44,9 @@ import board
 import busio
 import digitalio
 
+import touchio
+from adafruit_debouncer import Debouncer
+
 import json
 
 from configdict import extend_deep
@@ -60,6 +63,7 @@ import adafruit_lis3dh
 
 from povpainter import POVPainter
 from rgblamp import RGBLamp
+from user_input import UserInput
 
 
 import keypad
@@ -90,16 +94,20 @@ class MagicPainter(object):
 
         self.load_config()
 
-        self.mode = "lamp"
-        self.myPOVPainter = None
-        # self.myPOVPainter = POVPainter()
-        self.myRGBLamp = RGBLamp()
+        self.modes = [
+            RGBLamp(),
+            POVPainter(),
+        ]
+        self.mode = self.modes[0]
 
-        self.init_userInput()
+        self.userinput = UserInput(
+            config=self.config,
+            callback_button=self.switch_to_next_mode,
+            callback_touch=self.handle_touch
+        )
 
-        # self.setup_hw()
-        # self.setup_modes()
-        # self.setup_ui()
+        self.mode.spi_init()
+        
 
     def load_config(self, filename="/config.json"):
         self.config = {}
@@ -118,99 +126,42 @@ class MagicPainter(object):
         # extend with default config - thisway it is safe to use ;-)
         extend_deep(self.config, self.config_defaults.copy())
 
-    def init_userInput(self):
-        # self.button_io = digitalio.DigitalInOut(board.BUTTON)
-        # self.button_io.switch_to_input(pull=digitalio.Pull.UP)
-        # self.button = Button(self.button_io)
-
-        # https://learn.adafruit.com/key-pad-matrix-scanning-in-circuitpython/advanced-features#avoiding-storage-allocation-3099287
-        self.button = keypad.Keys(
-            (board.BUTTON,),
-            value_when_pressed=False,
-            pull=True,
-        )
-        self.button_event = keypad.Event()
-
     # def get_pin(self, bus_name, pin_name):
     #     board_pin_name = self.config["hw"][bus_name][pin_name]
     #     return getattr(board, board_pin_name)
-
-    # def setup_hw(self):
-    #     # self.dotstar = busio.SPI(board.IO36, board.IO35)
-    #     self.dotstar = busio.SPI(
-    #         self.get_pin("dotstar_spi", "clock"), self.get_pin("dotstar_spi", "data")
-    #     )
-    #     while not self.dotstar.try_lock():
-    #         pass
-    #     self.dotstar.configure(baudrate=12000000)
-    #     # initially set to black
-    #     self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
-    #     for r in range(36 * 5):
-    #         self.dotstar.write(bytearray([0xFF, 0x00, 0x00, 0x00]))
-    #     self.dotstar.write(bytearray([0xFF, 0xFF, 0xFF, 0xFF]))
-    #     # https://docs.circuitpython.org/en/latest/shared-bindings/neopixel_write/index.html
-    #     # import neopixel_write
-    #     # import digitalio
-    #     # pixel_pin = digitalio.DigitalInOut(board.NEOPIXEL)
-    #     # pixel_pin.direction = digitalio.Direction.OUTPUT
-    #     # neopixel_write.neopixel_write(pixel_pin, bytearray([1, 1, 1]))
-
-    #     # self.i2c = busio.I2C(board.IO9, board.IO8)
-    #     # self.i2c = busio.I2C(
-    #     #     self.get_pin("accel_i2c", "clock"),
-    #     #     self.get_pin("accel_i2c", "data")
-    #     # )
-    #     # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
-
-    #     # self.i2c = busio.I2C(board.SCL, board.SDA, frequency=400000)
-    #     # self.bno = BNO08X_I2C(self.i2c)
-    #     # self.bno.enable_feature(BNO_REPORT_LINEAR_ACCELERATION)
-    #     # self.bno.enable_feature(BNO_REPORT_STABILITY_CLASSIFIER)
-
-    #     self.i2c = board.I2C()
-    #     self.lis3dh = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
-    #     self.lis3dh.range = adafruit_lis3dh.RANGE_16_G
-    #     self.lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
 
     # def setup_ui(self):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)
     #     pass
 
-    def switch_to_next_state(self):
-        if self.mode == "lamp":
-            self.mode = "magic"
-        # elif self.mode == "magic":
-        #     self.mode = "lightpainting_image"
-        # elif self.mode == "lightpainting_image":
-        #     self.mode = "lightpainting_color"
-        # elif self.mode == "lightpainting_color":
-        #     self.mode = "lamp"
-        else:
-            self.mode = "lamp"
 
     ##########################################
     # ui / button handling
 
-    def handle_buttons(self):
-        if self.button_event.pressed:
-                if self.button_event.key_number == 0:
-                    # self.switch_to_next_state()
-                    # self.myPOVPainter.switch_image()
-                    self.myPOVPainter.switch_image()
+    def switch_to_next_mode(self):
+        mode_index = self.modes.index(self.mode)
+        mode_index += 1
+        if mode_index >= len(self.modes):
+            mode_index = 0
+
+        print("current mode ", self.mode.__qualname__)
+        self.mode.spi_deinit()    
+        print("spi_deinit done.")
+        self.mode = self.modes[mode_index]
+        print("switched mode to ", self.mode.__qualname__)
+        self.mode.spi_init()    
+        print("spi_init done.")
+
+    def handle_touch(self, touch_id, touch):
+        # print("handle_touch", touch)
+        self.mode.handle_user_input(touch_id, touch)
 
     ##########################################
     # main handling
 
     def main_loop(self):
-        if self.button.events.get_into(self.button_event):
-            self.handle_buttons()
-
-        if self.mode == "lamp":
-            self.myRGBLamp.main_loop()
-        elif self.mode == "magic":
-            self.myPOVPainter.main_loop()
-        # elif self.mode == "lightpainting_image":
-        #     self.myPOVPainter.main_loop()
+        self.userinput.update()
+        self.mode.main_loop()
 
 
     def run(self):
