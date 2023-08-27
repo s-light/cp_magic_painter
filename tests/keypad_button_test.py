@@ -46,12 +46,10 @@ class ButtonTest(object):
 
     def __init__(self):
         super(ButtonTest, self).__init__()
-        # self.print is later replaced by the ui module.
-        self.print = lambda *args: print(*args)
 
-        self.print("ButtonTest")
-        self.print("  https://github.com/s-light/cp_magic_painter")
-        self.print(42 * "*")
+        print("ButtonTest")
+        print("  https://github.com/s-light/cp_magic_painter")
+        print(42 * "*")
 
         self.load_config()
 
@@ -64,11 +62,11 @@ class ButtonTest(object):
                 self.config = json.load(configfile)
                 configfile.close()
         except OSError as e:
-            # self.print(dir(e))
-            # self.print(e.errno)
+            # print(dir(e))
+            # print(e.errno)
             if e.errno == 2:
-                self.print(e)
-                # self.print(e.strerror)
+                print(e)
+                # print(e.strerror)
             else:
                 raise e
         # extend with default config - thisway it is safe to use ;-)
@@ -100,8 +98,8 @@ class ButtonTest(object):
     # time.sleep(IMAGE_DELAY)
 
     def run(self):
-        self.print(42 * "*")
-        self.print("run")
+        print(42 * "*")
+        print("run")
         # if supervisor.runtime.serial_connected:
         # self.ui.userinput_print_help()
         running = True
@@ -109,7 +107,7 @@ class ButtonTest(object):
             try:
                 self.main_loop()
             except KeyboardInterrupt as e:
-                self.print("KeyboardInterrupt - Stop Program.", e)
+                print("KeyboardInterrupt - Stop Program.", e)
                 running = False
 
 ##########################################
