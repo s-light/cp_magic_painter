@@ -47,9 +47,8 @@ import digitalio
 import touchio
 from adafruit_debouncer import Debouncer
 
-import json
 
-from configdict import extend_deep
+import keypad
 
 # import slight_lsm303d_accel
 
@@ -61,12 +60,12 @@ import adafruit_lis3dh
 # )
 # from adafruit_bno08x.i2c import BNO08X_I2C
 
+from config_base import ConfigBaseClass
 from povpainter import POVPainter
 from rgblamp import RGBLamp
 from user_input import UserInput
 
-
-import keypad
+import config as config_file
 
 # button = digitalio.DigitalInOut(board.BUTTON)
 # button.switch_to_input(pull=digitalio.Pull.UP)
@@ -75,28 +74,35 @@ import keypad
 # main class
 
 
-class MagicPainter(object):
+class MagicPainter(ConfigBaseClass):
     """MagicPainter."""
 
     config_defaults = {
         # all sub default parts are defined in the modules themselfes..
+        "test": 42,
     }
     config = {}
 
     def __init__(self):
-        super(MagicPainter, self).__init__()
+        
+        super(MagicPainter, self).__init__(config={})
         # self.print is later replaced by the ui module.
-        self.print = lambda *args: print(*args)
+        # self.print = lambda *args: print(*args)
+        # self.print("MagicPainter")
 
-        self.print("MagicPainter")
-        self.print("  https://github.com/s-light/cp_magic_painter")
-        self.print(42 * "*")
+        print("MagicPainter")
+        print("  https://github.com/s-light/cp_magic_painter")
+        print(42 * "*")
 
-        self.load_config()
+        # self.config = self.load_config_from_file()
+        self.config = config_file.config
+        self.config_extend_with_defaults(defaults=self.config_defaults)
+        print(self.__class__, "config extended:")
+        self.config_print()
 
         self.modes = [
-            RGBLamp(),
-            POVPainter(),
+            RGBLamp(config=self.config),
+            POVPainter(config=self.config),
         ]
         self.mode = self.modes[0]
 
@@ -106,26 +112,11 @@ class MagicPainter(object):
             callback_touch=self.handle_touch
         )
 
+        print("loaded and extended config:\n", self.config,)
+        self.config_print()
+
         self.mode.spi_init()
         
-
-    def load_config(self, filename="/config.json"):
-        self.config = {}
-        try:
-            with open(filename, mode="r") as configfile:
-                self.config = json.load(configfile)
-                configfile.close()
-        except OSError as e:
-            # self.print(dir(e))
-            # self.print(e.errno)
-            if e.errno == 2:
-                self.print(e)
-                # self.print(e.strerror)
-            else:
-                raise e
-        # extend with default config - thisway it is safe to use ;-)
-        extend_deep(self.config, self.config_defaults.copy())
-
     # def get_pin(self, bus_name, pin_name):
     #     board_pin_name = self.config["hw"][bus_name][pin_name]
     #     return getattr(board, board_pin_name)
@@ -165,8 +156,8 @@ class MagicPainter(object):
 
 
     def run(self):
-        self.print(42 * "*")
-        self.print("run")
+        print(42 * "*")
+        print("run")
         # if supervisor.runtime.serial_connected:
         # self.ui.userinput_print_help()
         running = True
@@ -174,5 +165,5 @@ class MagicPainter(object):
             try:
                 self.main_loop()
             except KeyboardInterrupt as e:
-                self.print("KeyboardInterrupt - Stop Program.", e)
+                print("KeyboardInterrupt - Stop Program.", e)
                 running = False

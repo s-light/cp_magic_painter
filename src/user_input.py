@@ -97,8 +97,8 @@ class UserInput(object):
         # self.touch_print_status()
 
     def run_test(self):
-        self.print(42 * "*")
-        self.print("test...")
+        print(42 * "*")
+        print("test...")
         running = True
         while running:
             try:
@@ -106,7 +106,7 @@ class UserInput(object):
                 self.touch_print_status()
                 time.sleep(0.2)
             except KeyboardInterrupt as e:
-                self.print("KeyboardInterrupt - Stop Program.", e)
+                print("KeyboardInterrupt - Stop Program.", e)
                 running = False
 
 

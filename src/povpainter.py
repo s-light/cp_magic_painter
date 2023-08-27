@@ -49,7 +49,7 @@ import json
 import adafruit_imageload
 import ansi_escape_code as terminal
 
-from mode_base import ModeBaseClass 
+from mode_base import ModeBaseClass
 
 import adafruit_lis3dh
 
@@ -69,18 +69,6 @@ class POVPainter(ModeBaseClass):
 
     config_defaults = {
         # QT Py ESP32-S3
-        "hw": {
-            "pixel_color_order": "bgr",
-            "pixel_count": 36,
-            "pixel_spi_pins": {
-                "clock": "SCK",
-                "data": "MOSI",
-            },
-            "accel_i2c_pins": {
-                "clock": "SCL1",
-                "data": "SDA1",
-            },
-        },
         "data": {
             "paint_mode_classic": True,
             "image_folder": "/images",
@@ -93,28 +81,24 @@ class POVPainter(ModeBaseClass):
             # draw / stroke duration in seconds
             # "times": ["1/8", "1/4", "1/3", "1/2", "2/3", "1", "1.5", "2", "3", "4"],
             "draw_duration": 0.7,
-        }
+        },
     }
     config = {}
 
-    
+    def __init__(self, *, config={}):
+        super(POVPainter, self).__init__(config=config)
+        print("POVPainter")
+        print("  https://github.com/s-light/cp_magic_painter")
+        print(42 * "*")
 
-    def __init__(self):
-        super(POVPainter, self).__init__()
-        # self.print is later replaced by the ui module.
-        self.print = lambda *args: print(*args)
-
-        self.print("POVPainter")
-        self.print("  https://github.com/s-light/cp_magic_painter")
-        self.print(42 * "*")
+        self.config_extend_with_defaults(defaults=self.config_defaults)
+        print(self.__class__, "config extended:")
+        self.config_print()
 
         # prepare internals
         self.spi_init_done = False
         self.first_run = False
         self._brightness = None
-
-        # all other init things
-        self.load_config()
 
         self.paint_mode_classic = self.config["data"]["paint_mode_classic"]
         if self.paint_mode_classic:
@@ -123,7 +107,6 @@ class POVPainter(ModeBaseClass):
         else:
             self.load_image = self.load_image_v2
             self.paint = self.paint_v2
-
 
         self.fs_writeable = self.check_filesystem_writeable()
         print("fs_writeable ", self.fs_writeable)
@@ -145,6 +128,7 @@ class POVPainter(ModeBaseClass):
         self.tempfile = self.config["data"]["temp_file"]
         self.led_data_file_benchmark = self.config["data"]["led_data_file_benchmark"]
         self.brightness_range = self.config["data"]["brightness_range"]
+
         # self.times = self.config["data"]["times"]
         # self.times.sort(key=eval)  # Ensure times are shortest-to-longest
         self.draw_duration = self.config["data"]["draw_duration"]
@@ -174,24 +158,21 @@ class POVPainter(ModeBaseClass):
         # self.time = (len(self.times) + 1) // 2  # default to center of range
 
         self.setup_hw()
-        
+
         # only setup things..
         self.rows_per_second = -1
         self.row_size = -1
 
         # start pixel...
         self.spi_init()
-        
-        
+
         # next time spi_init is called we will do benchmark and image loading..
         self.first_run = True
-
 
         self.spi_deinit()
 
     ##########################################
     # properties
-
 
     @property
     def brightness(self):
@@ -202,8 +183,15 @@ class POVPainter(ModeBaseClass):
     def brightness(self, value):
         # super(POVPainter, self).brightness = value
         # https://github.com/python/cpython/issues/59170#issuecomment-1093581234
-        # we need a workaround
-        ModeBaseClass.brightness=value
+        # we need a workaround..
+        # ModeBaseClass.brightness=value
+
+        # Remap brightness from 0.0-1.0 to brightness_range.
+        ModeBaseClass.brightness = helper.map_01_to(
+            value,
+            self.brightness_range[0],
+            self.brightness_range[1],
+        )
         if self.spi_init_done:
             self.load_image()
 
@@ -246,27 +234,6 @@ class POVPainter(ModeBaseClass):
     def spi_deinit(self):
         self.dotstar.deinit()
         self.spi_init_done = False
-
-    def load_config(self, filename="/config.json"):
-        self.config = {}
-        try:
-            with open(filename, mode="r") as configfile:
-                self.config = json.load(configfile)
-                configfile.close()
-        except OSError as e:
-            # self.print(dir(e))
-            # self.print(e.errno)
-            if e.errno == 2:
-                self.print(e)
-                # self.print(e.strerror)
-            else:
-                raise e
-        # extend with default config - thisway it is safe to use ;-)
-        extend_deep(self.config, self.config_defaults.copy())
-
-    def get_pin(self, bus_name, pin_name):
-        board_pin_name = self.config["hw"][bus_name][pin_name]
-        return getattr(board, board_pin_name)
 
     def setup_hw(self):
         # self.dotstar = busio.SPI(board.IO36, board.IO35)
@@ -324,7 +291,6 @@ class POVPainter(ModeBaseClass):
                 raise error
         return writeable
 
-
     ##########################################
     # dotstar helper
 
@@ -364,7 +330,6 @@ class POVPainter(ModeBaseClass):
             )
         )
 
-
     def load_progress(self, amount):
         """
         Callback function for image loading, moves progress bar on display.
@@ -393,13 +358,12 @@ class POVPainter(ModeBaseClass):
         # )
 
     def dotstar_blink(self, blink_count=5, duration=1, r=1, g=0, b=0):
-        blink_duration = duration / (blink_count*2)
+        blink_duration = duration / (blink_count * 2)
         for blink in range(blink_count):
             self.dotstar_set_pixel(pixel_begin=0, pixel_end=2, r=r, g=g, b=b)
             time.sleep(blink_duration)
             self.clear_strip()
             time.sleep(blink_duration)
-
 
     ##########################################
     # load and draw v1
@@ -414,11 +378,7 @@ class POVPainter(ModeBaseClass):
         """
         if filename is None:
             filename = self.filename
-        self.print(
-            "load_image_v1: \n"
-            "    file: '{}'\n"
-            "".format(filename)
-        )
+        print("load_image_v1: \n" "    file: '{}'\n" "".format(filename))
         try:
             with open("/" + filename, "rb") as f:
                 print("File opened")
@@ -489,14 +449,8 @@ class POVPainter(ModeBaseClass):
         gc.collect()
         print(gc.mem_free())
         print("Ready to go!")
-        print(
-            "load_image_v1 "
-            "('{}') "
-            "done.\n"
-            "".format(filename)
-        )
+        print("load_image_v1 " "('{}') " "done.\n" "".format(filename))
         self.clear_strip()
-
 
     def paint_v1(self, backwards=False):
         # print("Draw!")
@@ -585,18 +539,13 @@ class POVPainter(ModeBaseClass):
             # rows = int(duration * self.rows_per_second * 0.9 + 0.5)
             rows = int(self.draw_duration * self.rows_per_second * 0.9 + 0.5)
 
-            # Remap brightness from 0.0-1.0 to brightness_range.
-            brightness = self.brightness_range[0] + self.brightness * (
-                self.brightness_range[1] - self.brightness_range[0]
-            )
-
             image_filename = self.path + "/" + self.images[self.image_num]
             try:
                 self.num_rows = self.bmp2led.process(
                     image_filename,
                     self.tempfile,
                     rows,
-                    brightness,
+                    self.brightness,
                     self.loop,
                     self.load_progress,
                 )
@@ -654,7 +603,7 @@ class POVPainter(ModeBaseClass):
     ##########################################
     # V3 dotstar_image_pov.py
     # https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/main/examples/dotstar_image_pov.py
-    
+
     ##########################################
     # ui
 
@@ -662,8 +611,10 @@ class POVPainter(ModeBaseClass):
         if touch.fell:
             print("POVPainter - handle_user_input: ", touch_id)
             if touch_id == 0:
+                print("brightness ++")
                 self.brightness += 0.1
             elif touch_id == 1:
+                print("brightness --")
                 self.brightness -= 0.1
             elif touch_id == 2:
                 self.switch_image()
@@ -730,8 +681,8 @@ class POVPainter(ModeBaseClass):
     # time.sleep(IMAGE_DELAY)
 
     def run(self):
-        self.print(42 * "*")
-        self.print("run")
+        print(42 * "*")
+        print("run")
         # if supervisor.runtime.serial_connected:
         # self.ui.userinput_print_help()
         running = True
@@ -739,7 +690,7 @@ class POVPainter(ModeBaseClass):
             try:
                 self.main_loop()
             except KeyboardInterrupt as e:
-                self.print("KeyboardInterrupt - Stop Program.", e)
+                print("KeyboardInterrupt - Stop Program.", e)
                 running = False
 
 
