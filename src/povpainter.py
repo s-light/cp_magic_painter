@@ -46,6 +46,9 @@ import digitalio
 
 import json
 
+import adafruit_imageload
+import ansi_escape_code as terminal
+
 from mode_base import ModeBaseClass 
 
 import adafruit_lis3dh
@@ -94,6 +97,8 @@ class POVPainter(ModeBaseClass):
     }
     config = {}
 
+    
+
     def __init__(self):
         super(POVPainter, self).__init__()
         # self.print is later replaced by the ui module.
@@ -103,9 +108,22 @@ class POVPainter(ModeBaseClass):
         self.print("  https://github.com/s-light/cp_magic_painter")
         self.print(42 * "*")
 
+        # prepare internals
+        self.spi_init_done = False
+        self.first_run = False
+        self._brightness = None
+
+        # all other init things
         self.load_config()
 
         self.paint_mode_classic = self.config["data"]["paint_mode_classic"]
+        if self.paint_mode_classic:
+            self.load_image = self.load_image_v1
+            self.paint = self.paint_v1
+        else:
+            self.load_image = self.load_image_v2
+            self.paint = self.paint_v2
+
 
         self.fs_writeable = self.check_filesystem_writeable()
         print("fs_writeable ", self.fs_writeable)
@@ -131,6 +149,7 @@ class POVPainter(ModeBaseClass):
         # self.times.sort(key=eval)  # Ensure times are shortest-to-longest
         self.draw_duration = self.config["data"]["draw_duration"]
 
+        # TODO: try https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/main/examples/dotstar_image_pov.py
         # Get list of compatible BMP images in path
         self.images = self.bmp2led.scandir(self.path)
         if not self.images:
@@ -155,8 +174,43 @@ class POVPainter(ModeBaseClass):
         # self.time = (len(self.times) + 1) // 2  # default to center of range
 
         self.setup_hw()
-        self.spi_init()
+        
+        # only setup things..
+        self.rows_per_second = -1
+        self.row_size = -1
 
+        # start pixel...
+        self.spi_init()
+        
+        
+        # next time spi_init is called we will do benchmark and image loading..
+        self.first_run = True
+
+
+        self.spi_deinit()
+
+    ##########################################
+    # properties
+
+
+    @property
+    def brightness(self):
+        # return super(ModeBaseClass, self).brightness * 2
+        return ModeBaseClass.brightness
+
+    @brightness.setter
+    def brightness(self, value):
+        # super(POVPainter, self).brightness = value
+        # https://github.com/python/cpython/issues/59170#issuecomment-1093581234
+        # we need a workaround
+        ModeBaseClass.brightness=value
+        if self.spi_init_done:
+            self.load_image()
+
+    ##########################################
+    # sub system init
+
+    def first_run_init(self):
         # Determine filesystem-to-LEDs throughput (also clears LED strip)
         self.rows_per_second, self.row_size = self.benchmark()
         self.clear_strip()
@@ -167,13 +221,7 @@ class POVPainter(ModeBaseClass):
             )
         )
 
-        if self.paint_mode_classic:
-            # self.load_image_v1_to_buffer(self.filename, self.self.image_buffer)
-            self.load_image_v1(self.filename)
-        else:
-            self.load_image()
-
-        self.spi_deinit()
+        self.load_image()
 
     def spi_init(self):
         self.dotstar = busio.SPI(
@@ -189,8 +237,15 @@ class POVPainter(ModeBaseClass):
             self.dotstar.write(bytearray([0xFF, 0x00, 0x00, 0x00]))
         self.dotstar.write(bytearray([0xFF, 0xFF, 0xFF, 0xFF]))
 
+        if self.first_run:
+            self.first_run_init()
+            self.first_run = False
+
+        self.spi_init_done = True
+
     def spi_deinit(self):
         self.dotstar.deinit()
+        self.spi_init_done = False
 
     def load_config(self, filename="/config.json"):
         self.config = {}
@@ -269,6 +324,7 @@ class POVPainter(ModeBaseClass):
                 raise error
         return writeable
 
+
     ##########################################
     # dotstar helper
 
@@ -316,7 +372,11 @@ class POVPainter(ModeBaseClass):
             amount (float) : Current 'amount loaded' coefficient; 0.0 to 1.0
         """
         # self.rect.x = int(board.DISPLAY.width * (amount - 1.0))
-        print("load_progress: {}%", int(amount * 100))
+        # minicom seems to ignore the erase_line() control... :-(
+        print(
+            terminal.ANSIControl.erase_line()
+            + "load_progress: {}%".format(int(amount * 100))
+        )
         num_on = int(amount * self.bmp2led.pixel_count + 0.5)
         self.dotstar_set_pixel(pixel_begin=0, pixel_end=num_on, r=0, g=1, b=0)
         # num_off = self.bmp2led.pixel_count - num_on
@@ -345,14 +405,20 @@ class POVPainter(ModeBaseClass):
     # load and draw v1
 
     # def load_image_v1_to_buffer(self, filename, self.image_buffer):
-    def load_image_v1(self, filename):
+    def load_image_v1(self, filename=None):
         """
         Load image into buffer.
 
         Arguments:
             filename (string) : full filename (inkl. path) to load.
         """
-        print("load_image_v1: '{}'".format(filename))
+        if filename is None:
+            filename = self.filename
+        self.print(
+            "load_image_v1: \n"
+            "    file: '{}'\n"
+            "".format(filename)
+        )
         try:
             with open("/" + filename, "rb") as f:
                 print("File opened")
@@ -389,7 +455,7 @@ class POVPainter(ModeBaseClass):
 
                 # its huge! but its also fast :)
                 self.image_buffer = bytearray(self.bmpWidth * self.bmpHeight * 4)
-
+                print("loading...\n")
                 for row in range(self.bmpHeight):  # For each scanline...
                     if flip:  # Bitmap is stored bottom-to-top order (normal BMP)
                         pos = bmpImageoffset + (self.bmpHeight - 1 - row) * rowSize
@@ -423,8 +489,16 @@ class POVPainter(ModeBaseClass):
         gc.collect()
         print(gc.mem_free())
         print("Ready to go!")
+        print(
+            "load_image_v1 "
+            "('{}') "
+            "done.\n"
+            "".format(filename)
+        )
+        self.clear_strip()
 
-    def draw_v1(self, backwards=False):
+
+    def paint_v1(self, backwards=False):
         # print("Draw!")
         index = 0
         bmp_range = range(self.bmpWidth)
@@ -490,13 +564,15 @@ class POVPainter(ModeBaseClass):
 
         return rows, row_size
 
-    def load_image(self):
+    def load_image_v2(self, filename=None):
+        if filename is None:
+            filename = self.filename
         """
         Load BMP from image list, determined by variable self.image_num
         (not a passed argument). Data is converted and placed in
         self.tempfile.
         """
-        print("LOADING...")
+        print("loading...\n")
 
         if self.fs_writeable:
             # pylint: disable=eval-used
@@ -514,9 +590,10 @@ class POVPainter(ModeBaseClass):
                 self.brightness_range[1] - self.brightness_range[0]
             )
 
+            image_filename = self.path + "/" + self.images[self.image_num]
             try:
                 self.num_rows = self.bmp2led.process(
-                    self.path + "/" + self.images[self.image_num],
+                    image_filename,
                     self.tempfile,
                     rows,
                     brightness,
@@ -534,7 +611,7 @@ class POVPainter(ModeBaseClass):
             print("filesystem ReadOnly. we can only use old led_data files..")
             self.dotstar_blink(blink_count=5, duration=1, r=1, g=0, b=1)
 
-    def paint(self):
+    def paint_v2(self):
         """
         Paint Image once.
         """
@@ -575,17 +652,21 @@ class POVPainter(ModeBaseClass):
             self.clear_strip()
 
     ##########################################
+    # V3 dotstar_image_pov.py
+    # https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/main/examples/dotstar_image_pov.py
+    
+    ##########################################
     # ui
 
     def handle_user_input(self, touch_id, touch):
         if touch.fell:
             print("POVPainter - handle_user_input: ", touch_id)
             if touch_id == 0:
-                self.switch_image()
+                self.brightness += 0.1
             elif touch_id == 1:
-                pass
+                self.brightness -= 0.1
             elif touch_id == 2:
-                pass
+                self.switch_image()
 
     def switch_image(self):
         """
@@ -597,11 +678,7 @@ class POVPainter(ModeBaseClass):
 
         self.filename = self.path + "/" + self.images[self.image_num]
 
-        if self.paint_mode_classic:
-            # self.load_image_v1_to_buffer(self.filename, self.self.image_buffer)
-            self.load_image_v1(self.filename)
-        else:
-            self.load_image()
+        self.load_image(self.filename)
 
     ##########################################
     # main handling
@@ -641,10 +718,7 @@ class POVPainter(ModeBaseClass):
             print(accel_y)
             time.sleep(0.09)
             # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
-            if self.paint_mode_classic:
-                self.draw_v1()
-            else:
-                self.paint()
+            self.paint()
 
         # print(
         #     "{: > 10}, {: > 10.6f}".format(

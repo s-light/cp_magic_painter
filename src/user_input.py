@@ -60,8 +60,8 @@ class UserInput(object):
             print(
                 "["
                 # +"{:>9} → "
-                + "{:>2}] "
-                + "touch.raw_value ({}) + threshold{} = {}".format(
+                "{:>2}] "
+                "touch.raw_value ({}) + threshold {} = {}".format(
                     # str(touch_pin),
                     touch_id,
                     touch.raw_value,

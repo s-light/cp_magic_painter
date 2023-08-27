@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.languageServer": "Jedi",
+		"python.languageServer": "Default",
 		"python.linting.pylintEnabled": false
 	}
 }
