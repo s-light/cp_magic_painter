@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+     viewBox="0 0 1400 4200"
+     width="140mm"
+     height="420mm"
+     version="1.2"
+     id="svg29300"
+     sodipodi:docname="case_parts_mod__test.svg"
+     inkscape:version="1.2.2 (1:1.2.2+202212051551+b0a8486541)"
+     inkscape:export-filename="case_parts_mod.png"
+     inkscape:export-xdpi="212.84113"
+     inkscape:export-ydpi="212.84113"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <title
+         id="title28828">FreeCAD SVG Export</title>
+    <desc
+         id="desc28830">Drawing page: Page exported from FreeCAD document: case_drawings</desc>
+    <defs
+         id="defs28832">
+        <sodipodi:namedview
+             inkscape:window-width="3840"
+             bordercolor="#666666"
+             inkscape:current-layer="Page"
+             borderopacity="1"
+             inkscape:pageshadow="2"
+             inkscape:pagecheckerboard="true"
+             objecttolerance="10"
+             inkscape:document-units="mm"
+             inkscape:showpageshadow="false"
+             guidetolerance="10"
+             showgrid="false"
+             inkscape:zoom="0.80448253"
+             inkscape:pageopacity="0"
+             id="namedview221"
+             inkscape:window-x="1"
+             inkscape:window-y="0"
+             gridtolerance="10"
+             pagecolor="#ffffff"
+             inkscape:cy="1162.8593"
+             inkscape:cx="336.24099"
+             inkscape:window-height="2087"
+             inkscape:window-maximized="1"
+             inkscape:deskcolor="#d1d1d1" />
+        <defs
+             id="defs847" />
+    </defs>
+    <g
+         inkscape:groupmode="layer"
+         inkscape:label="TechDraw"
+         id="Page">
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 900.6953,3373.4065 h 6.9 V 3228.417 h -27.1265 c -17.2492,0 -32.55558,11.057 -37.97472,27.433 -16.38178,49.503 -27.80958,100.51 -34.11548,152.2708 -2.6415,21.683 -11.1513,42.2337 -24.6119,59.4366 -17.554,22.4342 -16.2867,54.2784 2.9945,75.2467 10.1828,11.0737 15.8341,25.5689 15.8341,40.6129 0,28.326 14.9799,54.541 39.38458,68.923 13.57272,7.998 24.57172,19.715 31.69642,33.766 2.0927,4.127 6.7435,6.279 11.2439,5.203 4.5005,-1.075 7.6751,-5.098 7.6751,-9.726 v -40.166 c 0,-7.387 1.8182,-14.66 5.2941,-21.177 l 4.7059,-8.823 c 3.9393,-7.387 6,-15.629 6,-24 v -1 h -7.9 c -13.8072,0 -25,-11.193 -25,-25 v -163.0105 c 0,-13.8071 11.1928,-25 25,-25"
+             id="path28838"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 858.0953,3503.4165 c 0,15.7401 -12.75992,28.5 -28.5,28.5 -15.7402,0 -28.5,-12.7599 -28.5,-28.5 0,-15.7401 12.7598,-28.5 28.5,-28.5 15.74008,0 28.5,12.7599 28.5,28.5"
+             id="path28842"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 862.5953,3553.4165 c 0,8.2845 -6.7158,15.0005 -15.00004,15.0005 -8.28427,0 -15,-6.716 -15,-15.0005 0,-8.2843 6.71573,-15 15,-15 8.28424,0 15.00004,6.7157 15.00004,15"
+             id="path28846"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 862.5953,3453.4165 c 0,8.2843 -6.7158,15 -15.00004,15 -8.28427,0 -15,-6.7157 -15,-15 0,-8.2843 6.71573,-15 15,-15 8.28424,0 15.00004,6.7157 15.00004,15"
+             id="path28850"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 887.5953,3313.417 c 0,8.284 -6.7158,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.285 6.7157,-15 15,-15 8.2842,0 15,6.715 15,15"
+             id="path28854"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 722.4047,3618.417 v 144.9895 h 6.9 c 13.8072,0 25,11.1929 25,25 v 163.0105 c 0,13.807 -11.1928,25 -25,25 h -7.9 v 1 c 0,8.371 2.0607,16.613 6,24 l 4.7059,8.823 c 3.4759,6.517 5.2941,13.79 5.2941,21.177 v 40.166 c 0,4.628 3.1746,8.651 7.6751,9.726 4.5004,1.076 9.1512,-1.076 11.2439,-5.203 7.1247,-14.051 18.1237,-25.768 31.69642,-33.766 24.40468,-14.382 39.38458,-40.597 39.38458,-68.923 0,-15.044 5.6513,-29.5392 15.8341,-40.6129 19.2812,-20.9683 20.5485,-52.8125 2.9945,-75.2467 -13.4606,-17.2029 -21.9704,-37.7536 -24.6119,-59.4366 -6.3059,-51.7608 -17.7337,-102.7678 -34.11548,-152.2708 -5.41914,-16.376 -20.72552,-27.433 -37.97472,-27.433 h -27.1265"
+             id="path28858"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 828.9047,3893.4165 c 0,15.7401 -12.7598,28.5 -28.5,28.5 -15.74008,0 -28.5,-12.7599 -28.5,-28.5 0,-15.7401 12.75992,-28.5 28.5,-28.5 15.7402,0 28.5,12.7599 28.5,28.5"
+             id="path28862"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 797.40474,3943.4165 c 0,8.2845 -6.71573,15.0005 -15,15.0005 -8.28424,0 -15.00004,-6.716 -15.00004,-15.0005 0,-8.2843 6.7158,-15 15.00004,-15 8.28427,0 15,6.7157 15,15"
+             id="path28866"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 797.40474,3843.4165 c 0,8.2843 -6.71573,15 -15,15 -8.28424,0 -15.00004,-6.7157 -15.00004,-15 0,-8.2843 6.7158,-15 15.00004,-15 8.28427,0 15,6.7157 15,15"
+             id="path28870"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 772.4047,3703.417 c 0,8.284 -6.7157,15 -15,15 -8.2842,0 -15,-6.716 -15,-15 0,-8.285 6.7158,-15 15,-15 8.2843,0 15,6.715 15,15"
+             id="path28874"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 720,207.5 v 251.03 c 0,6.18 -3.7893,11.72 -9.5455,13.97 C 695.1047,478.49 685,493.28 685,509.76 v 1927.107 c 0,43.379 9.4073,86.241 27.5733,125.633 34.2647,74.3 56.7487,153.484 66.6437,234.704 2.641,21.683 11.151,42.234 24.612,59.437 17.554,22.434 16.286,54.278 -2.995,75.247 -10.183,11.073 -15.834,25.568 -15.834,40.612 0,28.327 -14.98,54.542 -39.385,68.923 C 720.448,3056.254 705,3083.29 705,3112.5 v 900 H 535 v -900 c 0,-29.21 -15.448,-56.246 -40.615,-71.077 C 469.98,3027.042 455,3000.827 455,2972.5 c 0,-15.044 -5.651,-29.539 -15.834,-40.612 -19.281,-20.969 -20.549,-52.813 -2.995,-75.247 13.461,-17.203 21.971,-37.754 24.612,-59.437 9.895,-81.22 32.379,-160.404 66.6437,-234.704 C 545.5927,2523.108 555,2480.246 555,2436.867 V 509.76 C 555,493.28 544.8953,478.49 529.5455,472.5 523.7893,470.25 520,464.71 520,458.53 V 207.5 c 0,-8.28 6.7157,-15 15,-15 11.0457,0 20,-8.95 20,-20 v 0 c -10e-5,-35.9 29.1014,-65 65,-65 35.8986,0 65.0001,29.1 65,65 v 0 c 0,11.05 8.9543,20 20,20 8.2843,0 15,6.72 15,15"
+             id="path28878"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 557,2959.5 h -27 v -182 h 27 v -13 h 5 v -49 h 70 v 19 h 46 v 30 h 5 v 13 h 27 v 182 h -27 v 13 H 557 v -13"
+             id="path28882"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 775,2892.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path28886"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 499,2892.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path28890"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 755,2842.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28894"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,3932.5 c 0,8.28 -6.71573,15 -15,15 -8.28427,0 -15,-6.72 -15,-15 0,-8.28 6.71573,-15 15,-15 8.28427,0 15,6.72 15,15"
+             id="path28898"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,992.5 c 0,8.28 -6.71573,15 -15,15 -8.28427,0 -15,-6.72 -15,-15 0,-8.28 6.71573,-15 15,-15 8.28427,0 15,6.72 15,15"
+             id="path28902"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,2592.5 c 0,8.284 -6.71573,15 -15,15 -8.28427,0 -15,-6.716 -15,-15 0,-8.284 6.71573,-15 15,-15 8.28427,0 15,6.716 15,15"
+             id="path28906"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 730,2702.5 c 0,8.284 -6.716,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28910"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,1792.5 c 0,8.284 -6.71573,15 -15,15 -8.28427,0 -15,-6.716 -15,-15 0,-8.284 6.71573,-15 15,-15 8.28427,0 15,6.716 15,15"
+             id="path28914"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,592.5 c 0,8.28 -6.71573,15 -15,15 -8.28427,0 -15,-6.72 -15,-15 0,-8.28 6.71573,-15 15,-15 8.28427,0 15,6.72 15,15"
+             id="path28918"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,2192.5 c 0,8.284 -6.71573,15 -15,15 -8.28427,0 -15,-6.716 -15,-15 0,-8.284 6.71573,-15 15,-15 8.28427,0 15,6.716 15,15"
+             id="path28922"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,1392.5 c 0,8.284 -6.71573,15 -15,15 -8.28427,0 -15,-6.716 -15,-15 0,-8.284 6.71573,-15 15,-15 8.28427,0 15,6.716 15,15"
+             id="path28926"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,3452.5 c 0,8.28 -6.71573,15 -15,15 -8.28427,0 -15,-6.72 -15,-15 0,-8.28 6.71573,-15 15,-15 8.28427,0 15,6.72 15,15"
+             id="path28930"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 635,192.5 c 0,8.28 -6.71573,15 -15,15 -8.28427,0 -15,-6.72 -15,-15 0,-8.28 6.71573,-15 15,-15 8.28427,0 15,6.72 15,15"
+             id="path28934"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 540,2702.5 c 0,8.284 -6.7157,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path28938"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 515,2842.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28942"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 755,2942.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28946"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 515,2942.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28950"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1200,200 v 251.03 c 0,6.18 -3.7893,11.72 -9.5455,13.97 C 1175.1047,470.99 1165,485.78 1165,502.26 v 1927.107 c 0,43.379 9.4073,86.241 27.5733,125.633 34.2647,74.3 56.7487,153.484 66.6437,234.704 2.641,21.683 11.151,42.234 24.612,59.437 17.554,22.434 16.286,54.278 -2.995,75.247 C 1270.651,2935.461 1265,2949.956 1265,2965 v 115 h -38 c 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 v 166 c -1.105,0 -2,0.9 -2,2 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 h 36 2 v 170 h -38 c 0,-1.1 -0.895,-2 -2,-2 -1.105,0 -2,0.9 -2,2 0,1.1 0.895,2 2,2 v 166 c -1.105,0 -2,0.9 -2,2 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 h 36 2 v 170 h -38 c 0,-1.1 -0.895,-2 -2,-2 -1.105,0 -2,0.9 -2,2 0,1.1 0.895,2 2,2 v 166 c -1.105,0 -2,0.9 -2,2 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 h 36 2 v 115 c 0,10.29 -7.808,18.9 -18.048,19.9 -26.569,2.61 -52.5483,9.45 -76.952,20.28 -44.5735,19.76 -95.4265,19.76 -140,0 -24.4037,-10.83 -50.383,-17.67 -76.952,-20.28 -10.24,-1 -18.048,-9.61 -18.048,-19.9 v -115 h 2 36 c 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 0,-1.1 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.9 2,-2 0,-1.1 -0.895,-2 -2,-2 -1.105,0 -2,0.9 -2,2 h -38 v -170 h 2 36 c 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 0,-1.1 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.9 2,-2 0,-1.1 -0.895,-2 -2,-2 -1.105,0 -2,0.9 -2,2 h -38 v -170 h 2 36 c 0,1.1 0.895,2 2,2 1.105,0 2,-0.9 2,-2 0,-1.1 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 h -38 v -115 c 0,-15.044 -5.651,-29.539 -15.834,-40.612 -19.281,-20.969 -20.549,-52.813 -2.995,-75.247 13.461,-17.203 21.971,-37.754 24.612,-59.437 9.895,-81.22 32.379,-160.404 66.6437,-234.704 18.166,-39.392 27.5733,-82.254 27.5733,-125.633 V 502.26 C 1035,485.78 1024.8953,470.99 1009.5455,465 1003.7893,462.75 1000,457.21 1000,451.03 V 200 c 0,-8.28 6.7157,-15 15,-15 11.0457,0 20,-8.95 20,-20 v 0 c -10e-5,-35.9 29.1014,-65 65,-65 35.8986,0 65.0001,29.1 65,65 v 0 c 0,11.05 8.9543,20 20,20 8.2843,0 15,6.72 15,15"
+             id="path28954"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1020,2952 h -10 v -182 h 10 v -15 c 0,-30.212 17.0199,-57.847 44,-71.442 6.745,-3.399 11,-10.308 11,-17.861 V 2635 c 0,-5.523 4.4772,-10 10,-10 h 30 c 5.5228,0 10,4.477 10,10 v 30.697 c 0,7.553 4.255,14.462 11,17.861 26.9801,13.595 44,41.23 44,71.442 v 15 h 10 v 182 h -10 v 3 h -160 v -3"
+             id="path28958"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1040,4045 v -40 h 120 v 40 h -120"
+             id="path28962"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1255,2885 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path28966"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 979,2885 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path28970"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1235,2935 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28974"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 995,2835 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28978"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,185 c 0,8.28 -6.7157,15 -15,15 -8.2843,0 -15,-6.72 -15,-15 0,-8.28 6.7157,-15 15,-15 8.2843,0 15,6.72 15,15"
+             id="path28982"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,585 c 0,8.28 -6.7157,15 -15,15 -8.2843,0 -15,-6.72 -15,-15 0,-8.28 6.7157,-15 15,-15 8.2843,0 15,6.72 15,15"
+             id="path28986"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,1385 c 0,8.284 -6.7157,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path28990"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,985 c 0,8.28 -6.7157,15 -15,15 -8.2843,0 -15,-6.72 -15,-15 0,-8.28 6.7157,-15 15,-15 8.2843,0 15,6.72 15,15"
+             id="path28994"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1235,2835 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path28998"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,3445 c 0,8.28 -6.7157,15 -15,15 -8.2843,0 -15,-6.72 -15,-15 0,-8.28 6.7157,-15 15,-15 8.2843,0 15,6.72 15,15"
+             id="path29002"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,2185 c 0,8.2843 -6.7157,15 -15,15 -8.2843,0 -15,-6.7157 -15,-15 0,-8.2843 6.7157,-15 15,-15 8.2843,0 15,6.7157 15,15"
+             id="path29006"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,1785 c 0,8.284 -6.7157,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path29010"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,2585 c 0,8.284 -6.7157,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path29014"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1020,2695 c 0,8.284 -6.7157,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path29018"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 995,2935 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29022"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1210,2695 c 0,8.284 -6.716,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29026"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 1115,3925 c 0,8.28 -6.7157,15 -15,15 -8.2843,0 -15,-6.72 -15,-15 0,-8.28 6.7157,-15 15,-15 8.2843,0 15,6.72 15,15"
+             id="path29030"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 499.217,1597.2043 c 2.641,21.683 11.151,42.2337 24.612,59.4366 17.554,22.4342 16.286,54.2781 -2.995,75.2471 C 510.651,1742.961 505,1757.456 505,1772.5 v 10 H 175 v -10 c 0,-15.044 -5.651,-29.539 -15.834,-40.612 -19.281,-20.969 -20.549,-52.8129 -2.995,-75.2471 13.461,-17.2029 21.971,-37.7536 24.612,-59.4366 6.306,-51.7607 17.734,-102.7673 34.116,-152.2713 5.419,-16.376 20.725,-27.433 37.9745,-27.433 H 275 c 19.33,0 35,15.67 35,35 h -35 v 63.3631 c -9.7539,13.5945 -15,29.9052 -15,46.6369 v 15 h -10 v 182 h 10 v 3 h 160 v -3 h 10 v -182 h -10 v -15 c 0,-16.7317 -5.2461,-33.0424 -15,-46.6369 V 1452.5 h -35 c 0,-19.33 15.67,-35 35,-35 h 22.1265 c 17.2495,0 32.5555,11.057 37.9745,27.433 16.382,49.504 27.81,100.5106 34.116,152.2713"
+             id="path29034"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 219,1692.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             id="path29038"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 495,1692.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             id="path29042"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 235,1742.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29046"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 475,1742.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29050"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 260,1502.5 c 0,8.2843 -6.7157,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.284 6.716,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path29054"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 235,1642.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29058"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 450,1502.5 c 0,8.2843 -6.716,15 -15,15 -8.2843,0 -15,-6.7157 -15,-15 0,-8.284 6.7157,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29062"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 475,1642.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29066"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 489.217,1987.2043 c 2.641,21.683 11.151,42.2337 24.612,59.4366 17.554,22.4342 16.286,54.2781 -2.995,75.2471 C 500.651,2132.961 495,2147.456 495,2162.5 v 10 H 165 v -10 c 0,-15.044 -5.651,-29.539 -15.834,-40.612 -19.281,-20.969 -20.549,-52.8129 -2.995,-75.2471 13.461,-17.2029 21.971,-37.7536 24.612,-59.4366 6.306,-51.7607 17.734,-102.7673 34.116,-152.2713 5.419,-16.376 20.725,-27.433 37.9745,-27.433 H 265 c 19.33,0 35,15.67 35,35 h -35 v 65 l 11,11 v 29 h 34 v 115 c 0,11.0457 8.9543,20 20,20 11.0457,0 20,-8.9543 20,-20 v -115 h 34 v -29 l 11,-11 v -65 h -35 c 0,-19.33 15.67,-35 35,-35 h 22.1265 c 17.2495,0 32.5555,11.057 37.9745,27.433 16.382,49.504 27.81,100.5106 34.116,152.2713"
+             id="path29070"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 240,2149.5 v -182 h 27.5 v 182 H 240"
+             id="path29074"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 392.5,2149.5 v -182 H 420 v 182 h -27.5"
+             id="path29078"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 209,2082.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             id="path29082"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 485,2082.5 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             id="path29086"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2132.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29090"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2132.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29094"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 250,1892.5 c 0,8.2843 -6.7157,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.284 6.716,-15 15,-15 8.2843,0 15,6.716 15,15"
+             id="path29098"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2032.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29102"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 440,1892.5 c 0,8.2843 -6.716,15 -15,15 -8.2843,0 -15,-6.7157 -15,-15 0,-8.284 6.7157,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29106"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2032.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29110"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 170.783,2572.7957 c 6.306,51.7607 17.734,102.7673 34.116,152.2713 5.419,16.376 20.725,27.433 37.9745,27.433 h 174.253 c 17.2495,0 32.5555,-11.057 37.9745,-27.433 16.382,-49.504 27.81,-100.5106 34.116,-152.2713 2.641,-21.683 11.151,-42.2337 24.612,-59.4366 17.554,-22.4342 16.286,-54.2781 -2.995,-75.2471 C 500.651,2427.039 495,2412.544 495,2397.5 v -10 H 395 v 23 h 25 v 182 h -27.5 v -55 h -125 v 55 H 240 v -182 h 25 v -23 H 165 v 10 c 0,15.044 -5.651,29.539 -15.834,40.612 -19.281,20.969 -20.549,52.8129 -2.995,75.2471 13.461,17.2029 21.971,37.7536 24.612,59.4366"
+             id="path29114"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 485,2477.5 c 0,9.3888 -7.611,17 -17,17 -9.389,0 -17,-7.6112 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path29118"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 209,2477.5 c 0,9.3888 -7.611,17 -17,17 -9.389,0 -17,-7.6112 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path29122"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 440,2667.5 c 0,8.284 -6.716,15 -15,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.2843 6.7157,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29126"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2427.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29130"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2527.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29134"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2427.5 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29138"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2527.5 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29142"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 250,2667.5 c 0,8.284 -6.7157,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.2843 6.716,-15 15,-15 8.2843,0 15,6.7157 15,15"
+             id="path29146"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 853.0953,2392.5 v 10 h 165 v -365 h -87.1265 c -17.2492,0 -32.5556,11.057 -37.9747,27.433 -16.3818,49.504 -27.8096,100.5106 -34.1155,152.2713 -2.6415,21.683 -11.1513,42.2337 -24.6119,59.4366 -17.5537,22.4342 -16.2867,54.2781 2.9945,75.2471 10.1828,11.073 15.8341,25.568 15.8341,40.612"
+             id="path29150"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 897.0953,2312.5 c 0,9.389 -7.6112,17 -17,17 -9.3889,0 -17,-7.611 -17,-17 0,-9.3888 7.6111,-17 17,-17 9.3888,0 17,7.6112 17,17"
+             id="path29154"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 913.09526,2362.5 c 0,8.284 -6.71576,15 -14.99996,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.2842,0 14.99996,6.716 14.99996,15"
+             id="path29158"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 913.09526,2262.5 c 0,8.2843 -6.71576,15 -14.99996,15 -8.2843,0 -15,-6.7157 -15,-15 0,-8.2843 6.7157,-15 15,-15 8.2842,0 14.99996,6.7157 14.99996,15"
+             id="path29162"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 938.0953,2122.5 c 0,8.2843 -6.7158,15 -15.00004,15 -8.28427,0 -14.99996,-6.7157 -14.99996,-15 0,-8.284 6.71569,-15 14.99996,-15 8.28424,0 15.00004,6.716 15.00004,15"
+             id="path29166"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 918.0953,2782.5 v -365 h -165 v 10 c 0,15.044 -5.6513,29.539 -15.8341,40.612 -19.2812,20.969 -20.5482,52.8129 -2.9945,75.2471 13.4606,17.2029 21.9704,37.7536 24.6119,59.4366 6.3059,51.7607 17.7337,102.7673 34.1155,152.2713 5.4191,16.376 20.7255,27.433 37.9747,27.433 h 87.1265"
+             id="path29170"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 797.0953,2507.5 c 0,9.3888 -7.6112,17 -17,17 -9.3889,0 -17,-7.6112 -17,-17 0,-9.389 7.6111,-17 17,-17 9.3888,0 17,7.611 17,17"
+             id="path29174"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 813.09526,2557.5 c 0,8.2843 -6.71576,15 -14.99996,15 -8.2843,0 -15,-6.7157 -15,-15 0,-8.2843 6.7157,-15 15,-15 8.2842,0 14.99996,6.7157 14.99996,15"
+             id="path29178"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 813.09526,2457.5 c 0,8.284 -6.71576,15 -14.99996,15 -8.2843,0 -15,-6.716 -15,-15 0,-8.284 6.7157,-15 15,-15 8.2842,0 14.99996,6.716 14.99996,15"
+             id="path29182"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 838.0953,2697.5 c 0,8.284 -6.7158,15 -15.00004,15 -8.28427,0 -14.99996,-6.716 -14.99996,-15 0,-8.2843 6.71569,-15 14.99996,-15 8.28424,0 15.00004,6.7157 15.00004,15"
+             id="path29186"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 798.8786,3024.9337 c -2.6415,21.6829 -11.1513,42.2336 -24.6119,59.4365 -17.554,22.4342 -16.2867,54.2784 2.9945,75.2467 10.1828,11.0738 15.8341,25.5686 15.8341,40.6121 v 10 h 105 v -190.4583 c 0,-16.5686 -13.4315,-29.9997 -30,-29.9997 h -29.51019 c -20.22061,0 -37.26111,15.0902 -39.70641,35.1624"
+             id="path29190"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 837.09526,3120.2293 c 0,9.3889 -7.61116,17 -17,17 -9.38886,0 -16.99996,-7.6111 -16.99996,-17 0,-9.3888 7.6111,-17 16.99996,-17 9.38884,0 17,7.6112 17,17"
+             id="path29194"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 853.0953,3170.2293 c 0,8.2843 -6.7158,15 -15.00004,15 -8.28427,0 -15,-6.7157 -15,-15 0,-8.2842 6.71573,-15 15,-15 8.28424,0 15.00004,6.7158 15.00004,15"
+             id="path29198"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 853.0953,3070.2293 c 0,8.2843 -6.7158,15 -15.00004,15 -8.28427,0 -15,-6.7157 -15,-15 0,-8.2842 6.71573,-15 15,-15 8.28424,0 15.00004,6.7158 15.00004,15"
+             id="path29202"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 801.1213,2094.9334 c -2.4453,-20.0722 -19.4858,-35.1624 -39.70641,-35.1624 H 731.9047 c -16.5685,0 -30,13.4311 -30,29.9997 v 190.4583 h 105 v -10 c 0,-15.0435 5.6513,-29.5383 15.8341,-40.6121 19.2812,-20.9683 20.5485,-52.8125 2.9945,-75.2467 -13.4606,-17.2029 -21.9704,-37.7536 -24.6119,-59.4365"
+             id="path29206"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 796.9047,2190.2293 c 0,9.3889 -7.6111,17 -16.99996,17 -9.38884,0 -17,-7.6111 -17,-17 0,-9.3888 7.61116,-17 17,-17 9.38886,0 16.99996,7.6112 16.99996,17"
+             id="path29210"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 776.90474,2240.2293 c 0,8.2843 -6.71573,15 -15,15 -8.28424,0 -15.00004,-6.7157 -15.00004,-15 0,-8.2842 6.7158,-15 15.00004,-15 8.28427,0 15,6.7158 15,15"
+             id="path29214"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 776.90474,2140.2293 c 0,8.2843 -6.71573,15 -15,15 -8.28424,0 -15.00004,-6.7157 -15.00004,-15 0,-8.2842 6.7158,-15 15.00004,-15 8.28427,0 15,6.7158 15,15"
+             id="path29218"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 500.36,2217.5481 c 3.711,7.6547 8.226,14.8929 13.469,21.5928 17.554,22.4342 16.286,54.2784 -2.995,75.2467 C 500.651,2325.4613 495,2339.9562 495,2355 v 10 H 165 v -10 c 0,-15.0438 -5.651,-29.5387 -15.834,-40.6124 -19.281,-20.9683 -20.549,-52.8125 -2.995,-75.2467 5.243,-6.6999 9.758,-13.9381 13.469,-21.5928 C 166.327,2203.7574 180.306,2195 195.633,2195 h 268.734 c 15.327,0 29.306,8.7574 35.993,22.5481"
+             id="path29222"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 220,2291.1658 v -32.3316 l -28,-16.1658 -28,16.1658 v 32.3316 l 28,16.1658 28,-16.1658"
+             id="path29226"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 496,2291.1658 v -32.3316 l -28,-16.1658 -28,16.1658 v 32.3316 l 28,16.1658 28,-16.1658"
+             id="path29230"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2225 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29234"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2325 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29238"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 465,2325 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29242"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 225,2225 c 0,8.2843 -6.716,15 -15,15 -8.284,0 -15,-6.7157 -15,-15 0,-8.2843 6.716,-15 15,-15 8.284,0 15,6.7157 15,15"
+             id="path29246"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 470.36,125.04799 c 3.711,7.655 8.226,14.893 13.469,21.593 17.554,22.434 16.286,54.278 -2.995,75.247 -10.183,11.073 -15.834,25.568 -15.834,40.612 v 115 h -38 c 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 v 166 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 h 36 2 v 170 h -38 c 0,-1.1046 -0.895,-2 -2,-2 -1.105,0 -2,0.8954 -2,2 0,1.1046 0.895,2 2,2 v 166 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 h 36 2 V 1057.5 h -38 c 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 v 166 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 h 36 2 v 115 c 0,10.29 -7.808,18.9 -18.048,19.905 -26.569,2.605 -52.5483,9.448 -76.952,20.27 -44.5735,19.767 -95.4265,19.767 -140,0 -24.4037,-10.822 -50.383,-17.665 -76.952,-20.27 C 142.808,1361.4 135,1352.79 135,1342.5 v -115 h 2 36 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 H 135 V 887.49999 h 2 36 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.8954 2,-2 0,-1.1046 -0.895,-2 -2,-2 -1.105,0 -2,0.8954 -2,2 h -38 v -170 h 2 36 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 h -38 v -115 c 0,-15.044 -5.651,-29.539 -15.834,-40.612 -19.281,-20.969 -20.549,-52.813 -2.995,-75.247 5.243,-6.7 9.758,-13.938 13.469,-21.593 6.687,-13.791 20.666,-22.548 35.993,-22.548 h 268.734 c 15.327,0 29.306,8.757 35.993,22.548"
+             id="path29250"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 240,1342.5 v -40 h 120 v 40 H 240"
+             id="path29254"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 179,182.49999 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path29258"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 455,182.49999 c 0,9.389 -7.611,17 -17,17 -9.389,0 -17,-7.611 -17,-17 0,-9.389 7.611,-17 17,-17 9.389,0 17,7.611 17,17"
+             id="path29262"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 435,132.49999 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29266"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 195,132.49999 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29270"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 195,232.49999 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29274"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 435,232.49999 c 0,8.284 -6.716,15 -15,15 -8.284,0 -15,-6.716 -15,-15 0,-8.284 6.716,-15 15,-15 8.284,0 15,6.716 15,15"
+             id="path29278"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 200,3982 v 113 h 240 v -113 c -1.105,0 -2,-0.895 -2,-2 0,-1.105 0.895,-2 2,-2 1.105,0 2,0.895 2,2 h 36 2 v -170 h -2 -36 c 0,1.105 -0.895,2 -2,2 -1.105,0 -2,-0.895 -2,-2 0,-1.105 0.895,-2 2,-2 v -166 c -1.105,0 -2,-0.8954 -2,-2 0,-1.1046 0.895,-2 2,-2 1.105,0 2,0.8954 2,2 h 36 2 v -170 h -2 -36 c 0,1.1046 -0.895,2 -2,2 -1.105,0 -2,-0.8954 -2,-2 0,-1.1046 0.895,-2 2,-2 v -166 c -1.105,0 -2,-0.895 -2,-2 0,-1.105 0.895,-2 2,-2 1.105,0 2,0.895 2,2 h 36 2 v -170 h -2 -36 c 0,1.105 -0.895,2 -2,2 -1.105,0 -2,-0.895 -2,-2 0,-1.105 0.895,-2 2,-2 V 3025 H 200 v 103 c 1.105,0 2,0.895 2,2 0,1.105 -0.895,2 -2,2 -1.105,0 -2,-0.895 -2,-2 h -36 -2 v 170 h 2 36 c 0,-1.105 0.895,-2 2,-2 1.105,0 2,0.895 2,2 0,1.105 -0.895,2 -2,2 v 166 c 1.105,0 2,0.8954 2,2 0,1.1046 -0.895,2 -2,2 -1.105,0 -2,-0.8954 -2,-2 h -36 -2 v 170 h 2 36 c 0,-1.1046 0.895,-2 2,-2 1.105,0 2,0.8954 2,2 0,1.1046 -0.895,2 -2,2 v 166 c 1.105,0 2,0.895 2,2 0,1.105 -0.895,2 -2,2 -1.105,0 -2,-0.895 -2,-2 h -36 -2 v 170 h 2 36 c 0,-1.105 0.895,-2 2,-2 1.105,0 2,0.895 2,2 0,1.105 -0.895,2 -2,2"
+             id="path29282"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="M 740,1058 V 945 h 240 v 113 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 h 36 2 v 170 h -2 -36 c 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 v 166 c -1.105,0 -2,0.8954 -2,2 0,1.1046 0.895,2 2,2 1.105,0 2,-0.8954 2,-2 h 36 2 v 170 h -2 -36 c 0,-1.1046 -0.895,-2 -2,-2 -1.105,0 -2,0.8954 -2,2 0,1.1046 0.895,2 2,2 v 166 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 h 36 2 v 170 h -2 -36 c 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 v 103 H 740 v -103 c 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 h -36 -2 v -170 h 2 36 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.8954 2,-2 0,-1.1046 -0.895,-2 -2,-2 -1.105,0 -2,0.8954 -2,2 h -36 -2 v -170 h 2 36 c 0,1.1046 0.895,2 2,2 1.105,0 2,-0.8954 2,-2 0,-1.1046 -0.895,-2 -2,-2 v -166 c 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2 -1.105,0 -2,0.895 -2,2 h -36 -2 v -170 h 2 36 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2"
+             id="path29286"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 735,120.49999 v 22 h 15 v 5 c 0,0.227 -0.0386,0.452 -0.1142,0.666 -3.8477,10.893 -3.8477,22.775 0,33.668 0.0756,0.214 0.1142,0.439 0.1142,0.666 v 240 c 0,0.227 -0.0386,0.452 -0.1142,0.666 -3.8477,10.893 -3.8477,22.775 0,33.668 0.0756,0.214 0.1142,0.439 0.1142,0.666 0,0.457 -0.1567,0.901 -0.4441,1.257 -2.7863,3.449 -3.3431,8.193 -1.4314,12.194 1.9117,4.002 5.9519,6.549 10.3864,6.549 H 770 v -100 c 0,-3.3137 2.6863,-6 6,-6 3.3137,0 6,2.6863 6,6 v 100 h 28 28 v -100 c 0,-3.3137 2.6863,-6 6,-6 3.3137,0 6,2.6863 6,6 v 100 h 11.489 c 4.4345,0 8.4747,-2.547 10.3864,-6.549 1.9117,-4.001 1.3549,-8.745 -1.4314,-12.194 -0.2874,-0.356 -0.4441,-0.8 -0.4441,-1.257 0,-0.227 0.0386,-0.452 0.1142,-0.666 3.8477,-10.893 3.8477,-22.775 0,-33.668 -0.0756,-0.214 -0.1142,-0.439 -0.1142,-0.666 v -240 c 0,-0.227 0.0386,-0.452 0.1142,-0.666 v 0 c 3.8478,-10.893 3.8478,-22.775 10e-5,-33.668 v 0 c -0.0756,-0.214 -0.1142,-0.439 -0.1142,-0.666 v -5 h 15 v -22 c 0,-1.105 0.8954,-2 2,-2 4.4183,0 8,-3.582 8,-8 0,-4.418 -3.5817,-8 -8,-8 h -77 -77 c -4.4183,0 -8,3.582 -8,8 0,4.418 3.5817,8 8,8 1.1046,0 2,0.895 2,2"
+             id="path29290"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             vector-effect="non-scaling-stroke"
+             d="m 725,530.49999 v 22 h 15 v 5 c 0,0.227 -0.0386,0.452 -0.1142,0.666 -3.8477,10.893 -3.8477,22.775 0,33.668 0.0756,0.214 0.1142,0.439 0.1142,0.666 v 240 c 0,0.227 -0.0386,0.452 -0.1142,0.666 -3.8477,10.893 -3.8477,22.775 0,33.668 0.0756,0.214 0.1142,0.439 0.1142,0.666 0,0.457 -0.1567,0.901 -0.4441,1.257 -2.7863,3.449 -3.3431,8.193 -1.4314,12.194 1.9117,4.002 5.9519,6.549 10.3864,6.549 H 760 v -100 c 0,-3.3137 2.6863,-6 6,-6 3.3137,0 6,2.6863 6,6 v 100 h 28 28 v -100 c 0,-3.3137 2.6863,-6 6,-6 3.3137,0 6,2.6863 6,6 v 100 h 11.489 c 4.4345,0 8.4747,-2.547 10.3864,-6.549 1.9117,-4.001 1.3549,-8.745 -1.4314,-12.194 -0.2874,-0.356 -0.4441,-0.8 -0.4441,-1.257 0,-0.227 0.0386,-0.452 0.1142,-0.666 3.8477,-10.893 3.8477,-22.775 0,-33.668 -0.0756,-0.214 -0.1142,-0.439 -0.1142,-0.666 v -240 c 0,-0.227 0.0386,-0.452 0.1142,-0.666 v 0 c 3.8478,-10.893 3.8478,-22.775 10e-5,-33.668 v 0 c -0.0756,-0.214 -0.1142,-0.439 -0.1142,-0.666 v -5 h 15 v -22 c 0,-1.105 0.8954,-2 2,-2 4.4183,0 8,-3.582 8,-8 0,-4.418 -3.5817,-8 -8,-8 h -77 -77 c -4.4183,0 -8,3.582 -8,8 0,4.418 3.5817,8 8,8 1.1046,0 2,0.895 2,2"
+             id="path29294"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+    </g>
+</svg>
