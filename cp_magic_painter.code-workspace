@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.languageServer": "Default",
+		"python.languageServer": "Pylance",
 		"python.linting.pylintEnabled": false
 	}
 }
