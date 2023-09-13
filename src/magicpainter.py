@@ -166,6 +166,8 @@ class MagicPainter(ConfigBaseClass):
 
     def main_loop(self):
         self.userinput.update()
+        # if supervisor.runtime.serial_bytes_available:
+        #     self.check_input()
         self.mode.main_loop()
 
 

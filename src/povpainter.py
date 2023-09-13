@@ -115,7 +115,7 @@ class POVPainter(ModeBaseClass):
         print("fs_writeable ", self.fs_writeable)
 
         # OLD Draw version = classic
-        self.PIXEL_DELAY = 0.003
+        self.PIXEL_DELAY = 0.0015
 
         self.image_buffer = bytearray(0)
         self.bmpHeight = 0
@@ -348,7 +348,7 @@ class POVPainter(ModeBaseClass):
             amount (float) : Current 'amount loaded' coefficient; 0.0 to 1.0
         """
         # self.rect.x = int(board.DISPLAY.width * (amount - 1.0))
-        self.terminal_progressbar.update(amount)
+        # self.terminal_progressbar.update(amount)
         num_on = int(amount * self.bmp2led.pixel_count + 0.5)
         self.dotstar_set_pixel(begin=0, end=num_on, r=0, g=1, b=0)
         # num_off = self.bmp2led.pixel_count - num_on
@@ -423,7 +423,11 @@ class POVPainter(ModeBaseClass):
                 # its huge! but its also fast :)
                 self.image_buffer = bytearray(self.bmpWidth * self.bmpHeight * 4)
                 print("loading...\n")
-                self.terminal_progressbar = ProgressBar()
+                # currently the ProgressBar crashes CP if not connected to the computer..
+                # no idea why.. so for now - just do not use it..
+                # maybe it is a memory overflow thing?!
+                # TODO: add issue
+                # self.terminal_progressbar = ProgressBar()
                 for row in range(self.bmpHeight):  # For each scanline...
                     if flip:  # Bitmap is stored bottom-to-top order (normal BMP)
                         pos = bmpImageoffset + (self.bmpHeight - 1 - row) * rowSize
@@ -644,13 +648,6 @@ class POVPainter(ModeBaseClass):
 
     def main_loop(self):
         gc.collect()
-        # self.mode_current.update()
-        # self.ui.update()
-        # self.check_buttons()
-
-        # if supervisor.runtime.serial_bytes_available:
-        #     self.check_input()
-
         # accel_x, accel_y, accel_z = self.accel_sensor._raw_acceleration
         # (
         #     accel_x,
