@@ -4,6 +4,7 @@
 
 """RGB Lamp"""
 import time
+import math
 
 import board
 from rainbowio import colorwheel
@@ -47,6 +48,7 @@ class RGBLamp(ModeBaseClass):
         super(RGBLamp, self).__init__(config=config)
 
         self._brightness = 0.0
+        self.brightness_mapped = 0.0
 
         print(42 * "*")
         print("RGBLamp")
@@ -64,27 +66,44 @@ class RGBLamp(ModeBaseClass):
         self.cycle_start = 0
         self.last_update = 0
 
+        # effect plasma
+        self._offset = 0
+        self._hue_base = 0.5
+        self._hue_min = 0.0
+        self._hue_max = 1.0
+        self._contrast = 1
+        self._contrast_min = 0.5
+        self._contrast_max = 1.0
+
+        self.stepsize = 0.05
+        self.hue_base = self.base_color.hue
+        self.hue_half_width = 0.06
+        self.animation_contrast = 0.99
+        self.hue_range_update()
+
+        # brightness
         self.brightness_map_mask = [
             # in , out
             #      led_count on
             (0.0, 1),
-            (0.3, ((0.3*2*10)+1)), # 7
+            (0.3, ((0.3 * 2 * 10) + 1)),  # 7
             (0.5, self.num_pixels),
             (1.0, self.num_pixels),
         ]
         self.mask_pixel_active_count = self.num_pixels
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
 
+
+
         self.spi_init()
 
-        self.brightness = self.config["rgblamp"]["brightness"]
-        
+
         # print("brightness mapping test:")
         # for value in range(0, 105, 5):
         #     self.brightness = value / 100
-        # # reset
-        # self.brightness = self.config["rgblamp"]["brightness"]
         
+        self.brightness = self.config["rgblamp"]["brightness"]
+
         # run animation rendering one time.
         self.main_loop()
 
@@ -113,18 +132,19 @@ class RGBLamp(ModeBaseClass):
         # print("brightness - test:", test)
 
         value_mapped = helper.multi_map(value, self.brightness_map)
-        self.pixels.brightness = value_mapped
+        # self.pixels.brightness = value_mapped
+        self.brightness_mapped = value_mapped
 
         # mask things
-        self.mask_pixel_active_count = int(helper.multi_map(value, self.brightness_map_mask))
+        self.mask_pixel_active_count = int(
+            helper.multi_map(value, self.brightness_map_mask)
+        )
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
         # print("num_pixels", self.num_pixels)
         # print("mask_pixel_active_count", self.mask_pixel_active_count)
         # print("mask_pixel_black_count", self.mask_pixel_black_count)
         # if self.mask_pixel_black_count > 0:
-        self.mask_black_array = [(0, 0, 0)] * (
-            self.mask_pixel_black_count
-        )
+        self.mask_black_array = [(0, 0, 0)] * (self.mask_pixel_black_count)
         # print("mask_black_array", self.mask_black_array)
 
         # print(
@@ -139,6 +159,40 @@ class RGBLamp(ModeBaseClass):
         #     )
         # )
 
+    # @property
+    # def hue_base(self):
+    #     """Get hue_base value."""
+    #     return self._hue_base
+
+    # @hue_base.setter
+    # def hue_base(self, value):
+    #     """Set hue_base value."""
+    #     self._hue_base = value
+    #     self.hue_range_update()
+        
+    def hue_range_update(self):
+        self._hue_min = self._hue_base - self.hue_half_width
+        self._hue_max = self._hue_base + self.hue_half_width
+
+    # @property
+    # def animation_contrast(self):
+    #     """Get animation_contrast value."""
+    #     return self._contrast
+
+    # @animation_contrast.setter
+    # def animation_contrast(self, value):
+    #     """Set animation_contrast value."""
+    #     self._contrast = value
+    #     # self._contrast_min = self._contrast - 0.5
+    #     # self._contrast_max = self._contrast + 0.5
+    #     self._contrast_min = 1 - self._contrast
+    #     self._contrast_max = 1
+
+
+
+    ##########################################
+    # hw
+    
     def spi_init(self):
         self.pixels = adafruit_dotstar.DotStar(
             self.get_pin("pixel_spi_pins", "clock"),
@@ -165,7 +219,7 @@ class RGBLamp(ModeBaseClass):
                 self.brightness -= 0.05
             elif touch_id == 2:
                 self.brightness = 0.01
-            # print("brightness", self.brightness)
+            print("brightness", self.brightness)
             # print("pixels.brightness", self.pixels.brightness)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,16 +239,6 @@ class RGBLamp(ModeBaseClass):
 
     def rainbow_update(self):
         """based on CircuitPython Essentials DotStar example"""
-        
-        # TODO: implement FancyLED HSV version.
-        # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#types-conversions-and-other-operations-2981225
-        # if self.hue > 255:
-        #     self.hue = 0
-        # else:
-        #     self.hue += 1
-        # for i in range(self.num_pixels):
-        #     rc_index = (i * 256 // (self.num_pixels * 3)) + self.hue
-        #     self.pixels[i] = colorwheel(rc_index & 255)
 
         if self.hue > 1.0:
             self.hue = 0.0
@@ -203,22 +247,60 @@ class RGBLamp(ModeBaseClass):
 
         for i in range(self.num_pixels):
             pixel_pos = helper.map_to_01(i, 0, self.num_pixels)
-            self.pixels[i] = CHSV(self.hue + pixel_pos).pack()
-    
+            color = CHSV(self.hue + pixel_pos)
+            # handle gamma and global brightness
+            color_rgb = fancy.gamma_adjust(
+                color, brightness=self.brightness_mapped
+            )
+            self.pixels[i] = color_rgb.pack()
+
     def plasma_update(self):
         """simple plasma animation."""
-        
+        # mostly inspired by
+        # https://www.bidouille.org/prog/plasma
+        # extracted from magic_crystal_animation
         for i in range(self.num_pixels):
-            # TODO: implement plasma animation
-            pixel_pos = helper.map_to_01(i, 0, self.num_pixels)
-            self.pixels[i] = CHSV(self.hue + pixel_pos).pack()
+            col = 0.0
+            row = helper.map_range(
+                i,
+                0,
+                self.num_pixels -1,
+                # 0, 1.0
+                -0.5,
+                0.5,
+            )
+
+            # moving rings
+            cx = col + 0.5 * math.sin(self._offset / 5)
+            cy = row + 0.5 * math.cos(self._offset / 3)
+            value = math.sin(
+                math.sqrt(100 * (cx * cx + cy * cy) + 1) + self._offset
+            )
+            # mapping
+            contrast = helper.map_range(
+                value, -1, 1, self._contrast_min, self._contrast_max
+            )
+            hue = helper.map_range(value, -1, 1, self._hue_min, self._hue_max)
+            # map to color
+            # color = fancy.CHSV(hue, v=contrast)
+            color = fancy.CHSV(hue)
+            # handle gamma and global brightness
+            color_rgb = fancy.gamma_adjust(
+                color, brightness=self.brightness_mapped
+            )
+            self.pixels[i] = color_rgb.pack()
+        # update animation offset
+        self._offset += self.stepsize
+        if self._offset > (math.pi * 30):
+            self._offset = 0
 
     def main_loop(self):
         cycle_end = self.cycle_start + self.cycle_duration
         # TODO: implement cycle time thing..
         # map current runtime position to hue range 0..255
 
-        self.rainbow_update()
+        # self.rainbow_update()
+        self.plasma_update()
         # self.nightlight_update()
 
         self.handle_brightness_mask()

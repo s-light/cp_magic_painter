@@ -47,6 +47,7 @@ import digitalio
 import touchio
 from adafruit_debouncer import Debouncer
 
+import neopixel
 
 import keypad
 
@@ -102,6 +103,10 @@ class MagicPainter(ConfigBaseClass):
         # print(self.__class__, "config extended:")
         # self.config_print()
 
+        # status led
+        self.status_pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
+        self.status_pixel.fill((0,0,0))
+
         self.modes = [
             RGBLamp(config=self.config),
             POVPainter(config=self.config),
@@ -152,7 +157,9 @@ class MagicPainter(ConfigBaseClass):
 
     def handle_touch(self, touch_id, touch):
         # print("handle_touch", touch)
+        self.status_pixel.fill((0,0,255))
         self.mode.handle_user_input(touch_id, touch)
+        self.status_pixel.fill((0,0,0))
 
     ##########################################
     # main handling
