@@ -101,6 +101,8 @@ class POVPainter(ModeBaseClass):
         self.first_run = False
         self._brightness = None
 
+        self.pixel_count = self.config["hw"]["pixel_count"]
+
         self.paint_mode_classic = self.config["data"]["paint_mode_classic"]
         if self.paint_mode_classic:
             self.load_image = self.load_image_v1
@@ -121,7 +123,7 @@ class POVPainter(ModeBaseClass):
 
         # Advanced CLUE version
         self.bmp2led = BMP2LED(
-            pixel_count=self.config["hw"]["pixel_count"],
+            pixel_count=self.pixel_count,
             color_order=self.config["hw"]["pixel_color_order"],
             gamma=self.config["data"]["gamma"],
         )
@@ -189,7 +191,7 @@ class POVPainter(ModeBaseClass):
 
         # value = helper.limit(value, 0.0, 1.0)
         # self._brightness = value
-        
+
         # Remap brightness from 0.0-1.0 to brightness_range.
         ModeBaseClass.brightness = helper.map_01_to(
             value,
@@ -298,25 +300,30 @@ class POVPainter(ModeBaseClass):
     ##########################################
     # dotstar helper
 
-    def dotstar_set_pixel(self, pixel_begin, pixel_end, r, g, b):
+    def dotstar_set_pixel(self, *, begin, end, r, g, b):
         """
         Set range of dotstar pixel to color.
         """
         pixel_count = self.bmp2led.pixel_count
-        pixel_begin = helper.limit(pixel_begin, 0, pixel_count - 1)
-        pixel_end = helper.limit(pixel_end, 0, pixel_count - 1)
+        begin = helper.limit(begin, 0, pixel_count - 1)
+        end = helper.limit(end, 0, pixel_count - 1)
+        pixel_on_count = (end - begin) + 1
+        pixel_off_end_count = (pixel_count - 1) - end
+
         off_pixel = [255, 0, 0, 0]
         on_pixel = [255, 0, 0, 0]
         on_pixel[1 + self.bmp2led.red_index] = r
         on_pixel[1 + self.bmp2led.green_index] = g
         on_pixel[1 + self.bmp2led.blue_index] = b
+
         buffer = bytearray(
             # header
             [0] * 4
             # pixel data
-            + off_pixel * pixel_begin
-            + on_pixel * (pixel_end - pixel_begin)
-            + off_pixel * ((pixel_count - 1) - pixel_end)
+            + off_pixel * begin
+            + on_pixel * pixel_on_count
+            + off_pixel * pixel_off_end_count
+            # + off_pixel
             # tail
             + [255] * ((pixel_count + 15) // 16)
         )
@@ -343,7 +350,7 @@ class POVPainter(ModeBaseClass):
         # self.rect.x = int(board.DISPLAY.width * (amount - 1.0))
         self.terminal_progressbar.update(amount)
         num_on = int(amount * self.bmp2led.pixel_count + 0.5)
-        self.dotstar_set_pixel(pixel_begin=0, pixel_end=num_on, r=0, g=1, b=0)
+        self.dotstar_set_pixel(begin=0, end=num_on, r=0, g=1, b=0)
         # num_off = self.bmp2led.pixel_count - num_on
         # off_pixel = [255, 0, 0, 0]
         # on_pixel = [255, 0, 0, 0]
@@ -360,7 +367,7 @@ class POVPainter(ModeBaseClass):
     def dotstar_blink(self, blink_count=5, duration=1, r=1, g=0, b=0):
         blink_duration = duration / (blink_count * 2)
         for blink in range(blink_count):
-            self.dotstar_set_pixel(pixel_begin=0, pixel_end=2, r=r, g=g, b=b)
+            self.dotstar_set_pixel(begin=0, end=2, r=r, g=g, b=b)
             time.sleep(blink_duration)
             self.clear_strip()
             time.sleep(blink_duration)

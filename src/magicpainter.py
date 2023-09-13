@@ -111,7 +111,7 @@ class MagicPainter(ConfigBaseClass):
             RGBLamp(config=self.config),
             POVPainter(config=self.config),
         ]
-        self.mode = self.modes[0]
+        self.mode = self.modes[1]
 
         self.userinput = UserInput(
             config=self.config,
@@ -157,7 +157,7 @@ class MagicPainter(ConfigBaseClass):
 
     def handle_touch(self, touch_id, touch):
         # print("handle_touch", touch)
-        self.status_pixel.fill((0,0,255))
+        self.status_pixel.fill((0,0,1))
         self.mode.handle_user_input(touch_id, touch)
         self.status_pixel.fill((0,0,0))
 
