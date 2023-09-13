@@ -187,6 +187,9 @@ class POVPainter(ModeBaseClass):
         # we need a workaround..
         # ModeBaseClass.brightness=value
 
+        # value = helper.limit(value, 0.0, 1.0)
+        # self._brightness = value
+        
         # Remap brightness from 0.0-1.0 to brightness_range.
         ModeBaseClass.brightness = helper.map_01_to(
             value,

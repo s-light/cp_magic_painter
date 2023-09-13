@@ -73,6 +73,7 @@ class RGBLamp(ModeBaseClass):
             (1.0, self.num_pixels),
         ]
         self.mask_pixel_active_count = self.num_pixels
+        self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
 
         self.spi_init()
 
@@ -143,12 +144,11 @@ class RGBLamp(ModeBaseClass):
             self.get_pin("pixel_spi_pins", "clock"),
             self.get_pin("pixel_spi_pins", "data"),
             self.num_pixels,
-            brightness=0.01,
+            # brightness=0.01,
             auto_write=False,
         )
 
-        self.pixels.fill((0, 0, 0))
-        self.pixels.show()
+        self.main_loop()
 
     def spi_deinit(self):
         self.pixels.deinit()
@@ -185,25 +185,42 @@ class RGBLamp(ModeBaseClass):
 
     def rainbow_update(self):
         """based on CircuitPython Essentials DotStar example"""
+        
         # TODO: implement FancyLED HSV version.
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#types-conversions-and-other-operations-2981225
-        if self.hue > 255:
-            self.hue = 0
-        else:
-            self.hue += 1
+        # if self.hue > 255:
+        #     self.hue = 0
+        # else:
+        #     self.hue += 1
+        # for i in range(self.num_pixels):
+        #     rc_index = (i * 256 // (self.num_pixels * 3)) + self.hue
+        #     self.pixels[i] = colorwheel(rc_index & 255)
 
-        # for i in range((self.num_pixels - 5), self.num_pixels):
+        if self.hue > 1.0:
+            self.hue = 0.0
+        else:
+            self.hue += 0.001
+
         for i in range(self.num_pixels):
-            rc_index = (i * 256 // (self.num_pixels * 3)) + self.hue
-            self.pixels[i] = colorwheel(rc_index & 255)
-        self.pixels.show()
+            pixel_pos = helper.map_to_01(i, 0, self.num_pixels)
+            self.pixels[i] = CHSV(self.hue + pixel_pos).pack()
+    
+    def plasma_update(self):
+        """simple plasma animation."""
+        
+        for i in range(self.num_pixels):
+            # TODO: implement plasma animation
+            pixel_pos = helper.map_to_01(i, 0, self.num_pixels)
+            self.pixels[i] = CHSV(self.hue + pixel_pos).pack()
 
     def main_loop(self):
         cycle_end = self.cycle_start + self.cycle_duration
         # TODO: implement cycle time thing..
         # map current runtime position to hue range 0..255
-        # self.rainbow_update()
-        self.nightlight_update()
+
+        self.rainbow_update()
+        # self.nightlight_update()
+
         self.handle_brightness_mask()
         self.pixels.show()
         # print(time)
