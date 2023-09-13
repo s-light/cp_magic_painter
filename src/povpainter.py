@@ -48,6 +48,7 @@ import json
 
 import adafruit_imageload
 import ansi_escape_code as terminal
+from ansi_escape_code.progressbar import ProgressBar
 
 from mode_base import ModeBaseClass
 
@@ -83,17 +84,17 @@ class POVPainter(ModeBaseClass):
             "draw_duration": 0.7,
         },
     }
-    config = {}
 
     def __init__(self, *, config={}):
         super(POVPainter, self).__init__(config=config)
+        print(42 * "*")
         print("POVPainter")
         print("  https://github.com/s-light/cp_magic_painter")
         print(42 * "*")
 
         self.config_extend_with_defaults(defaults=self.config_defaults)
-        print(self.__class__, "config extended:")
-        self.config_print()
+        # print(self.__class__, "config extended:")
+        # self.config_print()
 
         # prepare internals
         self.spi_init_done = False
@@ -337,11 +338,7 @@ class POVPainter(ModeBaseClass):
             amount (float) : Current 'amount loaded' coefficient; 0.0 to 1.0
         """
         # self.rect.x = int(board.DISPLAY.width * (amount - 1.0))
-        # minicom seems to ignore the erase_line() control... :-(
-        print(
-            terminal.ANSIControl.erase_line()
-            + "load_progress: {}%".format(int(amount * 100))
-        )
+        self.terminal_progressbar.update(amount)
         num_on = int(amount * self.bmp2led.pixel_count + 0.5)
         self.dotstar_set_pixel(pixel_begin=0, pixel_end=num_on, r=0, g=1, b=0)
         # num_off = self.bmp2led.pixel_count - num_on
@@ -416,6 +413,7 @@ class POVPainter(ModeBaseClass):
                 # its huge! but its also fast :)
                 self.image_buffer = bytearray(self.bmpWidth * self.bmpHeight * 4)
                 print("loading...\n")
+                self.terminal_progressbar = ProgressBar()
                 for row in range(self.bmpHeight):  # For each scanline...
                     if flip:  # Bitmap is stored bottom-to-top order (normal BMP)
                         pos = bmpImageoffset + (self.bmpHeight - 1 - row) * rowSize

@@ -28,15 +28,15 @@ class ModeBaseClass(ConfigBaseClass):
 
     def __init__(self, *, config={}):
         super(ModeBaseClass, self).__init__(config=config)
-        print("__init__ of ModeBaseClass....")
+        # print("__init__ of ModeBaseClass....")
         # prepare internals
         self._brightness = None
 
         # all other init things
         # self.load_config()
         self.config_extend_with_defaults(defaults=ModeBaseClass.config_defaults)
-        print("ModeBaseClass", "config extended:")
-        self.config_print()
+        # print("ModeBaseClass", "config extended:")
+        # self.config_print()
 
     @property
     def brightness(self):

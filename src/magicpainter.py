@@ -90,6 +90,8 @@ class MagicPainter(ConfigBaseClass):
         # self.print = lambda *args: print(*args)
         # self.print("MagicPainter")
 
+        print(8 * "\n")
+        print(42 * "*")
         print("MagicPainter")
         print("  https://github.com/s-light/cp_magic_painter")
         print(42 * "*")
@@ -97,8 +99,8 @@ class MagicPainter(ConfigBaseClass):
         # self.config = self.load_config_from_file()
         self.config = config_file.config
         self.config_extend_with_defaults(defaults=self.config_defaults)
-        print(self.__class__, "config extended:")
-        self.config_print()
+        # print(self.__class__, "config extended:")
+        # self.config_print()
 
         self.modes = [
             RGBLamp(config=self.config),
@@ -112,8 +114,13 @@ class MagicPainter(ConfigBaseClass):
             callback_touch=self.handle_touch
         )
 
-        print("loaded and extended config:\n", self.config,)
-        self.config_print()
+        # print(2 * "\n")
+        # print(42 * "*")
+        # print("loaded and extended config:")
+        # self.config_print()
+        # print(2 * "\n")
+
+        
 
         self.mode.spi_init()
         

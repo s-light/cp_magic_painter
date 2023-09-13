@@ -27,6 +27,7 @@ def wait_with_print(wait_duration = 5, step_duration = 0.25):
 
 def main():
     """Main handling."""
+    print(8 * "\n")
     wait_with_print(10)
     print("")
     print(42 * "*")

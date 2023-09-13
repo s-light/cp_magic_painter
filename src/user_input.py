@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2023 Stefan Krüger s-light.eu
 # SPDX-License-Identifier: MIT
 
+import time
+
 import board
 import touchio
 import keypad
@@ -76,13 +78,15 @@ class UserInput(object):
     def touch_print_status(self):
         for index, touch in enumerate(self.touch_pins):
             print(
-                "{}: {:>5} - {:>7}"
+                "{:>2}: {:>5} - {:>7}"
                 "".format(
                     index,
                     touch.value,
                     touch.raw_value,
-                )
+                ),
+                end=""
             )
+        print()
 
     def update(self):
         if self.button.events.get_into(self.button_event):
@@ -109,10 +113,11 @@ class UserInput(object):
                 print("KeyboardInterrupt - Stop Program.", e)
                 running = False
 
-
-if __name__ == "__main__":
+def dev_test():
+    
     import sys
     sys.path.append("/src")
+    # import user_input 
 
     def cb_button():
         print("button pressed!")
@@ -126,3 +131,6 @@ if __name__ == "__main__":
         callback_touch=cb_touch,
     )
     ui.run_test()
+
+if __name__ == "__main__":
+    dev_test()
