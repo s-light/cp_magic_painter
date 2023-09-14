@@ -57,8 +57,9 @@ pixel.fill((0, 1, 0))
 
 
 # deactivate display.
-print("deactivate display backlight.")
-board.DISPLAY.brightness = 0
+if hasattr(board, "DISPLAY"):
+    print("deactivate display backlight.")
+    board.DISPLAY.brightness = 0
 
 
 
