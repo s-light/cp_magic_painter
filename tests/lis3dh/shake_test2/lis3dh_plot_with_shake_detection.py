@@ -77,7 +77,7 @@ out_template = (
 
 y_last = 0
 y_filtered = 0
-noise = 2.1
+noise = 1.0
 direction_raw = 0
 direction_raw_last = 0
 direction_changed = False
@@ -88,7 +88,7 @@ direction_changed = False
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# average
+# helper
 
 def average(input_list):
     return sum(input_list) / len(input_list)
@@ -152,7 +152,7 @@ userinput = UserInput(
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# prepare
+# main
 
 if hasattr(board, "DISPLAY"):
     board.DISPLAY.brightness = 0.1
@@ -172,7 +172,6 @@ try:
         # Divide them by 9.806 to convert to Gs.
         y = lis3dh.acceleration[1] / adafruit_lis3dh.STANDARD_GRAVITY
 
-
         # remove oldest value
         filter_buffer.pop(0)
         # add new
@@ -180,41 +179,45 @@ try:
 
         avg1 = average(filter_buffer[:filter_center])
         avg2 = average(filter_buffer[filter_center:])
-        # if avg1 > avg2:
-
-        if (avg1 + noise) < avg2:
-            direction_raw = +1
-        elif (avg1 - noise) > avg2:
-            direction_raw = -1
-        else:
-            direction_raw = 0
 
         if (
-            direction_raw_last is not direction_raw 
-            and direction_raw is not 0
+            y < (noise*-1) 
+            or y > noise
         ):
-            direction_raw_last = direction_raw
-            # event! we change
-            direction_changed = True
-            pixels[-1] = (5, 0, 5)
-        else:
-            direction_changed = False
-            pixels[-1] = (0, 0, 0)
+            if (avg1) < avg2:
+                direction_raw = +1
+            elif (avg1) > avg2:
+                direction_raw = -1
+            else:
+                direction_raw = 0
 
-        # led test output
-        if direction_raw is 1:
-            pixels[-3] = (0, 0, 10)
-            pixels[-5] = (0, 0, 0)
-            pixels[-10] = (0, 0, 0)
-        elif direction_raw is -1:
-            pixels[-3] = (0, 0, 0)
-            pixels[-5] = (0, 10, 0)
-            pixels[-10] = (0, 0, 0)
+            if (
+                direction_raw_last is not direction_raw 
+                and direction_raw is not 0
+            ):
+                direction_raw_last = direction_raw
+                # event! we change
+                direction_changed = True
+                pixels[-1] = (5, 0, 5)
+            else:
+                direction_changed = False
+                pixels[-1] = (0, 0, 0)
+
+            # led test output
+            if direction_raw is 1:
+                pixels[-3] = (0, 0, 10)
+                pixels[-5] = (0, 0, 0)
+                pixels[-10] = (0, 0, 0)
+            elif direction_raw is -1:
+                pixels[-3] = (0, 0, 0)
+                pixels[-5] = (0, 10, 0)
+                pixels[-10] = (0, 0, 0)
+            else:
+                pixels[-3] = (0, 0, 0)
+                pixels[-5] = (0, 0, 0)
+                pixels[-10] = (1, 0, 0)
         else:
-            pixels[-3] = (0, 0, 0)
-            pixels[-5] = (0, 0, 0)
-            pixels[-10] = (1, 0, 0)
-        
+            pixels.fill((0,0,0))
         pixels.show()
 
         if plot_data:
