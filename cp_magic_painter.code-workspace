@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.languageServer": "Pylance",
+		"python.languageServer": "Jedi",
 		"python.linting.pylintEnabled": false,
 		"cSpell.words": [
 			"rgblamp"
