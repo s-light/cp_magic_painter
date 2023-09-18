@@ -39,6 +39,7 @@ class UserInput(object):
         self.callback_touch = callback_touch
 
         self.init_userInput()
+        self.touch_reset_threshold()
 
     def init_userInput(self):
         # self.button_io = digitalio.DigitalInOut(board.BUTTON)
@@ -57,30 +58,55 @@ class UserInput(object):
         self.touch_pins_debounced = []
         for touch_id,touch_pin in enumerate(self.config["hw"]["touch"]["pins"]):
             touch = touchio.TouchIn(touch_pin)
-            # reset default threshold
-            threshold = self.config["hw"]["touch"]["threshold"]
+            # initialise threshold to maximum value.
+            # we later fix this..
+            #we need some time passed to be able to get correct readings.
+            touch.threshold = 65535
+            self.touch_pins.append(touch)
+            self.touch_pins_debounced.append(Debouncer(touch))
             print(
-                "["
-                # +"{:>9} → "
-                "{:>2}] "
-                "touch.raw_value ({}) + threshold {} = {}".format(
-                    # str(touch_pin),
+                "{:>2} {:<9}: "
+                "touch.raw_value {:>5}"
+                "".format(
                     touch_id,
+                    str(touch_pin),
+                    touch.raw_value,
+                )
+            )
+
+    def touch_reset_threshold(self):
+        # reset default threshold
+        threshold = self.config["hw"]["touch"]["threshold"]
+        for touch_id,touch in enumerate(self.touch_pins):
+            print(
+                "{:>2} {:<9}: "
+                # "{:>5} + {:>5} = {:>5}"
+                "touch.raw_value {:>5} + threshold {:>5} = {:>5}"
+                "".format(
+                    touch_id,
+                    str(self.config["hw"]["touch"]["pins"][touch_id]),
                     touch.raw_value,
                     threshold,
                     touch.raw_value + threshold,
                 )
             )
-            touch.threshold = touch.raw_value + threshold
-            self.touch_pins.append(touch)
-            self.touch_pins_debounced.append(Debouncer(touch))
+            try:
+                touch.threshold = touch.raw_value + threshold
+            except ValueError as e:
+                print(e, "set to 65535")
+                touch.threshold = 65535
 
     def touch_print_status(self):
-        for index, touch in enumerate(self.touch_pins):
+        for touch_id, touch in enumerate(self.touch_pins):
             print(
-                "{:>2}: {:>5} - {:>7}"
+                "{:>2}"
+                # " {:<9}"
+                ": "
+                "{:>1} - {:>5}"
+                "    "
                 "".format(
-                    index,
+                    touch_id,
+                    # str(self.config["hw"]["touch"]["pins"][touch_id]),
                     touch.value,
                     touch.raw_value,
                 ),
@@ -98,7 +124,7 @@ class UserInput(object):
             if touch_debounced.fell or touch_debounced.rose or touch_debounced.value:
                 self.callback_touch(touch_id, touch_debounced)
         # debugoutput
-        # self.touch_print_status()
+        self.touch_print_status()
 
     def run_test(self):
         print(42 * "*")

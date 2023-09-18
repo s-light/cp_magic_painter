@@ -17,11 +17,9 @@ https://learn.adafruit.com/clue-light-paintstick
 
 ## Usage
 
-The Software has 4 Modes:
+The Software has 2 Modes:
 - Lamp
 - POV (Persistence Of Vision) 
-- LightPainting Picture (TBD)
-- LightPainting Point (TBD)
 
 
 """

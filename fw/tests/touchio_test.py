@@ -25,6 +25,20 @@ print(
         )
     )
 
+try:
+    touch_pin1.threshold = touch_pin1.raw_value + 4000
+    touch_pin2.threshold = touch_pin2.raw_value + 4000
+    touch_pin3.threshold = touch_pin3.raw_value + 4000
+except ValueError as e:
+    print(e)
+    touch_pin1.deinit()
+    touch_pin2.deinit()
+    touch_pin3.deinit()
+    time.sleep(1)
+    touch_pin1 = touchio.TouchIn(board.D5)
+    touch_pin2 = touchio.TouchIn(board.D6)
+    touch_pin3 = touchio.TouchIn(board.D7)
+
 touch_pin1.threshold = touch_pin1.raw_value + 4000
 touch_pin2.threshold = touch_pin2.raw_value + 4000
 touch_pin3.threshold = touch_pin3.raw_value + 4000

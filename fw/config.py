@@ -6,8 +6,8 @@ config = {
     "hw": {
         "touch": {
             "pins": [
-                board.D6,
                 board.D5,
+                board.D6,
                 board.D7,
             ],
             # "threshold": 4000,
