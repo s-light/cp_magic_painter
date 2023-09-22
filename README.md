@@ -1,8 +1,47 @@
-# magic_painter
+# cp_magic_painter
 
 Malen mit Licht - POV (Persistance Of Vision) Zauberstab
 
 ![Zauberstab (CAD)](hw/case/case_assembly_screenshots/overview.png)
+
+## Build
+have a look at the [build documentation](docu/workshop_DE.md)
+
+## Usage
+
+The Software has 2 Modes:
+- Lamp
+- POV (Persistence Of Vision) 
+
+you can switch between these two with the small button on the controller `D0`
+
+### Mode: Lamp 
+the three touch buttons are used to change settings:
+- top: brighntess higher
+- center: brighntess lower
+- bottom: brighntess minimum
+<!-- - top: higher
+- center: lower 
+- bottom: settings mode [brightness | color] (currently fixed to brighntess) -->
+
+currently to change the color connect to a computer and open the `config.py` file found on the `CIRCUITPY` *usb-stick* device.
+there you find a line 
+```python
+        "base_color": CHSV(0.7),  # only specifiing Hue. purple
+```
+define the base color hue as following:
+![hue color](docu/color_hue.svg)
+
+### Mode: POV
+touch buttons currently deactivated as they have falls positiv during shaking..
+
+<!-- the three touch buttons are used to change settings:
+- top: higher
+- center: lower
+- bottom: settings mode [brightness | color] (currently fixed to brighntess) -->
+
+
+
 ## HW
 
 -   APA102 ('Dotstar') LED-Pixel-Strip 144Pixel/m - **36 LEDs**
@@ -22,3 +61,10 @@ next steps
 - tweak design
 - extend & tweak firmware
 
+
+## origin
+this project / Workshop was first created for the [`Make Your School MakerFestival 2023`](https://www.makeyourschool.de/maker-festival/)
+
+it is based on these two excellent Adafruit tutorials:
+- [circuitpython painter](https://learn.adafruit.com/circuitpython-painter)
+- [clue light paintstick](https://learn.adafruit.com/clue-light-paintstick)

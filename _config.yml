@@ -1,0 +1,5 @@
+theme: jekyll-theme-minimal
+minima:
+  skin: solarized
+title: magic painter
+description: Malen mit Licht - POV (Persistance Of Vision) Zauberstab
