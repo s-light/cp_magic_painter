@@ -24,21 +24,24 @@ the three touch buttons are used to change settings:
 - center: lower 
 - bottom: settings mode [brightness | color] (currently fixed to brighntess) -->
 
-currently to change the color connect to a computer and open the `config.py` file found on the `CIRCUITPY` *usb-stick* device.
+currently to change the color connect to a computer and open the [`config.py`](config.py) file found on the `CIRCUITPY` *usb-stick* device.
 there you find a line 
 ```python
         "base_color": CHSV(0.7),  # only specifiing Hue. purple
 ```
 define the base color hue as following:
 ![hue color](docu/color_hue.svg)
+save the file and 
+make sure you use the *safe remove* option of your system before resetting the board or unplugging!
 
 ### Mode: POV
-touch buttons currently deactivated as they have falls positiv during shaking..
 
-<!-- the three touch buttons are used to change settings:
-- top: higher
-- center: lower
-- bottom: settings mode [brightness | color] (currently fixed to brighntess) -->
+~~the three touch buttons are used to change settings:~~
+- ~~top: higher~~
+- ~~center: lower~~
+- ~~bottom: settings mode (brightness | color)~~
+
+touch buttons currently deactivated as they have falls positiv during shaking..
 
 
 

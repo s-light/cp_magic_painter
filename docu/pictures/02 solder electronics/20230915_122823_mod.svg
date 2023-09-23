@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     version="1.1"
+     id="svg2"
+     width="3300"
+     height="900"
+     viewBox="0 0 3300 900"
+     sodipodi:docname="20230915_122823_mod.svg"
+     inkscape:version="1.2.2 (1:1.2.2+202212051551+b0a8486541)"
+     inkscape:export-filename="20230915_122823_mod.png"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <defs
+         id="defs6" />
+    <sodipodi:namedview
+         id="namedview4"
+         pagecolor="#505050"
+         bordercolor="#eeeeee"
+         borderopacity="1"
+         inkscape:showpageshadow="0"
+         inkscape:pageopacity="0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#505050"
+         showgrid="false"
+         inkscape:zoom="0.77905728"
+         inkscape:cx="1721.953"
+         inkscape:cy="430.6487"
+         inkscape:window-width="3840"
+         inkscape:window-height="2087"
+         inkscape:window-x="1"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="g8" />
+    <g
+         inkscape:groupmode="layer"
+         inkscape:label="Image"
+         id="g8">
+        <image
+             width="3312.9998"
+             height="974.64282"
+             preserveAspectRatio="none"
+             style="stroke-width:1.01779;image-rendering:optimizeQuality"
+             xlink:href="20230915_122823.jpg"
+             id="image10"
+             x="0"
+             y="0" />
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;line-height:100%;font-family:'jr!hand';-inkscape-font-specification:'jr!hand';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+             x="453.3045"
+             y="687.4079"
+             id="text1210-3"><tspan
+                 sodipodi:role="line"
+                 x="472.95444"
+                 y="687.4079"
+                 id="tspan1266-6">160mm </tspan></text>
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;line-height:100%;font-family:'jr!hand';-inkscape-font-specification:'jr!hand';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+             x="1478.5187"
+             y="824.11401"
+             id="text1210-3-7"><tspan
+                 sodipodi:role="line"
+                 x="1498.1686"
+                 y="824.11401"
+                 id="tspan1266-6-5">220mm </tspan></text>
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;line-height:100%;font-family:'jr!hand';-inkscape-font-specification:'jr!hand';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+             x="3065.2568"
+             y="691.26923"
+             id="text1210-3-3"><tspan
+                 sodipodi:role="line"
+                 x="3084.9067"
+                 y="691.26923"
+                 id="tspan1266-6-56">270mm </tspan></text>
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;line-height:100%;font-family:'jr!hand';-inkscape-font-specification:'jr!hand';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+             x="-308.93002"
+             y="150.5168"
+             id="text1210"
+             transform="rotate(-90)"><tspan
+                 sodipodi:role="line"
+                 x="-308.93002"
+                 y="150.5168"
+                 id="tspan1266">150mm +</tspan></text>
+    </g>
+</svg>
