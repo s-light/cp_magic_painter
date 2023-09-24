@@ -14,6 +14,7 @@ import adafruit_lis3dh
 
 
 from configdict import extend_deep
+from gesture_detector import GestureDetector
 
 
 class UserInput(object):
@@ -47,12 +48,15 @@ class UserInput(object):
 
         self.callback_button = callback_button
         self.callback_touch = callback_touch
-        self.callback_gesture = callback_gesture
 
         self.init_userInput()
         self.touch_reset_threshold()
 
         self.accel_sensor_init()
+        self.gesture = GestureDetector(
+            accel_sensor=self.accel_sensor,
+            callback_gesture=callback_gesture,
+        )
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # sub init
@@ -180,26 +184,6 @@ class UserInput(object):
         print()
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # gesture
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    def gesture_update(self):
-        accel_x, accel_y, accel_z = self.accel_sensor.acceleration
-
-        # if accel_z > 20:
-        #     self.callback_gesture()
-
-        print(
-            # "{:7.3f};    "
-            "{:7.3f}; {:7.3f}; {:7.3f};    "
-            "".format(
-                # time.monotonic(),
-                accel_x,
-                accel_y,
-                accel_z,
-            )
-        )
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # main api
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def update(self):
@@ -217,7 +201,7 @@ class UserInput(object):
         self.touch_check_autocalibration()
         # debugoutput
         # self.touch_print_status()
-        self.gesture_update()
+        self.gesture.update()
 
     def run_test(self):
         print(42 * "*")
