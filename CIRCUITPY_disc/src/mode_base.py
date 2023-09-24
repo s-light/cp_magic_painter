@@ -17,10 +17,6 @@ class ModeBaseClass(ConfigBaseClass):
                 "clock": "SCK",
                 "data": "MOSI",
             },
-            "accel_i2c_pins": {
-                "clock": "SCL1",
-                "data": "SDA1",
-            },
         },
 
     }
@@ -54,15 +50,13 @@ class ModeBaseClass(ConfigBaseClass):
     def spi_deinit(self):
         pass
 
-    def get_pin(self, bus_name, pin_name):
-        board_pin_name = self.config["hw"][bus_name][pin_name]
-        return getattr(board, board_pin_name)
-
-
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
 
     def handle_user_input(self, touch_id, touch):
+        pass
+
+    def handle_gesture(self):
         pass
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

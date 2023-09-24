@@ -4,9 +4,14 @@
 import time
 
 import board
+
 import touchio
 import keypad
 from adafruit_debouncer import Debouncer
+
+import busio
+import adafruit_lis3dh
+
 
 from configdict import extend_deep
 
@@ -23,11 +28,16 @@ class UserInput(object):
                     board.D7,
                 ],
                 "threshold": 4000,
+                "auto_calibration_delay": 30,
+            },
+            "accel_i2c_pins": {
+                "clock": "SCL1",
+                "data": "SDA1",
             },
         },
     }
 
-    def __init__(self, *, config, callback_button, callback_touch):
+    def __init__(self, *, config, callback_button, callback_touch, callback_gesture):
         super(UserInput, self).__init__()
 
         print("init UserInput..")
@@ -37,15 +47,27 @@ class UserInput(object):
 
         self.callback_button = callback_button
         self.callback_touch = callback_touch
+        self.callback_gesture = callback_gesture
 
         self.init_userInput()
         self.touch_reset_threshold()
+
+        self.accel_sensor_init()
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # sub init
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def init_userInput(self):
         # self.button_io = digitalio.DigitalInOut(board.BUTTON)
         # self.button_io.switch_to_input(pull=digitalio.Pull.UP)
         # self.button = Button(self.button_io)
 
+        self.button_init()
+
+        self.touch_init()
+
+    def button_init(self):
         # https://learn.adafruit.com/key-pad-matrix-scanning-in-circuitpython/advanced-features#avoiding-storage-allocation-3099287
         self.button = keypad.Keys(
             (board.BUTTON,),
@@ -54,13 +76,20 @@ class UserInput(object):
         )
         self.button_event = keypad.Event()
 
+    def touch_init(self):
+        self.touch_active = True
+        self.touch_last_action = time.monotonic()
+        self.touch_auto_calibration_delay = self.config["hw"]["touch"][
+            "auto_calibration_delay"
+        ]
+
         self.touch_pins = []
         self.touch_pins_debounced = []
-        for touch_id,touch_pin in enumerate(self.config["hw"]["touch"]["pins"]):
+        for touch_id, touch_pin in enumerate(self.config["hw"]["touch"]["pins"]):
             touch = touchio.TouchIn(touch_pin)
             # initialise threshold to maximum value.
             # we later fix this..
-            #we need some time passed to be able to get correct readings.
+            # we need some time passed to be able to get correct readings.
             touch.threshold = 65535
             self.touch_pins.append(touch)
             self.touch_pins_debounced.append(Debouncer(touch))
@@ -74,10 +103,40 @@ class UserInput(object):
                 )
             )
 
+    def accel_sensor_init(self):
+        """Init the acceleration sensor."""
+        self.i2c = busio.I2C(
+            scl=self.get_pin("accel_i2c_pins", "clock"),
+            sda=self.get_pin("accel_i2c_pins", "data"),
+            frequency=400000,
+        )
+
+        # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
+
+        # self.bno = BNO08X_I2C(self.i2c)
+        # self.bno.enable_feature(BNO_REPORT_LINEAR_ACCELERATION)
+        # self.bno.enable_feature(BNO_REPORT_STABILITY_CLASSIFIER)
+
+        self.accel_sensor = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
+        self.accel_sensor.range = adafruit_lis3dh.RANGE_16_G
+        self.accel_sensor.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # internal
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def get_pin(self, bus_name, pin_name):
+        board_pin_name = self.config["hw"][bus_name][pin_name]
+        return getattr(board, board_pin_name)
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # touch
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     def touch_reset_threshold(self):
-        # reset default threshold
+        print("touch reset threshold")
         threshold = self.config["hw"]["touch"]["threshold"]
-        for touch_id,touch in enumerate(self.touch_pins):
+        for touch_id, touch in enumerate(self.touch_pins):
             print(
                 "{:>2} {:<9}: "
                 # "{:>5} + {:>5} = {:>5}"
@@ -96,6 +155,12 @@ class UserInput(object):
                 print(e, "set to 65535")
                 touch.threshold = 65535
 
+    def touch_check_autocalibration(self):
+        duration = time.monotonic() - self.touch_last_action
+        if duration > self.touch_auto_calibration_delay:
+            self.touch_reset_threshold()
+            self.touch_last_action = time.monotonic()
+
     def touch_print_status(self):
         for touch_id, touch in enumerate(self.touch_pins):
             print(
@@ -110,21 +175,49 @@ class UserInput(object):
                     touch.value,
                     touch.raw_value,
                 ),
-                end=""
+                end="",
             )
         print()
 
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # gesture
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def gesture_update(self):
+        accel_x, accel_y, accel_z = self.accel_sensor.acceleration
+
+        # if accel_z > 20:
+        #     self.callback_gesture()
+
+        print(
+            # "{:7.3f};    "
+            "{:7.3f}; {:7.3f}; {:7.3f};    "
+            "".format(
+                # time.monotonic(),
+                accel_x,
+                accel_y,
+                accel_z,
+            )
+        )
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # main api
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def update(self):
+        # button input
         if self.button.events.get_into(self.button_event):
             if self.button_event.pressed:
                 if self.button_event.key_number == 0:
                     self.callback_button()
+        # touch input
         for touch_id, touch_debounced in enumerate(self.touch_pins_debounced):
             touch_debounced.update()
             if touch_debounced.fell or touch_debounced.rose or touch_debounced.value:
                 self.callback_touch(touch_id, touch_debounced)
+                self.touch_last_action = time.monotonic()
+        self.touch_check_autocalibration()
         # debugoutput
-        self.touch_print_status()
+        # self.touch_print_status()
+        self.gesture_update()
 
     def run_test(self):
         print(42 * "*")
@@ -139,11 +232,12 @@ class UserInput(object):
                 print("KeyboardInterrupt - Stop Program.", e)
                 running = False
 
+
 def dev_test():
-    
     import sys
+
     sys.path.append("/src")
-    # import user_input 
+    # import user_input
 
     def cb_button():
         print("button pressed!")
@@ -157,6 +251,7 @@ def dev_test():
         callback_touch=cb_touch,
     )
     ui.run_test()
+
 
 if __name__ == "__main__":
     dev_test()

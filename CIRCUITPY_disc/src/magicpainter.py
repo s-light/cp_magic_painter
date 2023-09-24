@@ -83,7 +83,6 @@ class MagicPainter(ConfigBaseClass):
     config = {}
 
     def __init__(self):
-        
         super(MagicPainter, self).__init__(config={})
         # self.print is later replaced by the ui module.
         # self.print = lambda *args: print(*args)
@@ -103,19 +102,25 @@ class MagicPainter(ConfigBaseClass):
 
         # status led
         self.status_pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
-        self.status_pixel.fill((0,0,0))
-
-        self.modes = [
-            RGBLamp(config=self.config),
-            POVPainter(config=self.config),
-        ]
-        self.mode = self.modes[1]
+        self.status_pixel.fill((0, 0, 0))
 
         self.userinput = UserInput(
             config=self.config,
             callback_button=self.switch_to_next_mode,
-            callback_touch=self.handle_touch
+            callback_touch=self.handle_touch,
+            callback_gesture=self.handle_gesture,
         )
+
+        self.modes = [
+            RGBLamp(
+                config=self.config,
+            ),
+            POVPainter(
+                config=self.config,
+                accel_sensor=self.userinput.accel_sensor,
+            ),
+        ]
+        self.mode = self.modes[1]
 
         # print(2 * "\n")
         # print(42 * "*")
@@ -123,10 +128,8 @@ class MagicPainter(ConfigBaseClass):
         # self.config_print()
         # print(2 * "\n")
 
-        
-
         self.mode.spi_init()
-        
+
     # def get_pin(self, bus_name, pin_name):
     #     board_pin_name = self.config["hw"][bus_name][pin_name]
     #     return getattr(board, board_pin_name)
@@ -134,7 +137,6 @@ class MagicPainter(ConfigBaseClass):
     # def setup_ui(self):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)
     #     pass
-
 
     ##########################################
     # ui / button handling
@@ -146,18 +148,24 @@ class MagicPainter(ConfigBaseClass):
             mode_index = 0
 
         print("current mode ", self.mode.__qualname__)
-        self.mode.spi_deinit()    
+        self.mode.spi_deinit()
         print("spi_deinit done.")
         self.mode = self.modes[mode_index]
         print("switched mode to ", self.mode.__qualname__)
-        self.mode.spi_init()    
+        self.mode.spi_init()
         print("spi_init done.")
 
     def handle_touch(self, touch_id, touch):
         # print("handle_touch", touch)
-        self.status_pixel.fill((0,0,1))
+        self.status_pixel.fill((0, 0, 1))
         self.mode.handle_user_input(touch_id, touch)
-        self.status_pixel.fill((0,0,0))
+        self.status_pixel.fill((0, 0, 0))
+    
+    def handle_gesture(self,):
+        # print("handle_gesture", touch)
+        self.status_pixel.fill((0, 1, 0))
+        self.mode.handle_gesture()
+        self.status_pixel.fill((0, 0, 0))
 
     ##########################################
     # main handling
@@ -167,7 +175,6 @@ class MagicPainter(ConfigBaseClass):
         # if supervisor.runtime.serial_bytes_available:
         #     self.check_input()
         self.mode.main_loop()
-
 
     def run(self):
         print(42 * "*")

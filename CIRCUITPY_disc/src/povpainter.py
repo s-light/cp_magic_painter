@@ -52,8 +52,6 @@ from ansi_escape_code.progressbar import ProgressBar
 
 from mode_base import ModeBaseClass
 
-import adafruit_lis3dh
-
 from configdict import extend_deep
 
 import helper
@@ -85,7 +83,7 @@ class POVPainter(ModeBaseClass):
         },
     }
 
-    def __init__(self, *, config={}):
+    def __init__(self, *, config={}, accel_sensor):
         super(POVPainter, self).__init__(config=config)
         print(42 * "*")
         print("POVPainter")
@@ -96,6 +94,8 @@ class POVPainter(ModeBaseClass):
         # print(self.__class__, "config extended:")
         # self.config_print()
 
+        self.accel_sensor = accel_sensor
+        
         # prepare internals
         self.spi_init_done = False
         self.first_run = False
@@ -249,27 +249,7 @@ class POVPainter(ModeBaseClass):
         # pixel_pin = digitalio.DigitalInOut(board.NEOPIXEL)
         # pixel_pin.direction = digitalio.Direction.OUTPUT
         # neopixel_write.neopixel_write(pixel_pin, bytearray([1, 1, 1]))
-
-        # self.i2c = busio.I2C(board.IO9, board.IO8)
-        # self.i2c = busio.I2C(
-        #     self.get_pin("accel_i2c_pins", "clock"),
-        #     self.get_pin("accel_i2c_pins", "data")
-        # )
-        # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
-
-        # self.i2c = busio.I2C(board.SCL, board.SDA, frequency=400000)
-        # self.bno = BNO08X_I2C(self.i2c)
-        # self.bno.enable_feature(BNO_REPORT_LINEAR_ACCELERATION)
-        # self.bno.enable_feature(BNO_REPORT_STABILITY_CLASSIFIER)
-
-        self.i2c = busio.I2C(
-            scl=self.get_pin("accel_i2c_pins", "clock"),
-            sda=self.get_pin("accel_i2c_pins", "data"),
-            frequency=400000,
-        )
-        self.lis3dh = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
-        self.lis3dh.range = adafruit_lis3dh.RANGE_16_G
-        self.lis3dh.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+        pass
 
     def setup_ui(self):
         # self.ui = ui.POVPainterUI(magicpainter=self)
@@ -620,16 +600,22 @@ class POVPainter(ModeBaseClass):
     # ui
 
     def handle_user_input(self, touch_id, touch):
-        if touch.fell:
-            print("POVPainter - handle_user_input: ", touch_id)
-            if touch_id == 0:
-                print("brightness ++")
-                self.brightness += 0.1
-            elif touch_id == 1:
-                print("brightness --")
-                self.brightness -= 0.1
-            elif touch_id == 2:
-                self.switch_image()
+        # if touch.fell:
+        #     print("POVPainter - handle_user_input: ", touch_id)
+        #     if touch_id == 0:
+        #         print("brightness ++")
+        #         self.brightness += 0.1
+        #     elif touch_id == 1:
+        #         print("brightness --")
+        #         self.brightness -= 0.1
+        #     elif touch_id == 2:
+        #         self.switch_image()
+        pass
+
+    
+    def handle_gesture(self):
+        pass
+
 
     def switch_image(self):
         """
@@ -648,22 +634,8 @@ class POVPainter(ModeBaseClass):
 
     def main_loop(self):
         gc.collect()
-        # accel_x, accel_y, accel_z = self.accel_sensor._raw_acceleration
-        # (
-        #     accel_x,
-        #     accel_y,
-        #     accel_z,
-        # ) = self.lis3dh.acceleration
-        # ) = self.bno.linear_acceleration  # pylint:disable=no-member
-        # print(
-        #     "X: {: > 10.6f}  Y: {: > 10.6f} Z: {: > 10.6f}  m/s^2  ({})".format(
-        #         accel_x,
-        #         accel_y,
-        #         accel_z,
-        #         self.bno.stability_classification,
-        #     )
-        # )
-        accel_y = self.lis3dh.acceleration[1]
+        # accel_y = self.accel_sensor.acceleration[1]
+        accel_x, accel_y, accel_z = self.accel_sensor.acceleration
         if accel_y > 10:
             # neopixel_write.neopixel_write(pixel_pin, bytearray([255, 0, 0]))
             # self.draw(backwards=True)
@@ -676,10 +648,17 @@ class POVPainter(ModeBaseClass):
             # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
             self.paint()
 
+        # if accel_z > 20:
+        #     self.switch_image()
+        #     time.sleep(5)
+
         # print(
-        #     "{: > 10}, {: > 10.6f}".format(
-        #         time.monotonic(),
+        #     "{:7.3f}; {:7.3f}; {:7.3f};    "
+        #     "".format(
+        #         # time.monotonic(),
+        #         accel_x,
         #         accel_y,
+        #         accel_z,
         #     )
         # )
 
