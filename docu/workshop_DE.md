@@ -139,7 +139,7 @@ zum Schluss alle steck-elemente nach oben führen
 ## zusammen bauen Teil2
 
 nun werden wir den USB-Stecker und Power-Schalter im Mittleren Holz-Stück befestigen.
-##
+
 
 ## zusammen bauen Teil3
 nun wird alles vereint
@@ -166,4 +166,9 @@ diese wird dann auch mit den Schrauben fixiert.
 von Oben die Schrauben durchstecken und mit einem 1,5mm Imbus fest ziehen.
 Somit ist das Mittlere Holz-Teil fixiert.
 
+Fertig ist dein Zauberstab :-)
+
+## Programmieren
+
+<!-- TODO -->
 
