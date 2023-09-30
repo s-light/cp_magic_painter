@@ -175,6 +175,8 @@ class MagicPainter(ConfigBaseClass):
         # if supervisor.runtime.serial_bytes_available:
         #     self.check_input()
         self.mode.main_loop()
+        # Small delay to keep things responsive but give time for interrupt processing.
+        time.sleep(0)
 
     def run(self):
         print(42 * "*")

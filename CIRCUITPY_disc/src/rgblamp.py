@@ -222,6 +222,9 @@ class RGBLamp(ModeBaseClass):
             print("brightness", self.brightness)
             # print("pixels.brightness", self.pixels.brightness)
 
+    def handle_gesture(self):
+        pass
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # animation functions
 
