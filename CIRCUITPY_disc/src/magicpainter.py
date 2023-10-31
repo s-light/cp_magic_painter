@@ -79,6 +79,7 @@ class MagicPainter(ConfigBaseClass):
     config_defaults = {
         # all sub default parts are defined in the modules themselfes..
         "test": 42,
+        "start_mode":"rgblamp",
     }
     config = {}
 
@@ -120,7 +121,9 @@ class MagicPainter(ConfigBaseClass):
                 accel_sensor=self.userinput.accel_sensor,
             ),
         ]
-        self.mode = self.modes[1]
+        self.mode = self.modes[0]
+        if "POV" in self.config["start_mode"]:
+            self.mode = self.modes[1]
 
         # print(2 * "\n")
         # print(42 * "*")
@@ -129,10 +132,6 @@ class MagicPainter(ConfigBaseClass):
         # print(2 * "\n")
 
         self.mode.spi_init()
-
-    # def get_pin(self, bus_name, pin_name):
-    #     board_pin_name = self.config["hw"][bus_name][pin_name]
-    #     return getattr(board, board_pin_name)
 
     # def setup_ui(self):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)

@@ -59,6 +59,7 @@ class RGBLamp(ModeBaseClass):
         self.num_pixels = self.config["hw"]["pixel_count"]
 
         self.base_color = self.config["rgblamp"]["base_color"]
+        # print("self.base_color", self.base_color)
 
         # effect rainbow
         self.hue = 0.0
@@ -68,19 +69,19 @@ class RGBLamp(ModeBaseClass):
 
         # effect plasma
         self._offset = 0
-        self._hue_base = 0.5
+        # self._hue_base = 0.5
         self._hue_min = 0.0
         self._hue_max = 1.0
         self._contrast = 1
         self._contrast_min = 0.5
         self._contrast_max = 1.0
 
-        self.stepsize = 0.05
+        self.stepsize = 0.01
         self.hue_base = self.base_color.hue
         self.hue_half_width = 0.06
         self.animation_contrast = 0.99
         self.hue_range_update()
-
+        # print("self.hue_base", self.hue_base)
         # brightness
         self.brightness_map_mask = [
             # in , out
@@ -92,8 +93,6 @@ class RGBLamp(ModeBaseClass):
         ]
         self.mask_pixel_active_count = self.num_pixels
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
-
-
 
         self.spi_init()
 
@@ -171,8 +170,8 @@ class RGBLamp(ModeBaseClass):
     #     self.hue_range_update()
         
     def hue_range_update(self):
-        self._hue_min = self._hue_base - self.hue_half_width
-        self._hue_max = self._hue_base + self.hue_half_width
+        self._hue_min = self.hue_base - self.hue_half_width
+        self._hue_max = self.hue_base + self.hue_half_width
 
     # @property
     # def animation_contrast(self):
@@ -195,8 +194,8 @@ class RGBLamp(ModeBaseClass):
     
     def spi_init(self):
         self.pixels = adafruit_dotstar.DotStar(
-            self.get_pin("pixel_spi_pins", "clock"),
-            self.get_pin("pixel_spi_pins", "data"),
+            helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="clock"),
+            helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="data"),
             self.num_pixels,
             # brightness=0.01,
             auto_write=False,
@@ -211,7 +210,7 @@ class RGBLamp(ModeBaseClass):
     # user interface
 
     def handle_user_input(self, touch_id, touch):
-        if touch.fell:
+        if touch.rose:
             # print("RGBLamp - handle_user_input: ", touch_id)
             if touch_id == 0:
                 self.brightness += 0.05
@@ -219,7 +218,7 @@ class RGBLamp(ModeBaseClass):
                 self.brightness -= 0.05
             elif touch_id == 2:
                 self.brightness = 0.01
-            print("brightness", self.brightness)
+            print("(touch ", touch_id, ") brightness", self.brightness)
             # print("pixels.brightness", self.pixels.brightness)
 
     def handle_gesture(self):
@@ -300,7 +299,6 @@ class RGBLamp(ModeBaseClass):
     def main_loop(self):
         cycle_end = self.cycle_start + self.cycle_duration
         # TODO: implement cycle time thing..
-        # map current runtime position to hue range 0..255
 
         # self.rainbow_update()
         self.plasma_update()

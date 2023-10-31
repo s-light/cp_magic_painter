@@ -6,7 +6,12 @@ collection of some small helper functions
 """
 
 import time
+import board
 
+
+def get_pin(*, config, bus_name, pin_name):
+        board_pin_name = config["hw"][bus_name][pin_name]
+        return getattr(board, board_pin_name)
 
 def limit(value, value_min, value_max):
     return max(min(value_max, value), value_min)

@@ -3,6 +3,8 @@ import board
 from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 
 config = {
+    # in wich mode to start: (RGBLamp | POVPainter)
+    "start_mode":"RGBLamp",
     "hw": {
         "touch": {
             "pins": [
@@ -18,6 +20,7 @@ config = {
         # "mode": "nightlight",
         "brightness": 0.02,
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
-        "base_color": CHSV(0.7),  # only specifiing Hue. purple
+        # "base_color": CHSV(0.7),  # only specifying Hue. purple
+        "base_color": CHSV(0.05),  # only specifying Hue. orange
     },
 }

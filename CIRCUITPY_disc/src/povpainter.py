@@ -219,8 +219,8 @@ class POVPainter(ModeBaseClass):
 
     def spi_init(self):
         self.dotstar = busio.SPI(
-            clock=self.get_pin("pixel_spi_pins", "clock"),
-            MOSI=self.get_pin("pixel_spi_pins", "data"),
+            clock=helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="clock"),
+            MOSI=helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="data"),
         )
         while not self.dotstar.try_lock():
             pass
@@ -600,17 +600,20 @@ class POVPainter(ModeBaseClass):
     # ui
 
     def handle_user_input(self, touch_id, touch):
-        # if touch.fell:
-        #     print("POVPainter - handle_user_input: ", touch_id)
-        #     if touch_id == 0:
-        #         print("brightness ++")
-        #         self.brightness += 0.1
-        #     elif touch_id == 1:
-        #         print("brightness --")
-        #         self.brightness -= 0.1
-        #     elif touch_id == 2:
-        #         self.switch_image()
-        pass
+        if touch.rose:
+            print("POVPainter - handle_user_input: ", touch_id)
+            # if touch_id == 0:
+            #     self.switch_image()
+            # if touch_id == 0:
+            #     print("brightness ++")
+            #     self.brightness += 0.1
+            # elif touch_id == 1:
+            #     print("brightness --")
+            #     self.brightness -= 0.1
+            # elif touch_id == 2:
+            # if touch_id == 2:
+            #     self.switch_image()
+        # pass
 
     
     def handle_gesture(self):
@@ -682,7 +685,7 @@ class POVPainter(ModeBaseClass):
 
 
 def read_le(s):
-    # as of this writting, int.from_bytes does not have LE support, DIY!
+    # as of this writing, int.from_bytes does not have LE support, DIY!
     result = 0
     shift = 0
     for byte in bytearray(s):

@@ -12,6 +12,7 @@ from adafruit_debouncer import Debouncer
 import busio
 import adafruit_lis3dh
 
+import helper
 
 from configdict import extend_deep
 from gesture_detector import GestureDetector
@@ -110,8 +111,8 @@ class UserInput(object):
     def accel_sensor_init(self):
         """Init the acceleration sensor."""
         self.i2c = busio.I2C(
-            scl=self.get_pin("accel_i2c_pins", "clock"),
-            sda=self.get_pin("accel_i2c_pins", "data"),
+            scl=helper.get_pin(config=self.config, bus_name="accel_i2c_pins", pin_name="clock"),
+            sda=helper.get_pin(config=self.config, bus_name="accel_i2c_pins", pin_name="data"),
             frequency=400000,
         )
 
@@ -128,10 +129,6 @@ class UserInput(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # internal
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def get_pin(self, bus_name, pin_name):
-        board_pin_name = self.config["hw"][bus_name][pin_name]
-        return getattr(board, board_pin_name)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # touch
@@ -199,7 +196,7 @@ class UserInput(object):
                 self.callback_touch(touch_id, touch_debounced)
                 self.touch_last_action = time.monotonic()
         self.touch_check_autocalibration()
-        # debugoutput
+        # debug output
         # self.touch_print_status()
         self.gesture.update()
 
