@@ -27,10 +27,14 @@ the three touch buttons are used to change settings:
 currently to change the color connect to a computer and open the [`config.py`](config.py) file found on the `CIRCUITPY` *usb-stick* device.
 there you find a line 
 ```python
-        "base_color": CHSV(0.7),  # only specifiing Hue. purple
+        "color_range": {
+            "min": CHSV(0.08),
+            "max": CHSV(0.12),
+        },
 ```
-define the base color hue as following:
-![hue color](docu/color_hue.svg)
+define the base color hue as following:  
+![hue color](docu/color_hue.svg)  
+(the shown example is a warm orange-yellow range..)
 save the file and 
 make sure you use the *safe remove* option of your system before resetting the board or unplugging!
 
