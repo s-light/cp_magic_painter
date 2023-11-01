@@ -22,7 +22,15 @@ config = {
         # effect duration in seconds
         "effect_duration": 10 * 60, 
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
-        "base_color": CHSV(0.75),  # only specifying Hue. purple
-        # "base_color": CHSV(0.05),  # only specifying Hue. orange
+        # only specifying Hue → purple
+        # "color_range": {
+        #     "min": CHSV(0.50),
+        #     "max": CHSV(0.9),
+        # },
+        # warm orange
+        "color_range": {
+            "min": CHSV(0.08),
+            "max": CHSV(0.12),
+        },
     },
 }

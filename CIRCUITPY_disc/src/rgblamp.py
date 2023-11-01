@@ -24,12 +24,14 @@ class RGBLamp(ModeBaseClass):
             "brightness": 0.02,
             # duration for full fade from 0 to 1 in seconds
             # "brightness_fade_duration": 10,
+            # effect duration in seconds (default 10min)
+            "effect_duration": 10 * 60,
             # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
             # only specifying Hue → purple
-            "base_color": CHSV(0.75),
-            # "base_color": CRGB(255,0,255),
-            # effect duration in seconds
-            "effect_duration": 10, 
+            "color_range": {
+                "min": CHSV(0.50),
+                "max": CHSV(0.9),
+            },
         },
     }
 
@@ -60,32 +62,22 @@ class RGBLamp(ModeBaseClass):
         # print(self.__class__, "config extended:")
         self.num_pixels = self.config["hw"]["pixel_count"]
 
-        self.base_color = self.config["rgblamp"]["base_color"]
-        # print("self.base_color", self.base_color)
-
         # effect base
         self.effect_duration = self.config["rgblamp"]["effect_duration"]
         self.effect_start_cycle()
         self._offset = 0
 
-        # effect rainbow
-        self.hue = 0.0
-        self.last_update = 0
+        self.color_range = self.config["rgblamp"]["color_range"]
+        self.hue_min = self.color_range["min"].hue
+        self.hue_max = self.color_range["max"].hue
+        self.hue_center = helper.map_01_to(0.5, self.hue_min, self.hue_max)
 
         # effect plasma
-        # self._hue_base = 0.5
-        self._hue_min = 0.0
-        self._hue_max = 1.0
         self._contrast = 1
         self._contrast_min = 0.5
         self._contrast_max = 1.0
-
-        self.stepsize = 0.01
-        self.hue_base = self.base_color.hue
-        self.hue_half_width = 0.06
         self.animation_contrast = 0.99
-        self.hue_range_update()
-        # print("self.hue_base", self.hue_base)
+
         # brightness
         self.brightness_map_mask = [
             # in , out
@@ -162,21 +154,6 @@ class RGBLamp(ModeBaseClass):
         # )
 
     # @property
-    # def hue_base(self):
-    #     """Get hue_base value."""
-    #     return self._hue_base
-
-    # @hue_base.setter
-    # def hue_base(self, value):
-    #     """Set hue_base value."""
-    #     self._hue_base = value
-    #     self.hue_range_update()
-
-    def hue_range_update(self):
-        self._hue_min = self.hue_base - self.hue_half_width
-        self._hue_max = self.hue_base + self.hue_half_width
-
-    # @property
     # def animation_contrast(self):
     #     """Get animation_contrast value."""
     #     return self._contrast
@@ -236,20 +213,22 @@ class RGBLamp(ModeBaseClass):
         print("effect_start_cycle")
         self.effect_start_ts = time.monotonic()
         self.effect_end_ts = self.effect_start_ts + self.effect_duration
-        
+
     def offset_update(self):
         # stop_ts animation if  brightness is to low / only a view LEDs are on..
         if self.brightness > 0.05:
             if time.monotonic() >= (self.effect_start_ts + self.effect_duration):
                 self.effect_start_cycle()
-            self._offset = helper.map_to_01(time.monotonic(), self.effect_start_ts, self.effect_end_ts)
+            self._offset = helper.map_to_01(
+                time.monotonic(), self.effect_start_ts, self.effect_end_ts
+            )
 
     def handle_brightness_mask(self):
         if self.mask_pixel_black_count:
             self.pixels[0 : self.mask_pixel_black_count] = self.mask_black_array
 
     def nightlight_update(self):
-        self.pixels.fill(self.base_color.pack())
+        self.pixels.fill(self.color_range["min"].pack())
         # self.pixels.fill(0)
         # self.pixels[-1] = (255, 0, 255)
         # self.pixels[-2] = (255, 0, 255)
@@ -296,7 +275,7 @@ class RGBLamp(ModeBaseClass):
             contrast = helper.map_range(
                 value, -1, 1, self._contrast_min, self._contrast_max
             )
-            hue = helper.map_range(value, -1, 1, self._hue_min, self._hue_max)
+            hue = helper.map_range(value, -1, 1, self.hue_min, self.hue_max)
             # map to color
             # color = fancy.CHSV(hue, v=contrast)
             color = fancy.CHSV(hue)
