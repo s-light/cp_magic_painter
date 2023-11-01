@@ -56,7 +56,7 @@ class GestureDetector(object):
         self.antigravity = AccelerationAntigravity()
         self.base = (0,0,0)
 
-        self.plot_data = True
+        self.plot_data = False
         self.plot_start = 0
         self.update_last_timestamp = 0
 

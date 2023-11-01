@@ -18,9 +18,11 @@ config = {
     # "data": {},
     "rgblamp": {
         # "mode": "nightlight",
-        "brightness": 0.02,
+        "brightness": 0.52,
+        # effect duration in seconds
+        "effect_duration": 10 * 60, 
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
-        # "base_color": CHSV(0.7),  # only specifying Hue. purple
-        "base_color": CHSV(0.05),  # only specifying Hue. orange
+        "base_color": CHSV(0.75),  # only specifying Hue. purple
+        # "base_color": CHSV(0.05),  # only specifying Hue. orange
     },
 }
