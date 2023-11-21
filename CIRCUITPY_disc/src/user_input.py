@@ -10,7 +10,6 @@ import keypad
 from adafruit_debouncer import Debouncer
 
 import busio
-import adafruit_lis3dh
 
 import helper
 
@@ -25,9 +24,9 @@ class UserInput(object):
         "hw": {
             "touch": {
                 "pins": [
-                    board.D5,
-                    board.D6,
-                    board.D7,
+                    # board.D5,
+                    # board.D6,
+                    # board.D7,
                 ],
                 "threshold": 4000,
                 "auto_calibration_delay": 30,
@@ -111,20 +110,49 @@ class UserInput(object):
     def accel_sensor_init(self):
         """Init the acceleration sensor."""
         self.i2c = busio.I2C(
-            scl=helper.get_pin(config=self.config, bus_name="accel_i2c_pins", pin_name="clock"),
-            sda=helper.get_pin(config=self.config, bus_name="accel_i2c_pins", pin_name="data"),
+            scl=helper.get_pin(
+                config=self.config, bus_name="accel_i2c_pins", pin_name="clock"
+            ),
+            sda=helper.get_pin(
+                config=self.config, bus_name="accel_i2c_pins", pin_name="data"
+            ),
             frequency=400000,
         )
-
+        print("i2c scan:")
+        print("lock:", self.i2c.try_lock())
+        i2c_address_list_hex = ["0x{:x}".format(adr) for adr in self.i2c.scan()]
+        print("i2c devices:", i2c_address_list_hex)
+        print("unlock:", self.i2c.unlock())
         # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
 
-        # self.bno = BNO08X_I2C(self.i2c)
-        # self.bno.enable_feature(BNO_REPORT_LINEAR_ACCELERATION)
-        # self.bno.enable_feature(BNO_REPORT_STABILITY_CLASSIFIER)
+        if "0x18" in i2c_address_list_hex:
+            import adafruit_lis3dh
 
-        self.accel_sensor = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
-        self.accel_sensor.range = adafruit_lis3dh.RANGE_16_G
-        self.accel_sensor.data_rate = adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ  # → 0,2ms
+            self.accel_sensor = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
+            self.accel_sensor.range = adafruit_lis3dh.RANGE_16_G
+            self.accel_sensor.data_rate = (
+                adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ
+            )  # → 0,2ms
+        elif "0x62" in i2c_address_list_hex:
+            from adafruit_msa3xx import MSA311
+
+            self.accel_sensor = MSA311(i2c)
+        elif "0x62" in i2c_address_list_hex:
+            from adafruit_bno08x import (
+                BNO_REPORT_ACCELEROMETER,
+                BNO_REPORT_LINEAR_ACCELERATION,
+                BNO_REPORT_STABILITY_CLASSIFIER,
+            )
+            from adafruit_bno08x.i2c import BNO08X_I2C
+
+            self.bno = BNO08X_I2C(self.i2c)
+            self.bno.enable_feature(BNO_REPORT_ACCELEROMETER)
+            self.bno.enable_feature(BNO_REPORT_LINEAR_ACCELERATION)
+            self.bno.enable_feature(BNO_REPORT_STABILITY_CLASSIFIER)
+
+            self.accel_sensor = self.bno
+        else:
+            raise "No Acceleration sensor found! please check your connections."
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # internal
