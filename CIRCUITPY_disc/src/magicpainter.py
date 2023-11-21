@@ -115,6 +115,7 @@ class MagicPainter(ConfigBaseClass):
         self.modes = [
             RGBLamp(
                 config=self.config,
+                accel_sensor=self.userinput.accel_sensor,
             ),
             POVPainter(
                 config=self.config,

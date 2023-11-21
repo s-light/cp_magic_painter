@@ -48,8 +48,10 @@ class RGBLamp(ModeBaseClass):
     #     (1.0, 1),
     # ]
 
-    def __init__(self, *, config={}):
+    def __init__(self, *, config={}, accel_sensor):
         super(RGBLamp, self).__init__(config=config)
+
+        self.accel_sensor = accel_sensor
 
         self._brightness = 0.0
         self.brightness_mapped = 0.0
@@ -284,7 +286,10 @@ class RGBLamp(ModeBaseClass):
             self.pixels[i] = color_rgb.pack()
 
     def main_loop(self):
-        # TODO: implement cycle time thing..
+        # map movement to brightness
+        accel_y = self.accel_sensor.acceleration[1]
+        self.brightness = helper.map_range(abs(accel_y), 15, 0.2, 0.1, 0.9)
+
         self.offset_update()
 
         # self.rainbow_update()

@@ -136,7 +136,7 @@ class UserInput(object):
         elif "0x62" in i2c_address_list_hex:
             from adafruit_msa3xx import MSA311
 
-            self.accel_sensor = MSA311(i2c)
+            self.accel_sensor = MSA311(self.i2c)
         elif "0x62" in i2c_address_list_hex:
             from adafruit_bno08x import (
                 BNO_REPORT_ACCELEROMETER,
