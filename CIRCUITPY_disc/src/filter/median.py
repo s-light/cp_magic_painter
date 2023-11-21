@@ -2,6 +2,14 @@
 # No copyright, 2020-2021, Garth Zeglin.  This file is explicitly placed in the public domain.
 # source: https://courses.ideate.cmu.edu/16-223/f2021/text/code/pico-signals.html#median-py
 
+def median_average(input_list, window_size=0.5):
+    sorted_list = input_list.sort()
+    window_size_el_count = len(sorted_list) * window_size
+    window_start = window_size_el_count
+    window_end = len(sorted_list) - window_size_el_count
+    return average(sorted_list[window_start:window_end])
+
+
 class MedianFilter:
     def __init__(self, window_size=5):
         """Non-linear filter to reduce signal outliers by returning the median value

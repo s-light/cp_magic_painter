@@ -3,6 +3,8 @@
 
 import time
 
+from micropython import const
+
 from configdict import extend_deep
 
 from filter.median import MedianFilter
@@ -11,9 +13,45 @@ from filter.acceleration_antigravity import AccelerationAntigravity
 
 import adafruit_lis3dh
 
+UNKNOWN = 0
+REST = 10
+REST_HORIZONTAL = 11
+REST_VERTICAL = 12
+TILTING_LEFT = 21
+TILTING_RIGHT = 22
+TAB_X = 31
+TAB_Y = 32
+
+gesture = {
+    UNKNOWN: "UNKNOWN",
+    REST: "REST",
+    REST_HORIZONTAL: "REST_HORIZONTAL",
+    REST_VERTICAL: "REST_VERTICAL",
+    TILTING_LEFT: "TILTING_LEFT",
+    TILTING_RIGHT: "TILTING_RIGHT",
+    TAB_X: "TAB_X",
+    TAB_Y: "TAB_y",
+}
+
 
 class GestureDetector(object):
-    """GestureDetector."""
+    """
+    GestureDetector.
+
+    tries to detect some basic gestures and report them as events.
+
+    planed gestures:
+    - shake (with turning-point & duration)
+    - horizontal rest
+    - tilting from rest to left / right (around Y)
+    - tap (x z)
+
+    currently we have a basic rest detection and
+    simple gravity correction.
+
+    for the events to work its critical to start in a rest position and also end in rest.
+
+    """
 
     config_defaults = {
         "gesture": {
@@ -54,7 +92,9 @@ class GestureDetector(object):
         )
 
         self.antigravity = AccelerationAntigravity()
-        self.base = (0,0,0)
+        self.base = (0, 0, 0)
+
+        self.current = UNKNOWN
 
         self.plot_data = False
         self.plot_start = 0
@@ -95,14 +135,28 @@ class GestureDetector(object):
         y = accel_y / adafruit_lis3dh.STANDARD_GRAVITY
         z = accel_z / adafruit_lis3dh.STANDARD_GRAVITY
 
-        self.input_corrected = self.antigravity.update((x,y,z))
+        self.input_corrected = self.antigravity.update((x, y, z))
 
         # self.direction_x.update(x)
         # self.direction_y.update(y)
         # self.direction_z.update(z)
-        # self.direction_x.update(self.base_values[0] - x)
-        # self.direction_y.update(self.base_values[1] - y)
-        # self.direction_z.update(self.base_values[2] - z)
+        # self.direction_x.update(self.input_corrected[0])
+        # self.direction_y.update(self.input_corrected[1])
+        # self.direction_z.update(self.input_corrected[2])
+
+        if self.antigravity.rest_active:
+            gesture_new = REST
+            if z < -8:
+                # holding stick *horizontal*
+                gesture_new = REST_HORIZONTAL
+        else:
+            gesture_new = UNKNOWN
+
+        if self.current != gesture_new:
+            self.current = gesture_new
+            print("new gesture:", gesture.get(self.current))
+            # gesture changed..
+            # event!
 
         if self.plot_data:
             print(
@@ -113,14 +167,6 @@ class GestureDetector(object):
                 # self.direction_x.format_current_value(), # 5 values
                 # self.direction_y.format_current_value(), # 5 values
                 # self.direction_z.format_current_value(), # 5 values
-                self.antigravity.format_current_value(), # 12 values
+                self.antigravity.format_current_value(),  # 12 values
             )
         self.update_last_timestamp = time.monotonic()
-
-
-def median_average(input_list, window_size=0.5):
-    sorted_list = input_list.sort()
-    window_size_el_count = len(sorted_list) * window_size
-    window_start = window_size_el_count
-    window_end = len(sorted_list) - window_size_el_count
-    return average(sorted_list[window_start:window_end])
