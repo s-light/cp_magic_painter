@@ -7,11 +7,12 @@ import time
 import math
 
 import board
+import displayio
 from rainbowio import colorwheel
 import adafruit_fancyled.adafruit_fancyled as fancy
-from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 import adafruit_dotstar
 
+from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 import helper
 
 from mode_base import ModeBaseClass
@@ -31,6 +32,10 @@ class RGBLamp(ModeBaseClass):
             "color_range": {
                 "min": CHSV(0.50),
                 "max": CHSV(0.9),
+            },
+            "extra_effects": {
+                # "y_to_brightness":False,
+                "y_to_brightness": (0.2, 0.7),
             },
         },
     }
@@ -79,6 +84,11 @@ class RGBLamp(ModeBaseClass):
         self._contrast_min = 0.5
         self._contrast_max = 1.0
         self.animation_contrast = 0.99
+
+        # extra_effects
+        self.fx__y_to_brightness = self.config["rgblamp"]["extra_effects"][
+            "y_to_brightness"
+        ]
 
         # brightness
         self.brightness_map_mask = [
@@ -173,6 +183,8 @@ class RGBLamp(ModeBaseClass):
     # hw
 
     def spi_init(self):
+        # deactivate internal displays...
+        displayio.release_displays()
         self.pixels = adafruit_dotstar.DotStar(
             helper.get_pin(
                 config=self.config, bus_name="pixel_spi_pins", pin_name="clock"
@@ -285,10 +297,20 @@ class RGBLamp(ModeBaseClass):
             color_rgb = fancy.gamma_adjust(color, brightness=self.brightness_mapped)
             self.pixels[i] = color_rgb.pack()
 
-    def main_loop(self):
+    def fx_extra_update(self):
         # map movement to brightness
-        accel_y = self.accel_sensor.acceleration[1]
-        self.brightness = helper.map_range(abs(accel_y), 15, 0.2, 0.1, 0.9)
+        if self.fx__y_to_brightness:
+            accel_y = self.accel_sensor.acceleration[1]
+            self.brightness = helper.map_range(
+                abs(accel_y),
+                20,
+                0.2,
+                self.fx__y_to_brightness[0],
+                self.fx__y_to_brightness[1],
+            )
+
+    def main_loop(self):
+        self.fx_extra_update()
 
         self.offset_update()
 

@@ -43,6 +43,7 @@ import time
 import board
 import busio
 import digitalio
+import displayio
 
 import json
 
@@ -95,7 +96,7 @@ class POVPainter(ModeBaseClass):
         # self.config_print()
 
         self.accel_sensor = accel_sensor
-        
+
         # prepare internals
         self.spi_init_done = False
         self.first_run = False
@@ -218,9 +219,15 @@ class POVPainter(ModeBaseClass):
         self.load_image()
 
     def spi_init(self):
+        # deactivate internal displays...
+        displayio.release_displays()
         self.dotstar = busio.SPI(
-            clock=helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="clock"),
-            MOSI=helper.get_pin(config=self.config, bus_name="pixel_spi_pins", pin_name="data"),
+            clock=helper.get_pin(
+                config=self.config, bus_name="pixel_spi_pins", pin_name="clock"
+            ),
+            MOSI=helper.get_pin(
+                config=self.config, bus_name="pixel_spi_pins", pin_name="data"
+            ),
         )
         while not self.dotstar.try_lock():
             pass
@@ -615,10 +622,8 @@ class POVPainter(ModeBaseClass):
             #     self.switch_image()
         # pass
 
-    
     def handle_gesture(self):
         pass
-
 
     def switch_image(self):
         """

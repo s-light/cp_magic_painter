@@ -36,5 +36,9 @@ config = {
             "min": CHSV(0.08),
             "max": CHSV(0.12),
         },
+        "extra_effects": {
+            # "y_to_brightness":False,
+            "y_to_brightness": (0.3, 0.7),
+        },
     },
 }
