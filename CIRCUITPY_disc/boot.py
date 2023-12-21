@@ -8,6 +8,7 @@ CircuitPython Essentials Storage CP Filesystem boot.py file
 # import time
 # import board
 # import digitalio
+import displayio
 # import storage
 # import neopixel
 
@@ -37,8 +38,6 @@ CircuitPython Essentials Storage CP Filesystem boot.py file
 #     circuitpython_readonly = button.value
 
 
-
-
 # print("set cp filesystem to:")
 # if circuitpython_readonly:
 #     print(" → writeable for computer - readonly by CircuitPython")
@@ -60,7 +59,7 @@ CircuitPython Essentials Storage CP Filesystem boot.py file
 # if hasattr(board, "DISPLAY"):
 #     print("deactivate display backlight.")
 #     board.DISPLAY.brightness = 0
-
+displayio.release_displays()
 
 
 # USB things...
