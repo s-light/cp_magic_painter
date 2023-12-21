@@ -9,6 +9,8 @@ have a look at the [build documentation](docu/workshop_DE.md)
 
 ## Usage
 
+Es gibt eine [Deutsche Anleitung](docu/prepare_images/de.md) um die Bilder vorzubereiten.
+
 The Software has 2 Modes:
 - Lamp
 - POV (Persistence Of Vision) 
