@@ -37,7 +37,23 @@ alternative gibt es auch apps für den computer um diese als eine liste zu haben
 für linux z.B. den `emoji selector`
 
 ## Video Anleitung
+
 Ich habe dir zwei kurze Videos gemacht:
+
+
+
+
+<style>
+video {
+display: block;
+max-width: 70vw !important;
+max-height: 50vh !important;
+border-radius: 1em;
+box-shadow: 0.3em 0.3em 1em 0.5em hsla(0, 0%, 0%, 0.4);
+margin: 0.5em;
+}
+</style>
+
 
 1. Emoji suchen und kopieren
    <video src="openmoji.org%20search%20and%20copy%20%20candle.mp4" controls title="Title"></video>
@@ -45,6 +61,7 @@ Ich habe dir zwei kurze Videos gemacht:
    <video src="gimp%20paste%20candle.mp4" controls title="Title"></video>
 
 ## Text Anleitung
+
 und hier als schritt für schritt text Anleitung:
 
 1. Emoji suchen und kopieren
@@ -85,10 +102,10 @@ und hier als schritt für schritt text Anleitung:
     -   export drücken
     -   und nun `advanced options` aufklappen und `24bits` `8R 8G 8B` auswählen
         ![gimp export 2](<gimp export 2.png>)
-- nun noch das neue Bild auf den Zauberstab kopieren
-    - dafür den Zauberstab an den computer anschließen
-    - den Datei-Explorer öffnen
-    - es sollte ein neuer USB-Speicherstick mit dem Namen `CIRCUITPY` erschienen sein.
-    - dort gibt es einen Ordner `images`
+-   nun noch das neue Bild auf den Zauberstab kopieren
+    -   dafür den Zauberstab an den computer anschließen
+    -   den Datei-Explorer öffnen
+    -   es sollte ein neuer USB-Speicherstick mit dem Namen `CIRCUITPY` erschienen sein.
+    -   dort gibt es einen Ordner `images`
         ![CIRCUITPY disc - folder images](<dolphin CIRCUITPY disc - folder images.png>)
-    - dort hinein gehört das neue bild.
+    -   dort hinein gehört das neue bild.

@@ -45,7 +45,7 @@ make sure you use the *safe remove* option of your system before resetting the b
 ~~the three touch buttons are used to change settings:~~
 - ~~top: higher~~
 - ~~center: lower~~
-- ~~bottom: settings mode (brightness | color)~~
+- ~~bottom: settings mode (brightness, color)~~
 
 touch buttons currently deactivated as they have falls positiv during shaking..
 
@@ -65,10 +65,12 @@ for more details have a look at the [order_overview.pdf](hw/order__overview.pdf)
 ## project state
 
 next steps
-- get lasercut wood
-- test assembly & fit
-- tweak design
-- extend & tweak firmware
+- firmware
+  - fix touch buttons
+  - add gesture recognition
+- docu
+  - how to update firmware
+  - how to change configuration
 
 
 ## origin
