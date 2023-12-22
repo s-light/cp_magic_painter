@@ -37,8 +37,13 @@ remote_theme: jekyll/minima
 minima:
   skin: dark
 
-header_pages:
-  - workshop_DE.md
+# header_pages:
+#   - docu/workshop_DE.md
+#   - docu/prepare_images/de.md
+#   - docu/update_firmware/de.md
+
+include:
+  - docu
 
 # Exclude from processing.
 # The following items will not be processed, by default.

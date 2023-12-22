@@ -1,16 +1,5 @@
 # Vorbereitung der Bilder
 
-<style>
-img {
-display: block;
-max-width: 80vw !important;
-max-height: 33vh !important;
-border-radius: 1em;
-box-shadow: 0.3em 0.3em 1em 0.5em hsla(0, 0%, 0%, 0.4);
-margin: 0.5em;
-}
-</style>
-
 Momentan werden Bilder in Folgendem Format unterstützt:
 
 ```
@@ -39,21 +28,6 @@ für linux z.B. den `emoji selector`
 ## Video Anleitung
 
 Ich habe dir zwei kurze Videos gemacht:
-
-
-
-
-<style>
-video {
-display: block;
-max-width: 70vw !important;
-max-height: 50vh !important;
-border-radius: 1em;
-box-shadow: 0.3em 0.3em 1em 0.5em hsla(0, 0%, 0%, 0.4);
-margin: 0.5em;
-}
-</style>
-
 
 1. Emoji suchen und kopieren
    <video src="openmoji.org%20search%20and%20copy%20%20candle.mp4" controls title="Title"></video>
