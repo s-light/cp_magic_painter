@@ -64,3 +64,6 @@ include:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+exclude:
+  - CIRCUITPY_disc

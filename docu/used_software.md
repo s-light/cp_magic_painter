@@ -1,15 +1,9 @@
-# Used Software during development
+# Used Software
 
-i used these Software Packages during development:
-
-- [VSCodium](https://vscodium.com/)
-- [Mu](https://codewith.mu/)
-- [SerialPlot - Realtime Plotting Software](https://github.com/hyOzd/serialplot)
-- [Inkscape](https://inkscape.org/)
-- [Gimp](https://www.gimp.org/)
-- [FreeCAD](https://www.freecad.org/)
 
 ## Workshop Software-Pre-Setup
+
+please prepare these software packages before the workshop.
 
 ### Windows
 - required
@@ -23,3 +17,13 @@ i used these Software Packages during development:
 - optional
     - [SerialPlot - Realtime Plotting Software](https://github.com/hyOzd/serialplot) https://serialplot.ozderya.net/downloads/serialplot-0.12.0-win32-setup.exe
     - [FreeCAD](https://www.freecad.org/)   https://www.freecad.org/thankyou.php?url=https%3A%2F%2Fgithub.com%2FFreeCAD%2FFreeCAD%2Freleases%2Fdownload%2F0.21.1%2FFreeCAD-0.21.1-WIN-x64-installer-1.exe
+
+## development
+i used these Software Packages during development:
+
+- [VSCodium](https://vscodium.com/)
+- [Mu](https://codewith.mu/)
+- [SerialPlot - Realtime Plotting Software](https://github.com/hyOzd/serialplot)
+- [Inkscape](https://inkscape.org/)
+- [Gimp](https://www.gimp.org/)
+- [FreeCAD](https://www.freecad.org/)

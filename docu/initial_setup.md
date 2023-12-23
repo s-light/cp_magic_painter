@@ -1,4 +1,4 @@
-#Initial Setup for Py QT esp32-s3 board
+# Py QT esp32-s3 board setup
 
 ```bash
 cd /circuitpython/tinyuf2-adafruit_qtpy_esp32s3-0.16.0
