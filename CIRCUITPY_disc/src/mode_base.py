@@ -53,10 +53,10 @@ class ModeBaseClass(ConfigBaseClass):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
 
-    def handle_user_input(self, touch_id, touch):
+    def handle_user_input(self, event):
         pass
 
-    def handle_gesture(self):
+    def handle_gesture(self, event):
         pass
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

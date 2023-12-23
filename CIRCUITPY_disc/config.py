@@ -5,12 +5,13 @@ from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 config = {
     # in wich mode to start: (RGBLamp | POVPainter)
     "start_mode": "RGBLamp",
+    # "start_mode": "POVPainter",
     "hw": {
         "touch": {
             "pins": [
-                # board.D5,
-                # board.D6,
-                # board.D7,
+                board.D5,
+                board.D6,
+                board.D7,
             ],
             # "threshold": 4000,
         },

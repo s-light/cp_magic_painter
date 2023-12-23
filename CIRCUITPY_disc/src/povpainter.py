@@ -606,9 +606,9 @@ class POVPainter(ModeBaseClass):
     ##########################################
     # ui
 
-    def handle_user_input(self, touch_id, touch):
-        if touch.rose:
-            print("POVPainter - handle_user_input: ", touch_id)
+    def handle_user_input(self, event):
+        if event.touch.rose:
+            print("POVPainter - handle_user_input: ", event.touch_id)
             # if touch_id == 0:
             #     self.switch_image()
             # if touch_id == 0:
@@ -622,7 +622,7 @@ class POVPainter(ModeBaseClass):
             #     self.switch_image()
         # pass
 
-    def handle_gesture(self):
+    def handle_gesture(self, event):
         pass
 
     def switch_image(self):

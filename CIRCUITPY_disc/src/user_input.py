@@ -9,12 +9,24 @@ import touchio
 import keypad
 from adafruit_debouncer import Debouncer
 
+import neopixel
+
 import busio
 
 import helper
 
 from configdict import extend_deep
-from gesture_detector import GestureDetector
+from gesture_detector import GestureDetector, gestures
+from gesture_detector import UNKNOWN, REST, REST_HORIZONTAL
+
+
+class TouchEvent(object):
+    def __init__(self, *, touch_id, touch):
+        self.touch_id = touch_id
+        self.touch = touch
+
+    def __str__(self):
+        return "TouchEvent: id:{} touch:{}".format(self.touch_id, self.touch)
 
 
 class UserInput(object):
@@ -46,8 +58,13 @@ class UserInput(object):
         self.config = config
         extend_deep(self.config, self.config_defaults.copy())
 
+        # status led
+        self.status_pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
+        self.status_pixel.fill((0, 0, 0))
+
         self.callback_button = callback_button
-        self.callback_touch = callback_touch
+        self.callback_touch_main = callback_touch
+        self.callback_gesture_main = callback_gesture
 
         self.init_userInput()
         self.touch_reset_threshold()
@@ -55,7 +72,7 @@ class UserInput(object):
         self.accel_sensor_init()
         self.gesture = GestureDetector(
             accel_sensor=self.accel_sensor,
-            callback_gesture=callback_gesture,
+            callback_gesture=self.callback_gesture,
         )
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,6 +98,7 @@ class UserInput(object):
         self.button_event = keypad.Event()
 
     def touch_init(self):
+        print("touch init..")
         self.touch_active = True
         self.touch_last_action = time.monotonic()
         self.touch_auto_calibration_delay = self.config["hw"]["touch"][
@@ -189,6 +207,7 @@ class UserInput(object):
         if duration > self.touch_auto_calibration_delay:
             self.touch_reset_threshold()
             self.touch_last_action = time.monotonic()
+        # TODO: implement reset on stuck touches..
 
     def touch_print_status(self):
         for touch_id, touch in enumerate(self.touch_pins):
@@ -208,6 +227,34 @@ class UserInput(object):
             )
         print()
 
+    def touch_update(self):
+        for touch_id, touch_debounced in enumerate(self.touch_pins_debounced):
+            touch_debounced.update()
+            if touch_debounced.fell or touch_debounced.rose or touch_debounced.value:
+                event = TouchEvent(touch_id=touch_id, touch=touch_debounced)
+                self.callback_touch(event)
+                self.touch_last_action = time.monotonic()
+        self.touch_check_autocalibration()
+
+    def callback_touch(self, event):
+        print("callback_touch", event)
+        self.status_pixel.fill((0, 100, 0))
+        self.callback_touch_main(event)
+        self.status_pixel.fill((0, 0, 0))
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # gesture
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def callback_gesture(self, event):
+        print("handle_gesture", event)
+        self.callback_gesture_main(event)
+        if event.gesture == UNKNOWN:
+            self.status_pixel.fill((0, 0, 0))
+        elif event.gesture == REST_HORIZONTAL:
+            self.status_pixel.fill((0, 0, 100))
+            self.touch_reset_threshold()
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # main api
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -217,13 +264,7 @@ class UserInput(object):
             if self.button_event.pressed:
                 if self.button_event.key_number == 0:
                     self.callback_button()
-        # touch input
-        for touch_id, touch_debounced in enumerate(self.touch_pins_debounced):
-            touch_debounced.update()
-            if touch_debounced.fell or touch_debounced.rose or touch_debounced.value:
-                self.callback_touch(touch_id, touch_debounced)
-                self.touch_last_action = time.monotonic()
-        self.touch_check_autocalibration()
+        self.touch_update()
         # debug output
         # self.touch_print_status()
         self.gesture.update()

@@ -45,8 +45,6 @@ import digitalio
 import touchio
 from adafruit_debouncer import Debouncer
 
-import neopixel
-
 import keypad
 
 # import slight_lsm303d_accel
@@ -101,10 +99,6 @@ class MagicPainter(ConfigBaseClass):
         # print(self.__class__, "config extended:")
         # self.config_print()
 
-        # status led
-        self.status_pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
-        self.status_pixel.fill((0, 0, 0))
-
         self.userinput = UserInput(
             config=self.config,
             callback_button=self.switch_to_next_mode,
@@ -155,17 +149,11 @@ class MagicPainter(ConfigBaseClass):
         self.mode.spi_init()
         print("spi_init done.")
 
-    def handle_touch(self, touch_id, touch):
-        # print("handle_touch", touch)
-        self.status_pixel.fill((0, 0, 1))
-        self.mode.handle_user_input(touch_id, touch)
-        self.status_pixel.fill((0, 0, 0))
+    def handle_touch(self, event):
+        self.mode.handle_user_input(event)
     
-    def handle_gesture(self,):
-        # print("handle_gesture", touch)
-        self.status_pixel.fill((0, 1, 0))
-        self.mode.handle_gesture()
-        self.status_pixel.fill((0, 0, 0))
+    def handle_gesture(self, event):
+        self.mode.handle_gesture(event)
 
     ##########################################
     # main handling

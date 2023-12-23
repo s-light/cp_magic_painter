@@ -205,19 +205,19 @@ class RGBLamp(ModeBaseClass):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
 
-    def handle_user_input(self, touch_id, touch):
-        if touch.rose:
+    def handle_user_input(self, event):
+        if event.touch.rose:
             # print("RGBLamp - handle_user_input: ", touch_id)
-            if touch_id == 0:
+            if event.touch_id == 0:
                 self.brightness += 0.05
-            elif touch_id == 1:
+            elif event.touch_id == 1:
                 self.brightness -= 0.05
-            elif touch_id == 2:
+            elif event.touch_id == 2:
                 self.brightness = 0.01
-            print("(touch ", touch_id, ") brightness", self.brightness)
+            print("(touch ", event.touch_id, ") brightness", self.brightness)
             # print("pixels.brightness", self.pixels.brightness)
 
-    def handle_gesture(self):
+    def handle_gesture(self, event):
         pass
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

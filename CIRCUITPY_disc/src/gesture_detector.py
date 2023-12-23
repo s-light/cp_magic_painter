@@ -21,8 +21,9 @@ TILTING_LEFT = 21
 TILTING_RIGHT = 22
 TAB_X = 31
 TAB_Y = 32
+DIRECTION_CHANGED = 50
 
-gesture = {
+gestures = {
     UNKNOWN: "UNKNOWN",
     REST: "REST",
     REST_HORIZONTAL: "REST_HORIZONTAL",
@@ -30,15 +31,24 @@ gesture = {
     TILTING_LEFT: "TILTING_LEFT",
     TILTING_RIGHT: "TILTING_RIGHT",
     TAB_X: "TAB_X",
-    TAB_Y: "TAB_y",
+    TAB_Y: "TAB_Y",
+    DIRECTION_CHANGED: "DIRECTION_CHANGED",
 }
+
+
+class GestureEvent(object):
+    def __init__(self, *, gesture):
+        self.gesture = gesture
+
+    def __str__(self):
+        return gestures.get(self.gesture)
 
 
 class GestureDetector(object):
     """
     GestureDetector.
 
-    tries to detect some basic gestures and report them as events.
+    detect some basic gestures and report them as events.
 
     planed gestures:
     - shake (with turning-point & duration)
@@ -47,7 +57,7 @@ class GestureDetector(object):
     - tap (x z)
 
     currently we have a basic rest detection and
-    simple gravity correction.
+    simple gravity 'correction'.
 
     for the events to work its critical to start in a rest position and also end in rest.
 
@@ -59,7 +69,7 @@ class GestureDetector(object):
             "noise": 1.2,
         },
     }
-    filter_print_template = "{:7.3f}; " "{:7.3f}; "  # plot_runtim  # update duration
+    filter_print_template = "{:7.3f}; " "{:7.3f}; "  # plot_runtime  # update duration
 
     def __init__(self, *, config={}, callback_gesture, accel_sensor):
         super(GestureDetector, self).__init__()
@@ -78,17 +88,17 @@ class GestureDetector(object):
         self.direction_x = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
-            callback_direction_changed=self.callback_gesture,
+            callback_direction_changed=self.callback_direction_changed,
         )
         self.direction_y = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
-            callback_direction_changed=self.callback_gesture,
+            callback_direction_changed=self.callback_direction_changed,
         )
         self.direction_z = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
-            callback_direction_changed=self.callback_gesture,
+            callback_direction_changed=self.callback_direction_changed,
         )
 
         self.antigravity = AccelerationAntigravity()
@@ -107,6 +117,11 @@ class GestureDetector(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # internal helper
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def callback_direction_changed():
+        # print("callback_direction_changed")
+        event = GestureEvent(gesture=DIRECTION_CHANGED)
+        self.callback_gesture(event)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # gesture
@@ -154,9 +169,8 @@ class GestureDetector(object):
 
         if self.current != gesture_new:
             self.current = gesture_new
-            print("new gesture:", gesture.get(self.current))
-            # gesture changed..
-            # event!
+            event = GestureEvent(gesture=self.current)
+            self.callback_gesture(event)
 
         if self.plot_data:
             print(
