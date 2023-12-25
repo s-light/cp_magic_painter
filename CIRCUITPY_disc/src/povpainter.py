@@ -629,16 +629,15 @@ class POVPainter(ModeBaseClass):
         if event.gesture == DIRECTION_CHANGED:
             #     time.sleep(0.09)
             direction = event.orig_event.direction
-            duration = event.orig_event.durations.current_stroke
-            pixel_delay_new = (duration - 0.002) / self.bmpWidth
-            # print(event)
-            if pixel_delay_new < self.pixel_delay_max:
-                self.pixel_delay = pixel_delay_new
-            print("{:+} {:>f}".format(direction, self.pixel_delay))
-            # self.paint()
+            # duration = event.orig_event.durations.current_stroke
+            # pixel_delay_new = (duration - 0.004) / self.bmpWidth
+            # # print(event)
+            # if pixel_delay_new < self.pixel_delay_max:
+            #     self.pixel_delay = pixel_delay_new
+            # print("{:+} {:>f}".format(direction, self.pixel_delay))
             if direction == +1:
                 self.paint(backwards=False)
-            # elif direction == +1:
+            # elif direction == -1:
             #     self.paint(backwards=True)
 
     def switch_image(self):
