@@ -17,8 +17,8 @@ UNKNOWN = 0
 REST = 10
 REST_HORIZONTAL = 11
 REST_VERTICAL = 12
-TILTING_LEFT = 21
-TILTING_RIGHT = 22
+TILT_LEFT = 21
+TILT_RIGHT = 22
 TAB_X = 31
 TAB_Y = 32
 DIRECTION_CHANGED = 50
@@ -28,8 +28,8 @@ gestures = {
     REST: "REST",
     REST_HORIZONTAL: "REST_HORIZONTAL",
     REST_VERTICAL: "REST_VERTICAL",
-    TILTING_LEFT: "TILTING_LEFT",
-    TILTING_RIGHT: "TILTING_RIGHT",
+    TILT_LEFT: "TILT_LEFT",
+    TILT_RIGHT: "TILT_RIGHT",
     TAB_X: "TAB_X",
     TAB_Y: "TAB_Y",
     DIRECTION_CHANGED: "DIRECTION_CHANGED",
@@ -37,11 +37,15 @@ gestures = {
 
 
 class GestureEvent(object):
-    def __init__(self, *, gesture):
+    def __init__(self, *, gesture, orig_event=None):
         self.gesture = gesture
+        self.orig_event = orig_event
 
     def __str__(self):
-        return gestures.get(self.gesture)
+        if self.orig_event:
+            return "gesture: {} \n orig_event: {}".format(gestures.get(self.gesture), self.orig_event)
+        else:
+            return gestures.get(self.gesture)
 
 
 class GestureDetector(object):
@@ -118,10 +122,9 @@ class GestureDetector(object):
     # internal helper
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    def callback_direction_changed():
-        # print("callback_direction_changed")
-        event = GestureEvent(gesture=DIRECTION_CHANGED)
-        self.callback_gesture(event)
+    def callback_direction_changed(self, event):
+        gesture_event = GestureEvent(gesture=DIRECTION_CHANGED, orig_event=event)
+        self.callback_gesture(gesture_event)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # gesture
@@ -156,23 +159,29 @@ class GestureDetector(object):
         # self.direction_y.update(y)
         # self.direction_z.update(z)
         # self.direction_x.update(self.input_corrected[0])
-        # self.direction_y.update(self.input_corrected[1])
+        self.direction_y.update(self.input_corrected[1])
         # self.direction_z.update(self.input_corrected[2])
 
         if self.antigravity.rest_active:
             gesture_new = REST
-            if z < -8:
-                # holding stick *horizontal*
+            if (-0.2 < x < 0.2) and (-0.2 < y < 0.2) and (-1.3 < z < -0.92):
                 gesture_new = REST_HORIZONTAL
+            elif (-0.2 < x < 0.2) and (-1.3 < y < -0.9) and (-0.2 < z < 0.2):
+                gesture_new = TILT_LEFT
+            elif (-0.2 < x < 0.2) and (0.9 < y < 1.3) and (-0.2 < z < 0.2):
+                gesture_new = TILT_RIGHT
         else:
             gesture_new = UNKNOWN
 
+        plot_data_single = False
         if self.current != gesture_new:
             self.current = gesture_new
             event = GestureEvent(gesture=self.current)
             self.callback_gesture(event)
+            # plot_data_single = True
 
-        if self.plot_data:
+        # if self.plot_data:
+        if self.plot_data or plot_data_single:
             print(
                 self.filter_print_template.format(
                     time.monotonic() - self.plot_start,

@@ -6,6 +6,63 @@ def average(input_list):
     return sum(input_list) / len(input_list)
 
 
+class DirectionChangedEvent(object):
+    def __init__(self, *, direction, durations):
+        self.direction = direction
+        self.durations = durations
+
+    def __str__(self):
+        return "direction: {:+}; durations: {}".format(self.direction, self.durations)
+
+
+class AverageBuffer(object):
+    def __init__(self, *, buffer_size):
+        self.buffer_size = buffer_size
+        self.buffer = [0] * self.buffer_size
+        self.average = 0.1
+
+    def update_input(self, input):
+        # remove oldest value
+        self.buffer.pop(0)
+        # add new
+        self.buffer.append(input)
+
+    def update_average(self):
+        self.average = average(self.buffer)
+        return self.average
+
+    def update(self, input):
+        self.update_input(input)
+        return self.update_average()
+
+    def __getitem__(self, index):
+        return self.buffer[index]
+
+    def __len__(self):
+        return self.buffer_size
+
+    def __str__(self):
+        return "avg {}".format(self.average)
+
+
+class Durations(object):
+    def __init__(self, *, buffer_size):
+        self.buffer_size = buffer_size
+        self.current_stroke = 0.1
+        self.backward_avg = AverageBuffer(buffer_size=buffer_size)
+        self.forward_avg = AverageBuffer(buffer_size=buffer_size)
+
+    def __str__(self):
+        return "forward {:>4.0f}ms ({:>2.2f}Hz); backward {:>4.0f}ms ({:>2.2f}Hz);".format(
+            # iam a bit puzzled.. this should be in ms without the `*1000`
+            # but this way the values seems correct..
+            self.forward_avg.average * 1000,
+            1 / self.forward_avg.average,
+            self.backward_avg.average * 1000,
+            1 / self.backward_avg.average,
+        )
+
+
 class AccelerationDirection(object):
     debug_print_template = (
         "{:5.2f};"  # input_raw,
@@ -37,10 +94,11 @@ class AccelerationDirection(object):
         - average filter
         - comparing old & new window in buffer
         """
+
         self.buffer_size = buffer_size
         if trend_window_split is None:
             self.trend_window_split = self.buffer_size // 2 - 1
-        self.buffer = [0] * self.buffer_size
+        self.buffer = AverageBuffer(buffer_size=buffer_size)
 
         self.noise = noise
         self.avg0 = 0.0
@@ -59,6 +117,16 @@ class AccelerationDirection(object):
         self.direction_raw = 0
         self.direction_raw_last = 0
         self.direction_changed = False
+        self.direction_changed_timestamp = time.monotonic()
+
+        self.durations = Durations(buffer_size=5)
+
+        # performance:
+        # we create a class global event so we do not recreate and destroy it on every stroke...
+        self.direction_changed_event = DirectionChangedEvent(
+            direction=self.direction_raw,
+            durations=self.durations,
+        )
 
         self.callback_direction_changed = callback_direction_changed
 
@@ -73,14 +141,8 @@ class AccelerationDirection(object):
             # *self.filter_buffer,
         )
 
-    def update_buffer(self, input):
-        # remove oldest value
-        self.buffer.pop(0)
-        # add new
-        self.buffer.append(input)
-
-    def update_average(self):
-        self.avg0 = average(self.buffer)
+    def update_avg(self, input_raw):
+        self.avg0 = self.buffer.update(input_raw)
         self.avg1 = average(self.buffer[: self.trend_window_split])
         self.avg2 = average(self.buffer[self.trend_window_split :])
 
@@ -109,15 +171,30 @@ class AccelerationDirection(object):
             self.direction_raw_last = self.direction_raw
             # event! we change
             self.direction_changed = True
+
+            if self.direction_raw != 0:
+                # calculate stroke duration
+                duration = time.monotonic() - self.direction_changed_timestamp
+                self.direction_changed_timestamp = time.monotonic()
+
+                if self.direction_raw == 1:
+                    self.durations.current_stroke = self.durations.forward_avg.update(
+                        duration
+                    )
+                elif self.direction_raw == -1:
+                    self.durations.current_stroke = self.durations.backward_avg.update(
+                        duration
+                    )
+
             if self.callback_direction_changed:
-                self.callback_direction_changed()
+                self.direction_changed_event.direction = self.direction_raw
+                self.callback_direction_changed(self.direction_changed_event)
 
         else:
             self.direction_changed = False
 
     def update(self, input_raw):
-        self.update_buffer(input_raw)
-        self.update_average()
+        self.update_avg(input_raw)
         self.update_ewma()
         # self.base = self.base_filter.update(input_raw)
 

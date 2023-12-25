@@ -59,6 +59,7 @@ import helper
 
 from bmp2led import BMP2LED, BMPError
 
+from gesture_detector import DIRECTION_CHANGED
 
 ##########################################
 # main class
@@ -116,7 +117,9 @@ class POVPainter(ModeBaseClass):
         print("fs_writeable ", self.fs_writeable)
 
         # OLD Draw version = classic
-        self.PIXEL_DELAY = 0.0015
+        self.pixel_delay = 0.0014
+        self.pixel_delay_max = 0.0016
+        # self.pixel_delay = 0.0
 
         self.image_buffer = bytearray(0)
         self.bmpHeight = 0
@@ -463,7 +466,7 @@ class POVPainter(ModeBaseClass):
             self.dotstar.write(row)
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
             index += self.bmpHeight * 4
-            time.sleep(self.PIXEL_DELAY)
+            time.sleep(self.pixel_delay)
 
         # clear it out
         self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
@@ -623,7 +626,15 @@ class POVPainter(ModeBaseClass):
         # pass
 
     def handle_gesture(self, event):
-        pass
+        if event.gesture == DIRECTION_CHANGED:
+            #     time.sleep(0.09)
+            duration = event.orig_event.durations.current_stroke
+            pixel_delay_new = (duration - 0.001) / self.pixel_count
+            # print(event)
+            print(pixel_delay_new)
+            if pixel_delay_new < self.pixel_delay_max:
+                self.pixel_delay = pixel_delay_new
+            self.paint()
 
     def switch_image(self):
         """
@@ -643,18 +654,18 @@ class POVPainter(ModeBaseClass):
     def main_loop(self):
         gc.collect()
         # accel_y = self.accel_sensor.acceleration[1]
-        accel_x, accel_y, accel_z = self.accel_sensor.acceleration
-        if accel_y > 10:
-            # neopixel_write.neopixel_write(pixel_pin, bytearray([255, 0, 0]))
-            # self.draw(backwards=True)
-            # self.draw(backwards=True)
-            # self.draw(backwards=True)
-            pass
-        elif accel_y < -20:
-            print(accel_y)
-            time.sleep(0.09)
-            # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
-            self.paint()
+        # accel_x, accel_y, accel_z = self.accel_sensor.acceleration
+        # if accel_y > 10:
+        #     # neopixel_write.neopixel_write(pixel_pin, bytearray([255, 0, 0]))
+        #     # self.draw(backwards=True)
+        #     # self.draw(backwards=True)
+        #     # self.draw(backwards=True)
+        #     pass
+        # elif accel_y < -20:
+        #     print(accel_y)
+        #     time.sleep(0.09)
+        #     # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
+        #     self.paint()
 
         # if accel_z > 20:
         #     self.switch_image()

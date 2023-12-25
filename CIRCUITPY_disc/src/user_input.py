@@ -74,6 +74,9 @@ class UserInput(object):
             accel_sensor=self.accel_sensor,
             callback_gesture=self.callback_gesture,
         )
+        # self.gesture.plot_data = True
+
+        self.touch_active = False
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # sub init
@@ -181,21 +184,21 @@ class UserInput(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def touch_reset_threshold(self):
-        print("touch reset threshold")
+        # print("touch reset threshold")
         threshold = self.config["hw"]["touch"]["threshold"]
         for touch_id, touch in enumerate(self.touch_pins):
-            print(
-                "{:>2} {:<9}: "
-                # "{:>5} + {:>5} = {:>5}"
-                "touch.raw_value {:>5} + threshold {:>5} = {:>5}"
-                "".format(
-                    touch_id,
-                    str(self.config["hw"]["touch"]["pins"][touch_id]),
-                    touch.raw_value,
-                    threshold,
-                    touch.raw_value + threshold,
-                )
-            )
+            # print(
+            #     "{:>2} {:<9}: "
+            #     # "{:>5} + {:>5} = {:>5}"
+            #     "touch.raw_value {:>5} + threshold {:>5} = {:>5}"
+            #     "".format(
+            #         touch_id,
+            #         str(self.config["hw"]["touch"]["pins"][touch_id]),
+            #         touch.raw_value,
+            #         threshold,
+            #         touch.raw_value + threshold,
+            #     )
+            # )
             try:
                 touch.threshold = touch.raw_value + threshold
             except ValueError as e:
@@ -228,13 +231,18 @@ class UserInput(object):
         print()
 
     def touch_update(self):
-        for touch_id, touch_debounced in enumerate(self.touch_pins_debounced):
-            touch_debounced.update()
-            if touch_debounced.fell or touch_debounced.rose or touch_debounced.value:
-                event = TouchEvent(touch_id=touch_id, touch=touch_debounced)
-                self.callback_touch(event)
-                self.touch_last_action = time.monotonic()
-        self.touch_check_autocalibration()
+        if self.touch_active:
+            for touch_id, touch_debounced in enumerate(self.touch_pins_debounced):
+                touch_debounced.update()
+                if (
+                    touch_debounced.fell
+                    or touch_debounced.rose
+                    or touch_debounced.value
+                ):
+                    event = TouchEvent(touch_id=touch_id, touch=touch_debounced)
+                    self.callback_touch(event)
+                    self.touch_last_action = time.monotonic()
+            self.touch_check_autocalibration()
 
     def callback_touch(self, event):
         print("callback_touch", event)
@@ -247,13 +255,15 @@ class UserInput(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def callback_gesture(self, event):
-        print("handle_gesture", event)
+        # print("handle_gesture", event)
         self.callback_gesture_main(event)
-        if event.gesture == UNKNOWN:
-            self.status_pixel.fill((0, 0, 0))
+        if event.gesture == REST:
+            self.status_pixel.fill((0, 0, 1))
         elif event.gesture == REST_HORIZONTAL:
             self.status_pixel.fill((0, 0, 100))
-            self.touch_reset_threshold()
+            # self.touch_reset_threshold()
+        else:
+            self.status_pixel.fill((0, 0, 0))
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # main api
