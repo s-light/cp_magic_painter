@@ -118,7 +118,7 @@ class POVPainter(ModeBaseClass):
 
         # OLD Draw version = classic
         self.pixel_delay = 0.0014
-        self.pixel_delay_max = 0.0016
+        self.pixel_delay_max = 0.002
         # self.pixel_delay = 0.0
 
         self.image_buffer = bytearray(0)
@@ -459,7 +459,7 @@ class POVPainter(ModeBaseClass):
         index = 0
         bmp_range = range(self.bmpWidth)
         if backwards:
-            bmp_range = range(self.bmpWidth, -1)
+            bmp_range = range(self.bmpWidth-1, -1, -1)
         for col in bmp_range:
             row = self.image_buffer[index : index + self.bmpHeight * 4]
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
@@ -628,13 +628,18 @@ class POVPainter(ModeBaseClass):
     def handle_gesture(self, event):
         if event.gesture == DIRECTION_CHANGED:
             #     time.sleep(0.09)
+            direction = event.orig_event.direction
             duration = event.orig_event.durations.current_stroke
-            pixel_delay_new = (duration - 0.001) / self.pixel_count
+            pixel_delay_new = (duration - 0.002) / self.bmpWidth
             # print(event)
-            print(pixel_delay_new)
             if pixel_delay_new < self.pixel_delay_max:
                 self.pixel_delay = pixel_delay_new
-            self.paint()
+            print("{:+} {:>f}".format(direction, self.pixel_delay))
+            # self.paint()
+            if direction == +1:
+                self.paint(backwards=False)
+            # elif direction == +1:
+            #     self.paint(backwards=True)
 
     def switch_image(self):
         """
