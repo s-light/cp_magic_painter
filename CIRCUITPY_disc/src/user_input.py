@@ -17,7 +17,17 @@ import helper
 
 from configdict import extend_deep
 from gesture_detector import GestureDetector, gestures
-from gesture_detector import UNKNOWN, REST, REST_HORIZONTAL
+from gesture_detector import (
+    UNKNOWN,
+    REST,
+    REST_HORIZONTAL,
+    REST_VERTICAL,
+    TILT_LEFT,
+    TILT_RIGHT,
+    TAB_X,
+    TAB_Y,
+    DIRECTION_CHANGED,
+)
 
 
 class TouchEvent(object):
@@ -256,14 +266,25 @@ class UserInput(object):
 
     def callback_gesture(self, event):
         # print("handle_gesture", event)
-        self.callback_gesture_main(event)
+        self.touch_active = False
         if event.gesture == REST:
-            self.status_pixel.fill((0, 0, 1))
+            self.status_pixel.fill((0, 1, 0))
         elif event.gesture == REST_HORIZONTAL:
-            self.status_pixel.fill((0, 0, 100))
-            # self.touch_reset_threshold()
+            self.status_pixel.fill((0, 10, 0))
+            self.touch_reset_threshold()
+            self.touch_active = True
+        elif event.gesture == DIRECTION_CHANGED:
+            if event.orig_event.instance.axis_name == "y":
+                print(event)
+                direction = event.orig_event.direction
+                if direction == +1:
+                    self.status_pixel.fill((10, 0, 0))
+                elif direction == -1:
+                    self.status_pixel.fill((0, 0, 10))
         else:
             self.status_pixel.fill((0, 0, 0))
+        
+        self.callback_gesture_main(event)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # main api

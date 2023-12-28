@@ -7,16 +7,22 @@ def average(input_list):
 
 
 class DirectionChangedEvent(object):
-    def __init__(self, *, direction, durations):
+    def __init__(self, *, direction, durations, instance):
         self.direction = direction
         self.durations = durations
+        self.instance = instance
 
     def __str__(self):
-        return "direction: {:+}; durations: {}".format(self.direction, self.durations)
+        return "'{}' direction: {:+}; durations: {}".format(
+            self.instance.axis_name,
+            self.direction,
+            self.durations,
+        )
 
 
 class AverageBuffer(object):
-    def __init__(self, *, buffer_size):
+    def __init__(self, *, buffer_size, stable_threshold=None):
+        self.stable_threshold = stable_threshold
         self.buffer_size = buffer_size
         self.buffer = [0] * self.buffer_size
         self.average = 0.1
@@ -35,6 +41,32 @@ class AverageBuffer(object):
         self.update_input(input)
         return self.update_average()
 
+    @property
+    def min(self):
+        return min(self.buffer)
+
+    @property
+    def max(self):
+        return max(self.buffer)
+
+    @property
+    def max_delta(self):
+        return abs(max(self.buffer) - min(self.buffer))
+
+    @property
+    def stable(self):
+        if self.stable_threshold:
+            return self.max_delta < self.stable_threshold
+        else:
+            return None
+
+    def buffer_as_formatted_string(self, format="{:>4.0f}"):
+        template = ", ".join([format] * len(self.buffer))
+        template = "[" + template + "]"
+        # result = template.format(*self.buffer)
+        result = template.format(*[x * 1000 for x in self.buffer])
+        return result
+
     def __getitem__(self, index):
         return self.buffer[index]
 
@@ -46,20 +78,48 @@ class AverageBuffer(object):
 
 
 class Durations(object):
-    def __init__(self, *, buffer_size):
+    def __init__(self, *, buffer_size, stable_threshold):
         self.buffer_size = buffer_size
+        self.stable_threshold = stable_threshold
         self.current_stroke = 0.1
-        self.backward_avg = AverageBuffer(buffer_size=buffer_size)
-        self.forward_avg = AverageBuffer(buffer_size=buffer_size)
+        self.backward_avg = AverageBuffer(
+            buffer_size=buffer_size,
+            stable_threshold=stable_threshold,
+        )
+        self.forward_avg = AverageBuffer(
+            buffer_size=buffer_size,
+            stable_threshold=stable_threshold,
+        )
 
     def __str__(self):
-        return "forward {:>4.0f}ms ({:>2.2f}Hz); backward {:>4.0f}ms ({:>2.2f}Hz);".format(
-            # iam a bit puzzled.. this should be in ms without the `*1000`
-            # but this way the values seems correct..
-            self.forward_avg.average * 1000,
-            1 / self.forward_avg.average,
-            self.backward_avg.average * 1000,
-            1 / self.backward_avg.average,
+        # return (
+        #     "forward {:>4.0f}ms {}; "
+        #     "backward {:>4.0f}ms {}; "
+        #     "".format(
+        #         # iam a bit puzzled.. this should be in ms without the `*1000`
+        #         # but this way the values seems correct..
+        #         self.forward_avg.average * 1000,
+        #         self.forward_avg.buffer_as_formatted_string(),
+        #         self.backward_avg.average * 1000,
+        #         self.backward_avg.buffer_as_formatted_string(),
+        #     )
+        # )
+        return (
+            "forward  {:>4.0f}ms (stable:{:>1}  {:>5.3f}ms  {:>3.2f}Hz); "
+            "backward {:>4.0f}ms (stable:{:>1}  {:>5.3f}ms  {:>3.2f}Hz);"
+            "".format(
+                # iam a bit puzzled.. this should be in ms without the `*1000`
+                # but this way the values seems correct..
+                self.forward_avg.average * 1000,
+                self.forward_avg.stable,
+                self.forward_avg.max_delta,
+                1 / self.forward_avg.average,
+
+                self.backward_avg.average * 1000,
+                self.backward_avg.stable,
+                self.backward_avg.max_delta,
+                1 / self.backward_avg.average,
+            )
         )
 
 
@@ -85,6 +145,7 @@ class AccelerationDirection(object):
         buffer_size=4,
         trend_window_split=None,
         callback_direction_changed=None,
+        axis_name=None,
     ):
         """
         Special Filter for Direction detection in Acceleration Data.
@@ -94,6 +155,8 @@ class AccelerationDirection(object):
         - average filter
         - comparing old & new window in buffer
         """
+
+        self.axis_name = axis_name
 
         self.buffer_size = buffer_size
         if trend_window_split is None:
@@ -119,13 +182,12 @@ class AccelerationDirection(object):
         self.direction_changed = False
         self.direction_changed_timestamp = time.monotonic()
 
-        self.durations = Durations(buffer_size=5)
+        self.durations = Durations(buffer_size=5, stable_threshold=0.040)
 
         # performance:
         # we create a class global event so we do not recreate and destroy it on every stroke...
         self.direction_changed_event = DirectionChangedEvent(
-            direction=self.direction_raw,
-            durations=self.durations,
+            direction=self.direction_raw, durations=self.durations, instance=self
         )
 
         self.callback_direction_changed = callback_direction_changed
@@ -177,7 +239,7 @@ class AccelerationDirection(object):
                 duration = time.monotonic() - self.direction_changed_timestamp
                 self.direction_changed_timestamp = time.monotonic()
 
-                if self.direction_raw == 1:
+                if self.direction_raw == +1:
                     self.durations.current_stroke = self.durations.forward_avg.update(
                         duration
                     )

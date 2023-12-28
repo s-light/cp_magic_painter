@@ -43,7 +43,10 @@ class GestureEvent(object):
 
     def __str__(self):
         if self.orig_event:
-            return "gesture: {} \n orig_event: {}".format(gestures.get(self.gesture), self.orig_event)
+            # return "gesture: {} \n orig_event: {}".format(
+            return "gesture: {} orig_event: {}".format(
+                gestures.get(self.gesture), self.orig_event
+            )
         else:
             return gestures.get(self.gesture)
 
@@ -93,16 +96,19 @@ class GestureDetector(object):
             noise=self.noise,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
+            axis_name="x",
         )
         self.direction_y = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
+            axis_name="y",
         )
         self.direction_z = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
+            axis_name="z",
         )
 
         self.antigravity = AccelerationAntigravity()
@@ -155,20 +161,25 @@ class GestureDetector(object):
 
         self.input_corrected = self.antigravity.update((x, y, z))
 
-        # self.direction_x.update(x)
-        # self.direction_y.update(y)
-        # self.direction_z.update(z)
+        self.direction_x.update(x)
+        self.direction_y.update(y)
+        self.direction_z.update(z)
         # self.direction_x.update(self.input_corrected[0])
-        self.direction_y.update(self.input_corrected[1])
+        # self.direction_y.update(self.input_corrected[1])
         # self.direction_z.update(self.input_corrected[2])
+        x_avg = self.direction_x.avg0
+        y_avg = self.direction_y.avg0
+        z_avg = self.direction_z.avg0
 
         if self.antigravity.rest_active:
             gesture_new = REST
-            if (-0.2 < x < 0.2) and (-0.2 < y < 0.2) and (-1.3 < z < -0.92):
+            if (-0.2 < x_avg < 0.2) and (-0.2 < y_avg < 0.2) and (-1.3 < z_avg < -0.92):
                 gesture_new = REST_HORIZONTAL
-            elif (-0.2 < x < 0.2) and (-1.3 < y < -0.9) and (-0.2 < z < 0.2):
+            elif (
+                (-0.2 < x_avg < 0.2) and (-1.3 < y_avg < -0.9) and (-0.2 < z_avg < 0.2)
+            ):
                 gesture_new = TILT_LEFT
-            elif (-0.2 < x < 0.2) and (0.9 < y < 1.3) and (-0.2 < z < 0.2):
+            elif (-0.2 < x_avg < 0.2) and (0.9 < y_avg < 1.3) and (-0.2 < z_avg < 0.2):
                 gesture_new = TILT_RIGHT
         else:
             gesture_new = UNKNOWN
@@ -190,6 +201,7 @@ class GestureDetector(object):
                 # self.direction_x.format_current_value(), # 5 values
                 # self.direction_y.format_current_value(), # 5 values
                 # self.direction_z.format_current_value(), # 5 values
-                self.antigravity.format_current_value(),  # 12 values
+                # self.antigravity.format_current_value(),  # 12 values
+                "{:7.3f}; {:7.3f}; {:7.3f}; ".format(x_avg, y_avg, z_avg),
             )
         self.update_last_timestamp = time.monotonic()

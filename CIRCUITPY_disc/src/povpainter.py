@@ -59,7 +59,17 @@ import helper
 
 from bmp2led import BMP2LED, BMPError
 
-from gesture_detector import DIRECTION_CHANGED
+from gesture_detector import (
+    UNKNOWN,
+    REST,
+    REST_HORIZONTAL,
+    REST_VERTICAL,
+    TILT_LEFT,
+    TILT_RIGHT,
+    TAB_X,
+    TAB_Y,
+    DIRECTION_CHANGED,
+)
 
 ##########################################
 # main class
@@ -459,9 +469,16 @@ class POVPainter(ModeBaseClass):
         index = 0
         bmp_range = range(self.bmpWidth)
         if backwards:
-            bmp_range = range(self.bmpWidth-1, -1, -1)
+            bmp_range = range(self.bmpWidth - 1, -1, -1)
         for col in bmp_range:
             row = self.image_buffer[index : index + self.bmpHeight * 4]
+            # # debug
+            # # does not work.. as it should..
+            # if (index % self.bmpHeight * 4) == 0:
+            #     row = bytearray([0xFF, 0x00, 0x00, 0x20])
+            #     if backwards:
+            #         # and blue for backwards stroke
+            #         row = bytearray([0xFF, 0x20, 0x00, 0x00])
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
             self.dotstar.write(row)
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
@@ -609,6 +626,26 @@ class POVPainter(ModeBaseClass):
     ##########################################
     # ui
 
+    def handle_paintrequest(self, event):
+        direction = event.direction
+        if event.durations.backward_avg.stable and event.durations.forward_avg.stable:
+            duration = event.durations.current_stroke
+            pixel_delay_new = (duration - 0.004) / self.bmpWidth
+            if pixel_delay_new < self.pixel_delay_max:
+                self.pixel_delay = pixel_delay_new
+            print("{:+} {:>f}".format(direction, self.pixel_delay))
+            paint_start = time.monotonic()
+            # time.sleep(0.09)
+            if direction == +1:
+                self.paint(backwards=False)
+            elif direction == -1:
+                self.paint(backwards=True)
+            paint_end = time.monotonic()
+            print("paint {:>4.0f}ms".format((paint_end - paint_start) * 1000))
+        else:
+            # reset timing
+            self.pixel_delay = 0.0014
+
     def handle_user_input(self, event):
         if event.touch.rose:
             print("POVPainter - handle_user_input: ", event.touch_id)
@@ -627,18 +664,8 @@ class POVPainter(ModeBaseClass):
 
     def handle_gesture(self, event):
         if event.gesture == DIRECTION_CHANGED:
-            #     time.sleep(0.09)
-            direction = event.orig_event.direction
-            # duration = event.orig_event.durations.current_stroke
-            # pixel_delay_new = (duration - 0.004) / self.bmpWidth
-            # # print(event)
-            # if pixel_delay_new < self.pixel_delay_max:
-            #     self.pixel_delay = pixel_delay_new
-            # print("{:+} {:>f}".format(direction, self.pixel_delay))
-            if direction == +1:
-                self.paint(backwards=False)
-            # elif direction == -1:
-            #     self.paint(backwards=True)
+            if event.orig_event.instance.axis_name == "y":
+                self.handle_paintrequest(event.orig_event)
 
     def switch_image(self):
         """
