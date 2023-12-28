@@ -5,8 +5,7 @@ POV (Persistance Of Vision) Zauberstab
 
 
 ## documentation
-have a look at [the documentation](https://s-light.github.io/cp_magic_painter/)
-
+have a look at [the documentation](https://s-light.github.io/cp_magic_painter/docu/)
 
 
 ## origin
