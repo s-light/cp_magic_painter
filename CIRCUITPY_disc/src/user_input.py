@@ -275,7 +275,7 @@ class UserInput(object):
             self.touch_active = True
         elif event.gesture == DIRECTION_CHANGED:
             if event.orig_event.instance.axis_name == "y":
-                print(event)
+                # print(event)
                 direction = event.orig_event.direction
                 if direction == +1:
                     self.status_pixel.fill((10, 0, 0))

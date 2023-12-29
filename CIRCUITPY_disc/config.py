@@ -20,7 +20,9 @@ config = {
             "data": "SDA",
         },
     },
-    # "data": {},
+    "povpainter": {
+        "brightness": 0.2,
+    },
     "rgblamp": {
         # "mode": "nightlight",
         "brightness": 0.52,
@@ -38,7 +40,7 @@ config = {
             "max": CHSV(0.12),
         },
         "extra_effects": {
-            "y_to_brightness":False,
+            "y_to_brightness": False,
             # "y_to_brightness": (0.3, 0.7),
         },
     },
@@ -46,6 +48,6 @@ config = {
 
 if "qtpy_esp32s3" in board.board_id:
     config["hw"]["accel_i2c_pins"] = {
-            "clock": "SCL1",
-            "data": "SDA1",
-        }
+        "clock": "SCL1",
+        "data": "SDA1",
+    }

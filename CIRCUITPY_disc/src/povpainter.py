@@ -80,18 +80,21 @@ class POVPainter(ModeBaseClass):
 
     config_defaults = {
         # QT Py ESP32-S3
-        "data": {
+        "povpainter": {
             "paint_mode_classic": True,
             "image_folder": "/images",
             "temp_file": "/led.dat",
             "led_data_file_benchmark": "/led_benchmark.dat",
             # Correction for perceptually linear brightness
             "gamma": 2.4,
-            # Min, max brightness (0.0-1.0)
-            "brightness_range": (0.15, 0.75),
             # draw / stroke duration in seconds
             # "times": ["1/8", "1/4", "1/3", "1/2", "2/3", "1", "1.5", "2", "3", "4"],
             "draw_duration": 0.7,
+            "brightness": 0.01,
+            # Min, max brightness (0.0-1.0)
+            "brightness_range": (0.004, 0.75),
+            # "brightness_range": (0.15, 0.75),
+            "loop": False,
         },
     }
 
@@ -115,7 +118,7 @@ class POVPainter(ModeBaseClass):
 
         self.pixel_count = self.config["hw"]["pixel_count"]
 
-        self.paint_mode_classic = self.config["data"]["paint_mode_classic"]
+        self.paint_mode_classic = self.config["povpainter"]["paint_mode_classic"]
         if self.paint_mode_classic:
             self.load_image = self.load_image_v1
             self.paint = self.paint_v1
@@ -127,7 +130,8 @@ class POVPainter(ModeBaseClass):
         print("fs_writeable ", self.fs_writeable)
 
         # OLD Draw version = classic
-        self.pixel_delay = 0.0014
+        # self.pixel_delay = 0.0014
+        self.pixel_delay = 0.0010
         self.pixel_delay_max = 0.002
         # self.pixel_delay = 0.0
 
@@ -139,16 +143,18 @@ class POVPainter(ModeBaseClass):
         self.bmp2led = BMP2LED(
             pixel_count=self.pixel_count,
             color_order=self.config["hw"]["pixel_color_order"],
-            gamma=self.config["data"]["gamma"],
+            gamma=self.config["povpainter"]["gamma"],
         )
-        self.path = self.config["data"]["image_folder"]
-        self.tempfile = self.config["data"]["temp_file"]
-        self.led_data_file_benchmark = self.config["data"]["led_data_file_benchmark"]
-        self.brightness_range = self.config["data"]["brightness_range"]
+        self.path = self.config["povpainter"]["image_folder"]
+        self.tempfile = self.config["povpainter"]["temp_file"]
+        self.led_data_file_benchmark = self.config["povpainter"][
+            "led_data_file_benchmark"
+        ]
+        self.brightness_range = self.config["povpainter"]["brightness_range"]
 
-        # self.times = self.config["data"]["times"]
+        # self.times = self.config["povpainter"]["times"]
         # self.times.sort(key=eval)  # Ensure times are shortest-to-longest
-        self.draw_duration = self.config["data"]["draw_duration"]
+        self.draw_duration = self.config["povpainter"]["draw_duration"]
 
         # TODO: try https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/main/examples/dotstar_image_pov.py
         # Get list of compatible BMP images in path
@@ -168,12 +174,14 @@ class POVPainter(ModeBaseClass):
         self.filename = self.path + "/" + self.images[self.image_num]
 
         self.num_rows = 0  # Nothing loaded yet
-        self.loop = False  # Repeat image playback
-        self.brightness = 0.2  # LED brightness, 0.0 (off) to 1.0 (bright)
+        self.loop = self.config["povpainter"]["loop"]  # Repeat image playback
+        # LED brightness, 0.0 (off) to 1.0 (bright)
+        self.brightness = self.config["povpainter"]["brightness"]
         self.config_mode = 0  # Current setting being changed
         self.rect = None  # Multipurpose     progress/setting rect
         # self.time = (len(self.times) + 1) // 2  # default to center of range
 
+        print("brightness: {:>4.3}".format(self.brightness))
         self.setup_hw()
 
         # only setup things..
@@ -373,6 +381,42 @@ class POVPainter(ModeBaseClass):
             time.sleep(blink_duration)
 
     ##########################################
+    # draw helper
+
+    def paint_testpattern1(self, backwards=False):
+        width = self.bmpHeight
+        bmp_range = range(width)
+        if backwards:
+            bmp_range = range(width - 1, -1, -1)
+        for col in bmp_range:
+            if col == 0:
+                row = bytearray([0xFF, 0x01, 0x00, 0x00] * self.bmpHeight)
+            else:
+                row = bytearray(self.bmpHeight * 4)
+
+            # paint a green diagonal line
+            row[col*4:col*4+4] = bytearray([0xFF, 0x01, 0x00, 0x00])
+
+            # last led with color coded direction
+            # red forwards
+            row[-4:] = bytearray([0xFF, 0x00, 0x00, 0x01])
+            if backwards:
+                # green backwards
+                row[-4:] = bytearray([0xFF, 0x00, 0x01, 0x00])
+
+            self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
+            self.dotstar.write(row)
+            self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
+            time.sleep(self.pixel_delay)
+
+        # clear it out
+        self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
+        for r in range(self.bmpHeight * 5):
+            self.dotstar.write(bytearray([0xFF, 0x00, 0x00, 0x00]))
+        self.dotstar.write(bytearray([0xFF, 0xFF, 0xFF, 0xFF]))
+        gc.collect()
+
+    ##########################################
     # load and draw v1
 
     # def load_image_v1_to_buffer(self, filename, self.image_buffer):
@@ -472,13 +516,15 @@ class POVPainter(ModeBaseClass):
             bmp_range = range(self.bmpWidth - 1, -1, -1)
         for col in bmp_range:
             row = self.image_buffer[index : index + self.bmpHeight * 4]
-            # # debug
-            # # does not work.. as it should..
-            # if (index % self.bmpHeight * 4) == 0:
-            #     row = bytearray([0xFF, 0x00, 0x00, 0x20])
-            #     if backwards:
-            #         # and blue for backwards stroke
-            #         row = bytearray([0xFF, 0x20, 0x00, 0x00])
+
+            # debug output
+            # overwrite last led with color coded direction
+            # red forwards
+            row[-4:] = bytearray([0xFF, 0x00, 0x00, 0x01])
+            if backwards:
+                # green backwards
+                row[-4:] = bytearray([0xFF, 0x00, 0x01, 0x00])
+
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
             self.dotstar.write(row)
             self.dotstar.write(bytearray([0x00, 0x00, 0x00, 0x00]))
@@ -626,6 +672,14 @@ class POVPainter(ModeBaseClass):
     ##########################################
     # ui
 
+    def handle_paintrequest_do_paint(self, *, backwards=False):
+        paint_start = time.monotonic()
+        # time.sleep(0.09)
+        # self.paint(backwards=backwards)
+        self.paint_testpattern1(backwards=backwards)
+        paint_end = time.monotonic()
+        print("paint {:>4.0f}ms".format((paint_end - paint_start) * 1000))
+
     def handle_paintrequest(self, event):
         direction = event.direction
         if event.durations.backward_avg.stable and event.durations.forward_avg.stable:
@@ -633,15 +687,11 @@ class POVPainter(ModeBaseClass):
             pixel_delay_new = (duration - 0.004) / self.bmpWidth
             if pixel_delay_new < self.pixel_delay_max:
                 self.pixel_delay = pixel_delay_new
-            print("{:+} {:>f}".format(direction, self.pixel_delay))
-            paint_start = time.monotonic()
-            # time.sleep(0.09)
+            print("d:{:+} pixel_delay{:>f}".format(direction, self.pixel_delay))
             if direction == +1:
-                self.paint(backwards=False)
+                self.handle_paintrequest_do_paint(backwards=False)
             elif direction == -1:
-                self.paint(backwards=True)
-            paint_end = time.monotonic()
-            print("paint {:>4.0f}ms".format((paint_end - paint_start) * 1000))
+                self.handle_paintrequest_do_paint(backwards=True)
         else:
             # reset timing
             self.pixel_delay = 0.0014
@@ -665,7 +715,8 @@ class POVPainter(ModeBaseClass):
     def handle_gesture(self, event):
         if event.gesture == DIRECTION_CHANGED:
             if event.orig_event.instance.axis_name == "y":
-                self.handle_paintrequest(event.orig_event)
+                # self.handle_paintrequest(event.orig_event)
+                pass
 
     def switch_image(self):
         """
@@ -684,19 +735,15 @@ class POVPainter(ModeBaseClass):
 
     def main_loop(self):
         gc.collect()
-        # accel_y = self.accel_sensor.acceleration[1]
+        accel_y = self.accel_sensor.acceleration[1]
         # accel_x, accel_y, accel_z = self.accel_sensor.acceleration
-        # if accel_y > 10:
-        #     # neopixel_write.neopixel_write(pixel_pin, bytearray([255, 0, 0]))
-        #     # self.draw(backwards=True)
-        #     # self.draw(backwards=True)
-        #     # self.draw(backwards=True)
-        #     pass
-        # elif accel_y < -20:
-        #     print(accel_y)
-        #     time.sleep(0.09)
-        #     # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
-        #     self.paint()
+        if accel_y > 15:
+            # neopixel_write.neopixel_write(pixel_pin, bytearray([255, 0, 0]))
+            self.handle_paintrequest_do_paint(backwards=False)
+        elif accel_y < -15:
+            print(accel_y)
+            # neopixel_write.neopixel_write(pixel_pin, bytearray([0, 0, 255]))
+            self.handle_paintrequest_do_paint(backwards=True)
 
         # if accel_z > 20:
         #     self.switch_image()
