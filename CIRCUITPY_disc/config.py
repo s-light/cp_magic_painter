@@ -4,13 +4,13 @@ from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 
 config = {
     # in wich mode to start: (RGBLamp | POVPainter)
-    # "start_mode": "RGBLamp",
-    "start_mode": "POVPainter",
-    "povpainter": {
-        "brightness": 1.0,
+    "start_mode": "RGBLamp",
+    # "start_mode": "POVPainter",
+    "POVPainter": {
+        "brightness": 0.4,
     },
-    "rgblamp": {
-        "brightness": 0.52,
+    "RGBLamp": {
+        "brightness": 0.2,
         # effect duration in seconds
         "effect_duration": 10 * 60,
         #

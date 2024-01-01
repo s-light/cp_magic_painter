@@ -78,7 +78,7 @@ class MagicPainter(ConfigBaseClass):
     config_defaults = {
         # all sub default parts are defined in the modules themselfes..
         "test": 42,
-        "start_mode": "rgblamp",
+        "start_mode": "RGBLamp",
     }
     config = {}
 

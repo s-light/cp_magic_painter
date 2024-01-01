@@ -17,12 +17,28 @@ import helper
 
 from mode_base import ModeBaseClass
 
+from gesture_detector import (
+    UNKNOWN,
+    REST,
+    REST_HORIZONTAL,
+    REST_VERTICAL,
+    TILT_LEFT,
+    TILT_RIGHT,
+    TAB_X,
+    TAB_Y,
+    TAB_Z,
+    DIRECTION_CHANGED,
+    SHAKE_X,
+    SHAKE_Y,
+    SHAKE_Z,
+)
+
 
 class RGBLamp(ModeBaseClass):
-    __name__ = "rgblamp"
+    __name__ = "RGBLamp"
 
     config_defaults = {
-        "rgblamp": {
+        "RGBLamp": {
             "mode": "nightlight",
             "brightness": 0.02,
             # duration for full fade from 0 to 1 in seconds
@@ -72,11 +88,11 @@ class RGBLamp(ModeBaseClass):
         self.num_pixels = self.config["hw"]["pixel_count"]
 
         # effect base
-        self.effect_duration = self.config["rgblamp"]["effect_duration"]
+        self.effect_duration = self.config["RGBLamp"]["effect_duration"]
         self.effect_start_cycle()
         self._offset = 0
 
-        self.color_range = self.config["rgblamp"]["color_range"]
+        self.color_range = self.config["RGBLamp"]["color_range"]
         self.hue_min = self.color_range["min"].hue
         self.hue_max = self.color_range["max"].hue
         self.hue_center = helper.map_01_to(0.5, self.hue_min, self.hue_max)
@@ -88,7 +104,7 @@ class RGBLamp(ModeBaseClass):
         self.animation_contrast = 0.99
 
         # extra_effects
-        self.fx__y_to_brightness = self.config["rgblamp"]["extra_effects"][
+        self.fx__y_to_brightness = self.config["RGBLamp"]["extra_effects"][
             "y_to_brightness"
         ]
 
@@ -110,14 +126,14 @@ class RGBLamp(ModeBaseClass):
         # for value in range(0, 105, 5):
         #     self.brightness = value / 100
 
-        self.brightness = self.config["rgblamp"]["brightness"]
+        self.brightness = self.config["RGBLamp"]["brightness"]
 
         # run animation rendering one time.
         self.main_loop()
 
         self.spi_deinit()
 
-        # we need to to this as last action - 
+        # we need to to this as last action -
         # otherwise we get into dependency hell as not all things shown in status line are initialized..
         self.print = print_fn
 
@@ -224,7 +240,10 @@ class RGBLamp(ModeBaseClass):
             # self.print("pixels.brightness", self.pixels.brightness)
 
     def handle_gesture(self, event):
-        pass
+        if event.gesture == TILT_RIGHT:
+            self.brightness += 0.1
+        elif event.gesture == TILT_LEFT:
+            self.brightness -= 0.1
 
     statusline_template = "color: {color} "
 

@@ -82,11 +82,11 @@ from gesture_detector import (
 class POVPainter(ModeBaseClass):
     """POVPainter."""
 
-    __name__ = "povpainter"
+    __name__ = "POVPainter"
 
     config_defaults = {
         # QT Py ESP32-S3
-        "povpainter": {
+        "POVPainter": {
             "paint_mode_classic": True,
             "image_folder": "/images",
             "temp_file": "/led.dat",
@@ -98,8 +98,8 @@ class POVPainter(ModeBaseClass):
             "draw_duration": 0.7,
             "brightness": 0.01,
             # Min, max brightness (0.0-1.0)
-            "brightness_range": (0.004, 0.75),
-            # "brightness_range": (0.15, 0.75),
+            # "brightness_range": (0.004, 0.75),
+            "brightness_range": (0.2, 0.75),
             "loop": False,
         },
     }
@@ -125,7 +125,7 @@ class POVPainter(ModeBaseClass):
 
         self.pixel_count = self.config["hw"]["pixel_count"]
 
-        self.paint_mode_classic = self.config["povpainter"]["paint_mode_classic"]
+        self.paint_mode_classic = self.config["POVPainter"]["paint_mode_classic"]
         if self.paint_mode_classic:
             self.load_image = self.load_image_v1
             self.paint = self.paint_v1
@@ -152,18 +152,18 @@ class POVPainter(ModeBaseClass):
         self.bmp2led = BMP2LED(
             pixel_count=self.pixel_count,
             color_order=self.config["hw"]["pixel_color_order"],
-            gamma=self.config["povpainter"]["gamma"],
+            gamma=self.config["POVPainter"]["gamma"],
         )
-        self.path = self.config["povpainter"]["image_folder"]
-        self.tempfile = self.config["povpainter"]["temp_file"]
-        self.led_data_file_benchmark = self.config["povpainter"][
+        self.path = self.config["POVPainter"]["image_folder"]
+        self.tempfile = self.config["POVPainter"]["temp_file"]
+        self.led_data_file_benchmark = self.config["POVPainter"][
             "led_data_file_benchmark"
         ]
-        self.brightness_range = self.config["povpainter"]["brightness_range"]
+        self.brightness_range = self.config["POVPainter"]["brightness_range"]
 
-        # self.times = self.config["povpainter"]["times"]
+        # self.times = self.config["POVPainter"]["times"]
         # self.times.sort(key=eval)  # Ensure times are shortest-to-longest
-        self.draw_duration = self.config["povpainter"]["draw_duration"]
+        self.draw_duration = self.config["POVPainter"]["draw_duration"]
 
         # TODO: try https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/main/examples/dotstar_image_pov.py
         # Get list of compatible BMP images in path
@@ -183,9 +183,9 @@ class POVPainter(ModeBaseClass):
         self.filename = self.path + "/" + self.images[self.image_num]
 
         self.num_rows = 0  # Nothing loaded yet
-        self.loop = self.config["povpainter"]["loop"]  # Repeat image playback
+        self.loop = self.config["POVPainter"]["loop"]  # Repeat image playback
         # LED brightness, 0.0 (off) to 1.0 (bright)
-        self.brightness = self.config["povpainter"]["brightness"]
+        self.brightness = self.config["POVPainter"]["brightness"]
         self.config_mode = 0  # Current setting being changed
         self.rect = None  # Multipurpose     progress/setting rect
         # self.time = (len(self.times) + 1) // 2  # default to center of range
@@ -745,9 +745,11 @@ class POVPainter(ModeBaseClass):
             #     self.print("switch image!")
             #     self.switch_image()
         elif event.gesture == TILT_RIGHT:
-            # prevent double switching
-            if self.magicpainter.user_input.gesture.last != TILT_RIGHT:
-                self.switch_image()
+            self.switch_image()
+            # the following dos not work as we have no self.magicpainter....
+            # # prevent double switching
+            # if self.magicpainter.user_input.gesture.last != TILT_RIGHT:
+            #     self.switch_image()
 
 
     def switch_image(self):

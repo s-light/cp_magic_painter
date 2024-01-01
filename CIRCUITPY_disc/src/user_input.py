@@ -310,6 +310,10 @@ class UserInput(object):
                     self.status_pixel.fill((1, 0, 0))
                 elif direction == -1:
                     self.status_pixel.fill((0, 0, 1))
+        elif event.gesture == TILT_LEFT:
+            self.status_pixel.fill((10, 10, 0))
+        elif event.gesture == TILT_RIGHT:
+            self.status_pixel.fill((0, 10, 10))
         # elif event.gesture  == TAB_Z:
         #     self.status_pixel.fill((0, 0, 200))
         elif event.gesture in [SHAKE_X, SHAKE_Z, TAB_X, TAB_Y, TAB_Z]:

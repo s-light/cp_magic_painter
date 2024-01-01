@@ -37,10 +37,10 @@ gestures = {
     TAB_X: "TAB_X",
     TAB_Y: "TAB_Y",
     TAB_Z: "TAB_Z",
+    DIRECTION_CHANGED: "DIRECTION_CHANGED",
     SHAKE_X: "SHAKE_X",
     SHAKE_Y: "SHAKE_Y",
     SHAKE_Z: "SHAKE_Z",
-    DIRECTION_CHANGED: "DIRECTION_CHANGED",
 }
 
 
