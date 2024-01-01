@@ -84,6 +84,7 @@ class RGBLamp(ModeBaseClass):
         print(42 * "*")
 
         self.config_extend_with_defaults(defaults=self.config_defaults)
+        self.print(self.config)
         # print(self.__class__, "config extended:")
         self.num_pixels = self.config["hw"]["pixel_count"]
 
