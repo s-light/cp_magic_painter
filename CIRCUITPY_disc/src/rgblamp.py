@@ -19,6 +19,8 @@ from mode_base import ModeBaseClass
 
 
 class RGBLamp(ModeBaseClass):
+    __name__ = "rgblamp"
+
     config_defaults = {
         "rgblamp": {
             "mode": "nightlight",
@@ -53,9 +55,9 @@ class RGBLamp(ModeBaseClass):
     #     (1.0, 1),
     # ]
 
-    def __init__(self, *, config={}, accel_sensor):
-        super(RGBLamp, self).__init__(config=config)
-
+    def __init__(self, *, config={}, print_fn, accel_sensor):
+        super(RGBLamp, self).__init__(config=config, print_fn=print_fn)
+        self.print = print
         self.accel_sensor = accel_sensor
 
         self._brightness = 0.0
@@ -104,7 +106,7 @@ class RGBLamp(ModeBaseClass):
 
         self.spi_init()
 
-        # print("brightness mapping test:")
+        # self.print("brightness mapping test:")
         # for value in range(0, 105, 5):
         #     self.brightness = value / 100
 
@@ -114,6 +116,10 @@ class RGBLamp(ModeBaseClass):
         self.main_loop()
 
         self.spi_deinit()
+
+        # we need to to this as last action - 
+        # otherwise we get into dependency hell as not all things shown in status line are initialized..
+        self.print = print_fn
 
     ##########################################
     # properties
@@ -132,10 +138,10 @@ class RGBLamp(ModeBaseClass):
         value = helper.limit(value, 0.0, 1.0)
         self._brightness = value
         # Remap brightness from 0.0-1.0 to brightness_range.
-        # print("brightness - self.brightness:", self.brightness)
+        # self.print("brightness - self.brightness:", self.brightness)
         # test = helper.map_01_to(value, 0.0, 0.7)
-        # print("brightness - map_range:", test)
-        # print("brightness - test:", test)
+        # self.print("brightness - map_range:", test)
+        # self.print("brightness - test:", test)
 
         value_mapped = helper.multi_map(value, self.brightness_map)
         # self.pixels.brightness = value_mapped
@@ -146,14 +152,14 @@ class RGBLamp(ModeBaseClass):
             helper.multi_map(value, self.brightness_map_mask)
         )
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
-        # print("num_pixels", self.num_pixels)
-        # print("mask_pixel_active_count", self.mask_pixel_active_count)
-        # print("mask_pixel_black_count", self.mask_pixel_black_count)
+        # self.print("num_pixels", self.num_pixels)
+        # self.print("mask_pixel_active_count", self.mask_pixel_active_count)
+        # self.print("mask_pixel_black_count", self.mask_pixel_black_count)
         # if self.mask_pixel_black_count > 0:
         self.mask_black_array = [(0, 0, 0)] * (self.mask_pixel_black_count)
-        # print("mask_black_array", self.mask_black_array)
+        # self.print("mask_black_array", self.mask_black_array)
 
-        # print(
+        # self.print(
         #     "brightness - "
         #     "input:{: > 6.2f}  "
         #     "mask:{: > 4}  "
@@ -207,24 +213,40 @@ class RGBLamp(ModeBaseClass):
 
     def handle_user_input(self, event):
         if event.touch.rose:
-            # print("RGBLamp - handle_user_input: ", touch_id)
+            # self.print("RGBLamp - handle_user_input: ", touch_id)
             if event.touch_id == 0:
                 self.brightness += 0.05
             elif event.touch_id == 1:
                 self.brightness -= 0.05
             elif event.touch_id == 2:
                 self.brightness = 0.01
-            print("(touch ", event.touch_id, ") brightness", self.brightness)
-            # print("pixels.brightness", self.pixels.brightness)
+            self.print("(touch ", event.touch_id, ") brightness", self.brightness)
+            # self.print("pixels.brightness", self.pixels.brightness)
 
     def handle_gesture(self, event):
         pass
+
+    statusline_template = "color: {color} "
+
+    def statusline_fn(self):
+        """
+        Generate statusline.
+
+        NO prints in this function!!
+        (leads to infinity loops..)
+        """
+
+        statusline = self.statusline_template.format(
+            color=self.color_range,
+        )
+
+        return statusline
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # animation functions
 
     def effect_start_cycle(self):
-        print("effect_start_cycle")
+        self.print("effect_start_cycle")
         self.effect_start_ts = time.monotonic()
         self.effect_end_ts = self.effect_start_ts + self.effect_duration
 
@@ -320,4 +342,3 @@ class RGBLamp(ModeBaseClass):
 
         self.handle_brightness_mask()
         self.pixels.show()
-        # print(time)

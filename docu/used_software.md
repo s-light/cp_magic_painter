@@ -14,6 +14,7 @@ please prepare these software packages before the workshop.
     - [VSCodium](https://vscodium.com/) https://github.com/VSCodium/vscodium/releases/download/1.82.2.23257/VSCodiumSetup-x64-1.82.2.23257.exe
     - [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/) https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.79-installer.msi
     - [Inkscape](https://inkscape.org/) https://inkscape.org/release/inkscape-1.3/windows/64-bit/msi/dl/
+    - [picocom](https://gitlab.com/wsakernel/picocom)
 - optional
     - [SerialPlot - Realtime Plotting Software](https://github.com/hyOzd/serialplot) https://serialplot.ozderya.net/downloads/serialplot-0.12.0-win32-setup.exe
     - [FreeCAD](https://www.freecad.org/)   https://www.freecad.org/thankyou.php?url=https%3A%2F%2Fgithub.com%2FFreeCAD%2FFreeCAD%2Freleases%2Fdownload%2F0.21.1%2FFreeCAD-0.21.1-WIN-x64-installer-1.exe

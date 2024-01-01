@@ -6,30 +6,18 @@ config = {
     # in wich mode to start: (RGBLamp | POVPainter)
     # "start_mode": "RGBLamp",
     "start_mode": "POVPainter",
-    "hw": {
-        "touch": {
-            "pins": [
-                board.D5,
-                board.D6,
-                board.D7,
-            ],
-            # "threshold": 4000,
-        },
-        "accel_i2c_pins": {
-            "clock": "SCL",
-            "data": "SDA",
-        },
-    },
     "povpainter": {
-        "brightness": 0.2,
+        "brightness": 1.0,
     },
     "rgblamp": {
-        # "mode": "nightlight",
         "brightness": 0.52,
         # effect duration in seconds
         "effect_duration": 10 * 60,
+        #
+        # colors
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
-        # only specifying Hue → purple
+        # only specifying Hue for fully saturated color..
+        # purple
         # "color_range": {
         #     "min": CHSV(0.50),
         #     "max": CHSV(0.9),
@@ -39,11 +27,31 @@ config = {
             "min": CHSV(0.08),
             "max": CHSV(0.12),
         },
+        # extra effects...
         "extra_effects": {
+            # y_to_brightness can be used for a *candle like* effect
             "y_to_brightness": False,
             # "y_to_brightness": (0.3, 0.7),
         },
     },
+}
+
+
+#
+
+#
+
+#
+
+
+##########################################
+# handle board specific i2c pin usage
+
+config["hw"] = {
+    "accel_i2c_pins": {
+        "clock": "SCL",
+        "data": "SDA",
+    }
 }
 
 if "qtpy_esp32s3" in board.board_id:

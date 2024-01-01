@@ -58,6 +58,7 @@ import adafruit_lis3dh
 # from adafruit_bno08x.i2c import BNO08X_I2C
 
 from config_base import ConfigBaseClass
+from mode_base import ModeBaseClass
 from povpainter import POVPainter
 from rgblamp import RGBLamp
 from user_input import UserInput
@@ -77,7 +78,7 @@ class MagicPainter(ConfigBaseClass):
     config_defaults = {
         # all sub default parts are defined in the modules themselfes..
         "test": 42,
-        "start_mode":"rgblamp",
+        "start_mode": "rgblamp",
     }
     config = {}
 
@@ -86,12 +87,13 @@ class MagicPainter(ConfigBaseClass):
         # self.print is later replaced by the ui module.
         # self.print = lambda *args: print(*args)
         # self.print("MagicPainter")
+        self.print = print
 
-        print(8 * "\n")
-        print(42 * "*")
-        print("MagicPainter")
-        print("  https://github.com/s-light/cp_magic_painter")
-        print(42 * "*")
+        self.print(8 * "\n")
+        self.print(42 * "*")
+        self.print("MagicPainter")
+        self.print("  https://github.com/s-light/cp_magic_painter")
+        self.print(42 * "*")
 
         # self.config = self.load_config_from_file()
         self.config = config_file.config
@@ -101,18 +103,22 @@ class MagicPainter(ConfigBaseClass):
 
         self.userinput = UserInput(
             config=self.config,
+            magicpainter=self,
             callback_button=self.switch_to_next_mode,
             callback_touch=self.handle_touch,
             callback_gesture=self.handle_gesture,
         )
+        # UserInput overwrites the `self.print` function so that the status line is respected.
 
         self.modes = [
             RGBLamp(
                 config=self.config,
+                print_fn=self.print,
                 accel_sensor=self.userinput.accel_sensor,
             ),
             POVPainter(
                 config=self.config,
+                print_fn=self.print,
                 accel_sensor=self.userinput.accel_sensor,
             ),
         ]
@@ -120,11 +126,11 @@ class MagicPainter(ConfigBaseClass):
         if "POV" in self.config["start_mode"]:
             self.mode = self.modes[1]
 
-        # print(2 * "\n")
-        # print(42 * "*")
-        # print("loaded and extended config:")
+        # self.print(2 * "\n")
+        # self.print(42 * "*")
+        # self.print("loaded and extended config:")
         # self.config_print()
-        # print(2 * "\n")
+        # self.print(2 * "\n")
 
         self.mode.spi_init()
 
@@ -141,17 +147,17 @@ class MagicPainter(ConfigBaseClass):
         if mode_index >= len(self.modes):
             mode_index = 0
 
-        print("current mode ", self.mode.__qualname__)
+        self.print("current mode ", self.mode.__qualname__)
         self.mode.spi_deinit()
-        print("spi_deinit done.")
+        self.print("spi_deinit done.")
         self.mode = self.modes[mode_index]
-        print("switched mode to ", self.mode.__qualname__)
+        self.print("switched mode to ", self.mode.__qualname__)
         self.mode.spi_init()
-        print("spi_init done.")
+        self.print("spi_init done.")
 
     def handle_touch(self, event):
         self.mode.handle_user_input(event)
-    
+
     def handle_gesture(self, event):
         self.mode.handle_gesture(event)
 
@@ -167,14 +173,17 @@ class MagicPainter(ConfigBaseClass):
         time.sleep(0)
 
     def run(self):
-        print(42 * "*")
-        print("run")
+        self.userinput.update()
+        self.print(42 * "*")
+        self.print("run")
+        self.userinput.update()
+
         # if supervisor.runtime.serial_connected:
-        # self.ui.userinput_print_help()
+        self.userinput.userinput_print_help()
         running = True
         while running:
             try:
                 self.main_loop()
             except KeyboardInterrupt as e:
-                print("KeyboardInterrupt - Stop Program.", e)
+                self.print("KeyboardInterrupt - Stop Program.", e)
                 running = False

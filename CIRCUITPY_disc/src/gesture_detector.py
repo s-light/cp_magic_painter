@@ -21,7 +21,11 @@ TILT_LEFT = 21
 TILT_RIGHT = 22
 TAB_X = 31
 TAB_Y = 32
-DIRECTION_CHANGED = 50
+TAB_Z = 33
+DIRECTION_CHANGED = 40
+SHAKE_X = 41
+SHAKE_Y = 42
+SHAKE_Z = 43
 
 gestures = {
     UNKNOWN: "UNKNOWN",
@@ -32,13 +36,18 @@ gestures = {
     TILT_RIGHT: "TILT_RIGHT",
     TAB_X: "TAB_X",
     TAB_Y: "TAB_Y",
+    TAB_Z: "TAB_Z",
+    SHAKE_X: "SHAKE_X",
+    SHAKE_Y: "SHAKE_Y",
+    SHAKE_Z: "SHAKE_Z",
     DIRECTION_CHANGED: "DIRECTION_CHANGED",
 }
 
 
 class GestureEvent(object):
-    def __init__(self, *, gesture, orig_event=None):
+    def __init__(self, *, gesture, gesture_last=None, orig_event=None):
         self.gesture = gesture
+        self.gesture_last = gesture_last
         self.orig_event = orig_event
 
     def __str__(self):
@@ -78,10 +87,10 @@ class GestureDetector(object):
     }
     filter_print_template = "{:7.3f}; " "{:7.3f}; "  # plot_runtime  # update duration
 
-    def __init__(self, *, config={}, callback_gesture, accel_sensor):
+    def __init__(self, *, config={}, print_fn, callback_gesture, accel_sensor):
         super(GestureDetector, self).__init__()
-
-        print("init GestureDetector..")
+        self.print = print
+        self.print("init GestureDetector..")
 
         self.config = config
         extend_deep(self.config, self.config_defaults.copy())
@@ -92,33 +101,42 @@ class GestureDetector(object):
         self.noise = self.config["gesture"]["noise"]
         self.filter_size = self.config["gesture"]["filter_size"]
 
+        self.stable_threshold = 0.10
+
         self.direction_x = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
             axis_name="x",
+            stable_threshold=self.stable_threshold,
         )
         self.direction_y = AccelerationDirection(
             noise=self.noise,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
             axis_name="y",
+            stable_threshold=self.stable_threshold,
         )
         self.direction_z = AccelerationDirection(
-            noise=self.noise,
+            # noise=self.noise,
+            noise=2.0,
             buffer_size=self.filter_size,
             callback_direction_changed=self.callback_direction_changed,
             axis_name="z",
+            stable_threshold=self.stable_threshold,
         )
 
         self.antigravity = AccelerationAntigravity()
         self.base = (0, 0, 0)
 
+        self.last = UNKNOWN
         self.current = UNKNOWN
 
         self.plot_data = False
         self.plot_start = 0
         self.update_last_timestamp = 0
+
+        self.print = print_fn
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # sub init
@@ -129,7 +147,17 @@ class GestureDetector(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def callback_direction_changed(self, event):
-        gesture_event = GestureEvent(gesture=DIRECTION_CHANGED, orig_event=event)
+        # if event.instance.axis_name == "x":
+        #     gesture_event = GestureEvent(gesture=SHAKE_X, orig_event=event)
+        # elif event.instance.axis_name == "z":
+        #     gesture_event = GestureEvent(gesture=SHAKE_Z, orig_event=event)
+        # else:
+        #     gesture_event = GestureEvent(gesture=DIRECTION_CHANGED, orig_event=event)
+        gesture_event = GestureEvent(
+            gesture=DIRECTION_CHANGED,
+            gesture_last=self.current,
+            orig_event=event,
+        )
         self.callback_gesture(gesture_event)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,7 +165,7 @@ class GestureDetector(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def print_values(self):
         accel_x, accel_y, accel_z = self.accel_sensor.acceleration
-        print(
+        self.print(
             # "{:7.3f};    "
             "{:7.3f}; {:7.3f}; {:7.3f};    "
             "".format(
@@ -171,9 +199,15 @@ class GestureDetector(object):
         y_avg = self.direction_y.avg0
         z_avg = self.direction_z.avg0
 
+        plot_data_single = False
+        gesture_new = self.current
+
         if self.antigravity.rest_active:
-            gesture_new = REST
-            if (-0.2 < x_avg < 0.2) and (-0.2 < y_avg < 0.2) and (-1.3 < z_avg < -0.92):
+            if (
+                (-0.22 < x_avg < 0.22)
+                and (-0.22 < y_avg < 0.22)
+                and (-1.3 < z_avg < -0.8)
+            ):
                 gesture_new = REST_HORIZONTAL
             elif (
                 (-0.2 < x_avg < 0.2) and (-1.3 < y_avg < -0.9) and (-0.2 < z_avg < 0.2)
@@ -181,26 +215,34 @@ class GestureDetector(object):
                 gesture_new = TILT_LEFT
             elif (-0.2 < x_avg < 0.2) and (0.9 < y_avg < 1.3) and (-0.2 < z_avg < 0.2):
                 gesture_new = TILT_RIGHT
+            else:
+                gesture_new = REST
+
+            # if self.current != gesture_new:
+            #     plot_data_single = True
         else:
             gesture_new = UNKNOWN
 
-        plot_data_single = False
         if self.current != gesture_new:
+            self.last = self.current
             self.current = gesture_new
-            event = GestureEvent(gesture=self.current)
+            event = GestureEvent(
+                gesture=self.current,
+                gesture_last=self.last,
+            )
             self.callback_gesture(event)
             # plot_data_single = True
 
         # if self.plot_data:
         if self.plot_data or plot_data_single:
-            print(
+            self.print(
                 self.filter_print_template.format(
                     time.monotonic() - self.plot_start,
                     (time.monotonic() - self.update_last_timestamp) * 1000,
                 ),
-                # self.direction_x.format_current_value(), # 5 values
-                # self.direction_y.format_current_value(), # 5 values
-                # self.direction_z.format_current_value(), # 5 values
+                # self.direction_x.format_current_value(),  # 5 values
+                # self.direction_y.format_current_value(),  # 5 values
+                # self.direction_z.format_current_value(),  # 5 values
                 # self.antigravity.format_current_value(),  # 12 values
                 "{:7.3f}; {:7.3f}; {:7.3f}; ".format(x_avg, y_avg, z_avg),
             )

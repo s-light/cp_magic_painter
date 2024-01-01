@@ -13,6 +13,9 @@ import neopixel
 
 import busio
 
+import ansi_escape_code as terminal
+import nonblocking_serialinput as nb_serial
+
 import helper
 
 from configdict import extend_deep
@@ -26,7 +29,11 @@ from gesture_detector import (
     TILT_RIGHT,
     TAB_X,
     TAB_Y,
+    TAB_Z,
     DIRECTION_CHANGED,
+    SHAKE_X,
+    SHAKE_Y,
+    SHAKE_Z,
 )
 
 
@@ -60,13 +67,20 @@ class UserInput(object):
         },
     }
 
-    def __init__(self, *, config, callback_button, callback_touch, callback_gesture):
+    def __init__(
+        self, *, config, magicpainter, callback_button, callback_touch, callback_gesture
+    ):
         super(UserInput, self).__init__()
-
-        print("init UserInput..")
+        self.print = print
+        self.print("init UserInput..")
 
         self.config = config
         extend_deep(self.config, self.config_defaults.copy())
+
+        self.magicpainter = magicpainter
+
+        # this also sets self.print
+        self.setup_serial()
 
         # status led
         self.status_pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
@@ -83,6 +97,7 @@ class UserInput(object):
         self.gesture = GestureDetector(
             accel_sensor=self.accel_sensor,
             callback_gesture=self.callback_gesture,
+            print_fn=self.print,
         )
         # self.gesture.plot_data = True
 
@@ -185,6 +200,20 @@ class UserInput(object):
         else:
             raise "No Acceleration sensor found! please check your connections."
 
+    def setup_serial(self):
+        # make some space so that nothing is overwritten...
+        print("\n" * 3)
+        self.my_input = nb_serial.NonBlockingSerialInput(
+            input_handling_fn=self.userinput_event_handling,
+            print_help_fn=self.userinput_print_help,
+            echo=True,
+            statusline=True,
+            statusline_intervall=1.0,
+            statusline_fn=self.statusline_fn,
+        )
+        self.print = self.my_input.print
+        self.magicpainter.print = self.my_input.print
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # internal
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -265,7 +294,7 @@ class UserInput(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def callback_gesture(self, event):
-        # print("handle_gesture", event)
+        # self.print("handle_gesture", event)
         self.touch_active = False
         if event.gesture == REST:
             self.status_pixel.fill((0, 1, 0))
@@ -274,17 +303,132 @@ class UserInput(object):
             self.touch_reset_threshold()
             self.touch_active = True
         elif event.gesture == DIRECTION_CHANGED:
+            # self.print(event)
             if event.orig_event.instance.axis_name == "y":
-                # print(event)
                 direction = event.orig_event.direction
                 if direction == +1:
-                    self.status_pixel.fill((10, 0, 0))
+                    self.status_pixel.fill((1, 0, 0))
                 elif direction == -1:
-                    self.status_pixel.fill((0, 0, 10))
+                    self.status_pixel.fill((0, 0, 1))
+        # elif event.gesture  == TAB_Z:
+        #     self.status_pixel.fill((0, 0, 200))
+        elif event.gesture in [SHAKE_X, SHAKE_Z, TAB_X, TAB_Y, TAB_Z]:
+            self.print(event)
+        # elif event.gesture == UNKNOWN:
+        #     print(event)
         else:
             self.status_pixel.fill((0, 0, 0))
-        
+
         self.callback_gesture_main(event)
+
+    ##########################################
+    # menu
+
+    def userinput_print_help(self):
+        """Print Help."""
+        self.print(
+            "you can set some options:\n"
+            "- 'mode': toggle system mode [rgblamp | povpainter] ({mode})\n"
+            "- 'plot': toggle data plot ({plot})\n"
+            # "- 'xy':  ({heater_target: > 7.2f})\n"
+            # "- 'pn' select next profil\n"
+            # "{profile_list}"
+            # "- 'stop'  reflow cycle\n"
+            "".format(
+                mode=self.magicpainter.mode.__name__, plot=self.gesture.plot_data
+            ),
+            # end="",
+        )
+
+    def userinput_event_handling(self, input_string):
+        """Check Input."""
+        if input_string.startswith("?"):
+            self.print("help:\n todo!\n please look at the source code for now...")
+        elif input_string.startswith("mode"):
+            self.magicpainter.switch_to_next_mode()
+        elif input_string.startswith("plot"):
+            self.gesture.plot_data = not self.gesture.plot_data
+            # if "rgb" in input_string or "pov" in input_string:
+        # elif input_string.startswith("stop"):
+        #     self.menu_reflowcycle_stop()
+
+    statusline_template = (
+        "{uptime: >8.2f} "
+        "gesture:{gesture:>16s} "
+        "{y_active_color}y: "
+        "{y_dir:+} "
+        "{y_stable} "
+        "{y_freq:>4.2f}Hz "
+        "{reset}"
+        "{fg_blue}{mode: >10}{reset}: "
+        "b: {fg_orange}{brightness: >4.2f}{reset} "
+        # "brightness: {brightness: >4.2f} "
+    )
+
+    def statusline_fn(self):
+        """
+        Generate statusline.
+        """
+        # NO prints in this function!!
+        # (leads to infinity loops..)
+
+        # this does not work in that easy way...
+        # current_color = terminal.ANSIColors.fg.lightblue
+        # current_color = terminal.ANSIColors.fg.orange
+
+        # if self.reflowcontroller.temperature_changed:
+        #     # self.reflowcontroller.temperature_changed = False
+        #     # print("\n" * 5 + "tch" + "\n" * 5)
+
+        y_stable = False
+        y_active_color = terminal.ANSIColors.fg.darkgrey
+        if self.gesture.direction_y.shake_active:
+            y_active_color = terminal.ANSIColors.fg.pink
+            y_stable = self.gesture.direction_y.durations.forward_avg.stable
+
+        statusline = self.statusline_template.format(
+            uptime=time.monotonic(),
+            # gesture
+            gesture=gestures.get(self.gesture.current),
+            y_active_color=y_active_color,
+            y_dir=self.gesture.direction_y.direction_raw,
+            y_stable=y_stable,
+            y_freq=(1 / self.gesture.direction_y.durations.forward_avg.average),
+            # brightness
+            brightness=self.magicpainter.mode.brightness,
+            # mode
+            mode=self.magicpainter.mode.__name__,
+            # color helper
+            reset=terminal.ANSIColors.reset,
+            fg_orange=terminal.ANSIColors.fg.orange,
+            fg_blue=terminal.ANSIColors.fg.blue,
+        )
+        statusline += self.magicpainter.mode.statusline_fn()
+
+        return statusline
+
+    # @staticmethod
+    # def input_parse_pixel_set(input_string):
+    #     """parse pixel_set."""
+    #     # row = 0
+    #     # col = 0
+    #     # value = 0
+    #     # sep_pos = input_string.find(",")
+    #     # sep_value = input_string.find(":")
+    #     # try:
+    #     #     col = int(input_string[1:sep_pos])
+    #     # except ValueError as e:
+    #     #     self.print("Exception parsing 'col': ", e)
+    #     # try:
+    #     #     row = int(input_string[sep_pos + 1 : sep_value])
+    #     # except ValueError as e:
+    #     #     self.print("Exception parsing 'row': ", e)
+    #     # try:
+    #     #     value = int(input_string[sep_value + 1 :])
+    #     # except ValueError as e:
+    #     #     self.print("Exception parsing 'value': ", e)
+    #     # pixel_index = 0
+    #     pass
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # main api
@@ -299,6 +443,7 @@ class UserInput(object):
         # debug output
         # self.touch_print_status()
         self.gesture.update()
+        self.my_input.update()
 
     def run_test(self):
         print(42 * "*")

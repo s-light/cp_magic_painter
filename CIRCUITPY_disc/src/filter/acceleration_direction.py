@@ -114,7 +114,6 @@ class Durations(object):
                 self.forward_avg.stable,
                 self.forward_avg.max_delta,
                 1 / self.forward_avg.average,
-
                 self.backward_avg.average * 1000,
                 self.backward_avg.stable,
                 self.backward_avg.max_delta,
@@ -146,6 +145,7 @@ class AccelerationDirection(object):
         trend_window_split=None,
         callback_direction_changed=None,
         axis_name=None,
+        stable_threshold=0.050,
     ):
         """
         Special Filter for Direction detection in Acceleration Data.
@@ -182,7 +182,9 @@ class AccelerationDirection(object):
         self.direction_changed = False
         self.direction_changed_timestamp = time.monotonic()
 
-        self.durations = Durations(buffer_size=5, stable_threshold=0.040)
+        self.durations = Durations(buffer_size=5, stable_threshold=stable_threshold)
+
+        self.shake_active = False
 
         # performance:
         # we create a class global event so we do not recreate and destroy it on every stroke...
@@ -228,32 +230,35 @@ class AccelerationDirection(object):
 
         if (
             self.direction_raw_last is not self.direction_raw
-            and self.direction_raw is not 0
+            and self.direction_raw != 0
         ):
             self.direction_raw_last = self.direction_raw
             # event! we change
             self.direction_changed = True
 
-            if self.direction_raw != 0:
-                # calculate stroke duration
-                duration = time.monotonic() - self.direction_changed_timestamp
-                self.direction_changed_timestamp = time.monotonic()
+            # calculate stroke duration
+            duration = time.monotonic() - self.direction_changed_timestamp
+            self.direction_changed_timestamp = time.monotonic()
 
-                if self.direction_raw == +1:
-                    self.durations.current_stroke = self.durations.forward_avg.update(
-                        duration
-                    )
-                elif self.direction_raw == -1:
-                    self.durations.current_stroke = self.durations.backward_avg.update(
-                        duration
-                    )
+            if self.direction_raw == +1:
+                self.durations.current_stroke = self.durations.forward_avg.update(
+                    duration
+                )
+            elif self.direction_raw == -1:
+                self.durations.current_stroke = self.durations.backward_avg.update(
+                    duration
+                )
+            if self.durations.backward_avg.stable and self.durations.forward_avg.stable:
+                self.shake_active = True
+            else:
+                self.shake_active = False
 
             if self.callback_direction_changed:
                 self.direction_changed_event.direction = self.direction_raw
                 self.callback_direction_changed(self.direction_changed_event)
-
         else:
             self.direction_changed = False
+            self.shake_active = False
 
     def update(self, input_raw):
         self.update_avg(input_raw)
@@ -262,5 +267,7 @@ class AccelerationDirection(object):
 
         if input_raw < (self.noise * -1) or input_raw > self.noise:
             self.update_direction()
+        else:
+            self.shake_active = False
 
         return self.direction_changed
