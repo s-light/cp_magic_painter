@@ -3,7 +3,9 @@ POV (Persistance Of Vision) Zauberstab
 
 ![Zauberstab (CAD)](hw/case/case_assembly_screenshots/overview.png)
 ![Zauberstab Photo](docu/magic_painter%20final.jpg)
-<video src="https://s-light.github.io/cp_magic_painter/docu/mode%20POVPainter.mp4" controls title="Mode: POVPainter - showing two different images"></video>
+
+https://github.com/s-light/cp_magic_painter/assets/1340319/28aa995e-11ee-43ee-a761-ba1665ddfda5
+
 
 ## documentation
 have a look at [the documentation](https://s-light.github.io/cp_magic_painter/docu/)
