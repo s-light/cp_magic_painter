@@ -2,25 +2,27 @@
 POV (Persistance Of Vision) Zauberstab
 
 ![Zauberstab (CAD)](hw/case/case_assembly_screenshots/overview.png)
+![Zauberstab Photo](./magic_painter%20final.jpg)
+<video src="mode%20POVPainter.mp4" controls title="Mode: POVPainter - showing two different images"></video>
 
-currently some parts are only written in german.
-an english version will follow some day...
+currently some documentation is only written in german.
+an english version will follow hopefully some day...
 
 
 
 
 ## Build / Zusammenbauen
-- [build documentation / Bau-Workshop Anleitung (DE)](docu/workshop_DE.md)
+- [build documentation / Bau-Workshop Anleitung (DE)](workshop_DE.md)
 
 ## Prepare / Vorbereitungen
 
-- [prepare images / Bilder Vorbereiten (DE)](docu/prepare_images/de.md)
-- [update firmware / Software Aktualisiseren (DE)](docu/update_firmware/de.md)
+- [prepare images / Bilder Vorbereiten (DE)](prepare_images/de.md)
+- [update firmware / Software Aktualisiseren (DE)](update_firmware/de.md)
 
 ## Usage / Benutzung
 
-- [Benutzung (DE)](docu/usage/de.md)
-- [usage (EN)](docu/usage/en.md)
+- [Benutzung (DE)](usage/de.md)
+- [usage (EN)](usage/en.md)
 
 
 

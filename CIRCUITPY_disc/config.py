@@ -7,10 +7,10 @@ config = {
     "start_mode": "RGBLamp",
     # "start_mode": "POVPainter",
     "POVPainter": {
-        "brightness": 0.4,
+        "brightness": 0.7,
     },
     "RGBLamp": {
-        "brightness": 0.1,
+        "brightness": 0.4,
         # effect duration in seconds
         "effect_duration": 10 * 60,
         #
@@ -28,8 +28,8 @@ config = {
         #     "max": CHSV(0.12),
         # },
         "color_range": {
-            "min": CHSV(0.0),
-            "max": CHSV(1.0),
+            "min": CHSV(0.5),
+            "max": CHSV(0.95),
         },
         # extra effects...
         "extra_effects": {

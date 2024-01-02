@@ -41,6 +41,9 @@ Der Stab kennt:
 Gut Festhalten!!
 einfach _seitlich_ schütteln / wedeln.
 
+siehe dieses Video:
+<video src="../mode%20POVPainter.mp4" controls title="Mode: POVPainter - showing two different images"></video>
+
 ## Modi
 
 ### RGBLamp
@@ -53,6 +56,9 @@ Sie variiert in einem Voreingestellten Rahmen und gibt so ein bisschen *lebendig
 -   `TILT_RIGHT` → Helligkeit + 10%
 -   `TILT_LEFT` → Helligkeit - 10%
 -   `SHAKE_Y` → keine Funktion
+
+<video src="usage%20gesture%20brightness%20short.mp4" controls title="brightness change"></video>
+
 
 ##### Besonderheit bei der Helligkeit:
 um auch sehr dunkle *nachtlicht* Helligkeiten zu ermöglichen, 
@@ -143,7 +149,7 @@ der Werte Bereich geht von 0.0 bis 1.0 - du kannst da z.B. `0.01` für sehr dunk
 beim `povpainter` ist hier wichtig zu beachten: 
 bei niedrigen werten (z.B:`0.1`) geht die *Farb-Auflösung* verloren → weniger darstellbare Farben.
 Um also alle Farben sehen zu können braucht es *mittlere* Werte. 
-Ich empfehle `0.4` das passt meist..
+Ich empfehle `0.6` das passt meist..
 
 ### `rgblamp`
 
