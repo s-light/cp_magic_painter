@@ -42,7 +42,7 @@ Gut Festhalten!!
 einfach _seitlich_ schütteln / wedeln.
 
 siehe dieses Video:
-<video src="../mode%20POVPainter.mp4" controls title="Mode: POVPainter - showing two different images"></video>
+<video src="./../mode%20POVPainter.mp4" controls title="Mode: POVPainter - showing two different images"></video>
 
 ## Modi
 
@@ -179,7 +179,7 @@ Was ist das?
 - Value → *Helligkeit
 
 die Werte für den Farb-Ton kannst du in dieser Grafik ablesen:
-![hue color](../color_hue.svg)
+![hue color](./../color_hue.svg)
 
 daraus ergeben sich für das Beispiel oben Rot bis Orange Töne..
 

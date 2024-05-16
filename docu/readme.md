@@ -24,7 +24,8 @@ an english version will follow hopefully some day...
 - [Benutzung (DE)](usage/de.md)
 - [usage (EN)](usage/en.md)
 
-
+to take lightpainting photos have a look at [my simple lightpaint web-app](https://s-light.github.io/quasar_lightpaint/dist/spa/#/)
+([repro](https://github.com/s-light/quasar_lightpaint))
 
 ## HW
 

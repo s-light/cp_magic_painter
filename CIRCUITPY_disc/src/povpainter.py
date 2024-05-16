@@ -713,13 +713,17 @@ class POVPainter(ModeBaseClass):
             #         self.pixel_delay_raw,
             #     )
             # )
-            if direction == +1:
-                self.handle_paintrequest_do_paint(backwards=False)
-            # elif direction == -1:
-            #     self.handle_paintrequest_do_paint(backwards=True)
+            # if direction == +1:
+            #     self.handle_paintrequest_do_paint(backwards=False)
+
         else:
             # reset timing
             self.pixel_delay = 0.0014
+
+        if direction == +1:
+            self.handle_paintrequest_do_paint(backwards=False)
+        # elif direction == -1:
+        #     self.handle_paintrequest_do_paint(backwards=True)
 
     def handle_user_input(self, event):
         if event.touch.rose:
@@ -750,7 +754,6 @@ class POVPainter(ModeBaseClass):
             # # prevent double switching
             # if self.magicpainter.user_input.gesture.last != TILT_RIGHT:
             #     self.switch_image()
-
 
     def switch_image(self):
         """

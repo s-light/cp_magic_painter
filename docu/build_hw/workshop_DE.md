@@ -160,7 +160,7 @@ und dann den controller vorsichtig in den stab drücken
 
 nun noch von Unten zwei Muttern in die löcher einfügen 
 
-Wenn hier noch Zeit übrig ist kann gern aus dem Kuststoff oder Schrumpfschlauch eine Abdeckung ausgeschnitten werden. (siehe [*layer-4 cover* Schnitt-Vorlage](../../hw/case/export/case_layer-4_mod_small_cover.svg))
+Wenn hier noch Zeit übrig ist kann gern aus dem Kuststoff oder Schrumpfschlauch eine Abdeckung ausgeschnitten werden. (siehe [*layer-4 cover* Schnitt-Vorlage](./../../hw/case/export/case_layer-4_mod_small_cover.svg))
 diese wird dann auch mit den Schrauben fixiert.
 
 von Oben die Schrauben durchstecken und mit einem 1,5mm Imbus fest ziehen.

@@ -4,15 +4,16 @@ from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
 
 config = {
     # in wich mode to start: (RGBLamp | POVPainter)
-    "start_mode": "RGBLamp",
-    # "start_mode": "POVPainter",
+    # "start_mode": "RGBLamp",
+    "start_mode": "POVPainter",
     "POVPainter": {
-        "brightness": 0.7,
+        "brightness": 0.99  ,
     },
     "RGBLamp": {
         "brightness": 0.4,
         # effect duration in seconds
         "effect_duration": 10 * 60,
+        "effect_active": False,
         #
         # colors
         # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
@@ -23,13 +24,9 @@ config = {
         #     "max": CHSV(0.9),
         # },
         # warm orange
-        # "color_range": {
-        #     "min": CHSV(0.08),
-        #     "max": CHSV(0.12),
-        # },
         "color_range": {
-            "min": CHSV(0.5),
-            "max": CHSV(0.95),
+            "min": CHSV(0.08),
+            "max": CHSV(0.12),
         },
         # extra effects...
         "extra_effects": {

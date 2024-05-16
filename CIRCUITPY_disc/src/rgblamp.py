@@ -45,6 +45,7 @@ class RGBLamp(ModeBaseClass):
             # "brightness_fade_duration": 10,
             # effect duration in seconds (default 10min)
             "effect_duration": 10 * 60,
+            "effect_active": True,
             # https://learn.adafruit.com/fancyled-library-for-circuitpython/colors#hsv-colors-2981215
             # only specifying Hue → purple
             "color_range": {
@@ -89,6 +90,7 @@ class RGBLamp(ModeBaseClass):
         self.num_pixels = self.config["hw"]["pixel_count"]
 
         # effect base
+        self.effect_active = self.config["RGBLamp"]["effect_active"]
         self.effect_duration = self.config["RGBLamp"]["effect_duration"]
         self.effect_start_cycle()
         self._offset = 0
@@ -272,7 +274,7 @@ class RGBLamp(ModeBaseClass):
 
     def offset_update(self):
         # stop_ts animation if  brightness is to low / only a view LEDs are on..
-        if self.brightness > 0.05:
+        if self.effect_active and self.brightness > 0.05:
             if time.monotonic() >= (self.effect_start_ts + self.effect_duration):
                 self.effect_start_cycle()
             self._offset = helper.map_to_01(

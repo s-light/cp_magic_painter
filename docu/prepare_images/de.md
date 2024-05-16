@@ -56,7 +56,7 @@ und hier als schritt für schritt text Anleitung:
 2. Gimp - einfügen und ausrichten
 
 -   Gimp Starten
--   öffne das Beispielbild [`images/01_testpattern_smile.xcf`](../../CIRCUITPY_disc/images/01_testpattern_smile.xcf) `Datei - Öffnen`
+-   öffne das Beispielbild [`images/01_testpattern_smile.xcf`](./../../CIRCUITPY_disc/images/01_testpattern_smile.xcf) `Datei - Öffnen`
 -   dort gibt es nun ein _text_ object.
 -   aktivieren des `text tool` (shortcut: `t`):
     ![text tool anwählen](<gimp text tool.png>)
