@@ -46,6 +46,10 @@ FreeCAD backup files
 *.FCStd3
 *.fcstd3
 
+*.FCBak
+
+
+
 # open office / libre office lock files
 *.~lock.*
 
