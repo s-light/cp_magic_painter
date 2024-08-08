@@ -274,7 +274,7 @@ class RGBLamp(ModeBaseClass):
 
     def offset_update(self):
         # stop_ts animation if  brightness is to low / only a view LEDs are on..
-        if self.effect_active and self.brightness > 0.05:
+        if self.effect_active and self.brightness > 0.5:
             if time.monotonic() >= (self.effect_start_ts + self.effect_duration):
                 self.effect_start_cycle()
             self._offset = helper.map_to_01(
