@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+     viewBox="0 0 5000 5000"
+     height="500mm"
+     width="500mm"
+     version="1.2"
+     id="svg70"
+     sodipodi:docname="case_parts_1,5mm_Kraftplex_mod.svg"
+     inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <title
+         id="title2">FreeCAD SVG Export</title>
+    <desc
+         id="desc4">Drawing page: Page001 exported from FreeCAD document: case_drawings</desc>
+    <defs
+         id="defs6" />
+    <g
+         inkscape:label="TechDraw"
+         id="Page001"
+         inkscape:groupmode="layer">
+        <g
+             transform="scale(10.000000, 10.000000)"
+             style="stroke:none"
+             id="TD_CAM_500x5001.svg">
+            <sodipodi:namedview
+                 inkscape:window-maximized="1"
+                 pagecolor="#ffffff"
+                 inkscape:zoom="0.95673333"
+                 borderopacity="1"
+                 guidetolerance="10"
+                 showgrid="false"
+                 inkscape:window-x="0"
+                 inkscape:pageshadow="2"
+                 inkscape:document-units="mm"
+                 gridtolerance="10"
+                 inkscape:cy="944.88189"
+                 objecttolerance="10"
+                 id="namedview221"
+                 inkscape:window-y="0"
+                 inkscape:window-height="2088"
+                 bordercolor="#666666"
+                 inkscape:pagecheckerboard="true"
+                 inkscape:pageopacity="0"
+                 inkscape:showpageshadow="false"
+                 inkscape:window-width="3840"
+                 inkscape:current-layer="Page001"
+                 inkscape:cx="944.35928"
+                 units="mm"
+                 inkscape:deskcolor="#d1d1d1" />
+            <!-- Working space 10 10 410 287 -->
+            <!-- Title block 220 227 410 287 -->
+            <metadata
+                 id="metadata849">
+                <rdf:RDF>
+                    <cc:Work
+                         rdf:about="">
+                        <dc:format>image/svg+xml</dc:format>
+                        <dc:type
+                             rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                        <dc:title>FreeCAD SVG Export</dc:title>
+                        <dc:date>01.03.2020</dc:date>
+                        <dc:creator>
+                            <cc:Agent>
+                                <dc:title>Stefan Krüger</dc:title>
+                            </cc:Agent>
+                        </dc:creator>
+                        <dc:rights>
+                            <cc:Agent>
+                                <dc:title>Stefan Krüger</dc:title>
+                            </cc:Agent>
+                        </dc:rights>
+                        <dc:publisher>
+                            <cc:Agent>
+                                <dc:title>Stefan Krüger</dc:title>
+                            </cc:Agent>
+                        </dc:publisher>
+                        <dc:language>EN / DE</dc:language>
+                        <cc:license
+                             rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+                    </cc:Work>
+                    <cc:License
+                         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+                        <cc:permits
+                             rdf:resource="http://creativecommons.org/ns#Reproduction" />
+                        <cc:permits
+                             rdf:resource="http://creativecommons.org/ns#Distribution" />
+                        <cc:permits
+                             rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+                    </cc:License>
+                </rdf:RDF>
+            </metadata>
+            <defs
+                 id="defs847" />
+            <!-- DrawingContent -->
+        </g>
+        <path
+             fill-rule="evenodd"
+             d="m 1910.024,1203.1609 c -5.376,-52.0609 -15.088,-103.5829 -29.034,-154.0289 -4.792,-17.336 -20.567,-29.342 -38.5536,-29.342 h -184.8728 c -17.9866,0 -33.7616,12.006 -38.5536,29.342 -13.946,50.446 -23.658,101.968 -29.034,154.0289 -2.289,22.171 -10.709,43.2662 -24.314,60.9211 -17.418,22.604 -15.986,54.4775 3.389,75.4282 10.148,10.9719 15.835,25.3358 15.949,40.2798 v 8.742 c 1.421,25.977 15.386,49.642 37.44,63.444 15.445,9.665 27.127,24.313 33.1156,41.521 1.6038,4.608 6.2996,7.386 11.1111,6.573 4.8114,-0.813 8.3333,-4.981 8.3333,-9.86 v -53.92 c 0,-7.386 1.8182,-14.659 5.2941,-21.176 L 1685,1406.29 c 3.9394,-7.386 6,-15.629 6,-24 v -1 h 12 v -66.4998 h 94 v 66.4998 h 12 v 1 c 0,8.371 2.0606,16.614 6,24 l 4.7059,8.824 c 3.4759,6.517 5.2941,13.79 5.2941,21.176 v 53.92 c 0,4.879 3.5219,9.047 8.3333,9.86 4.8115,0.813 9.5073,-1.965 11.1111,-6.573 5.9886,-17.208 17.6706,-31.856 33.1156,-41.521 22.054,-13.802 36.019,-37.467 37.44,-63.444 v -8.742 c 0.114,-14.944 5.801,-29.3079 15.949,-40.2798 19.375,-20.9507 20.807,-52.8242 3.389,-75.4282 -13.605,-17.6549 -22.025,-38.7501 -24.314,-60.9211"
+             vector-effect="non-scaling-stroke"
+             id="path12"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1770,1137.79 v 90.0002 h -90 V 1137.79 h 90"
+             vector-effect="non-scaling-stroke"
+             id="path16"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1818,1293.2902 h -15 v 5 h -50 v -5 h -15 v -20 h 15 v -5 h 50 v 5 h 15 v 20"
+             vector-effect="non-scaling-stroke"
+             id="path20"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1818,1255.2902 h -15 v 5 h -50 v -5 h -15 v -20 h 15 v -5 h 50 v 5 h 15 v 20"
+             vector-effect="non-scaling-stroke"
+             id="path24"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1905,1299.7902 c 0,9.3888 -7.611,17 -17,17 -9.389,0 -17,-7.6112 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             vector-effect="non-scaling-stroke"
+             id="path28"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1629,1299.7902 c 0,9.3888 -7.611,17 -17,17 -9.389,0 -17,-7.6112 -17,-17 0,-9.3888 7.611,-17 17,-17 9.389,0 17,7.6112 17,17"
+             vector-effect="non-scaling-stroke"
+             id="path32"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1718,1241.7902 c 0,5.5228 -4.4772,10 -10,10 -5.5228,0 -10,-4.4772 -10,-10 0,-5.5228 4.4772,-10 10,-10 5.5228,0 10,4.4772 10,10"
+             vector-effect="non-scaling-stroke"
+             id="path36"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1209.976,1296.8391 c 5.376,52.0609 15.088,103.5829 29.034,154.0289 4.792,17.336 20.567,29.342 38.5536,29.342 h 184.8728 c 17.9866,0 33.7616,-12.006 38.5536,-29.342 13.946,-50.446 23.658,-101.968 29.034,-154.0289 2.289,-22.171 10.709,-43.2662 24.314,-60.9211 17.418,-22.604 15.986,-54.4775 -3.389,-75.4282 -10.148,-10.9719 -15.835,-25.3358 -15.949,-40.2798 v -8.742 c -1.421,-25.977 -15.386,-49.642 -37.44,-63.444 -15.445,-9.665 -27.127,-24.313 -33.1156,-41.521 -1.6038,-4.608 -6.2996,-7.386 -11.1111,-6.573 -4.8114,0.813 -8.3333,4.981 -8.3333,9.86 v 53.92 c 0,7.386 -1.8182,14.659 -5.2941,21.176 L 1435,1093.71 c -3.9394,7.386 -6,15.629 -6,24 v 1 h -12 v 66.4998 h -94 V 1118.71 h -12 v -1 c 0,-8.371 -2.0606,-16.614 -6,-24 l -4.7059,-8.824 c -3.4759,-6.517 -5.2941,-13.79 -5.2941,-21.176 v -53.92 c 0,-4.879 -3.5219,-9.047 -8.3333,-9.86 -4.8115,-0.813 -9.5073,1.965 -11.1111,6.573 -5.9886,17.208 -17.6706,31.856 -33.1156,41.521 -22.054,13.802 -36.019,37.467 -37.44,63.444 v 8.742 c -0.114,14.944 -5.801,29.3079 -15.949,40.2798 -19.375,20.9507 -20.807,52.8242 -3.389,75.4282 13.605,17.6549 22.025,38.7501 24.314,60.9211"
+             vector-effect="non-scaling-stroke"
+             id="path40"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1350,1362.21 v -90.0002 h 90 v 90.0002 h -90"
+             vector-effect="non-scaling-stroke"
+             id="path44"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1536.5,1200.2098 c 0,15.7401 -12.76,28.5 -28.5,28.5 -15.74,0 -28.5,-12.7599 -28.5,-28.5 0,-15.7401 12.76,-28.5 28.5,-28.5 15.74,0 28.5,12.7599 28.5,28.5"
+             vector-effect="non-scaling-stroke"
+             id="path48"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1260.5,1200.2098 c 0,15.7401 -12.76,28.5 -28.5,28.5 -15.74,0 -28.5,-12.7599 -28.5,-28.5 0,-15.7401 12.76,-28.5 28.5,-28.5 15.74,0 28.5,12.7599 28.5,28.5"
+             vector-effect="non-scaling-stroke"
+             id="path52"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1302,1226.7098 v -20 h 80 v 20 h -80"
+             vector-effect="non-scaling-stroke"
+             id="path56"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1302,1264.7098 v -20 h 80 v 20 h -80"
+             vector-effect="non-scaling-stroke"
+             id="path60"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+        <path
+             fill-rule="evenodd"
+             d="m 1422,1258.2098 c 0,5.5228 -4.4772,10 -10,10 -5.5228,0 -10,-4.4772 -10,-10 0,-5.5228 4.4772,-10 10,-10 5.5228,0 10,4.4772 10,10"
+             vector-effect="non-scaling-stroke"
+             id="path64"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel" />
+    </g>
+</svg>

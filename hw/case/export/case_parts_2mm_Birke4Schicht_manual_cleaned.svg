@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="40.247299mm"
+     height="48.142048mm"
+     viewBox="0 0 40.247299 48.142048"
+     version="1.1"
+     id="svg4600"
+     inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+     sodipodi:docname="case_parts_2mm_Birke4Schicht_manual_cleaned.svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview4602"
+         pagecolor="#505050"
+         bordercolor="#eeeeee"
+         borderopacity="1"
+         inkscape:showpageshadow="0"
+         inkscape:pageopacity="0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#505050"
+         inkscape:document-units="mm"
+         showgrid="false"
+         inkscape:zoom="9.9365666"
+         inkscape:cx="76.032298"
+         inkscape:cy="90.977098"
+         inkscape:window-width="3840"
+         inkscape:window-height="2088"
+         inkscape:window-x="0"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1" />
+    <defs
+         id="defs4597" />
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1"
+         transform="translate(-137.18567,-79.123891)">
+        <path
+             fill-rule="evenodd"
+             d="m 173.73553,97.510981 c -0.5376,-5.20609 -1.5088,-10.35829 -2.9034,-15.40289 -0.4792,-1.7336 -2.0567,-2.9342 -3.85536,-2.9342 h -18.48728 c -1.79866,0 -3.37616,1.2006 -3.85536,2.9342 -1.3946,5.0446 -2.3658,10.1968 -2.9034,15.40289 -0.2289,2.2171 -1.0709,4.326619 -2.4314,6.092109 -1.7418,2.2604 -1.5986,5.44775 0.3389,7.54282 1.0148,1.09719 1.5835,2.53358 1.5949,4.02798 v 0.8742 c 0.1421,2.5977 1.5386,4.9642 3.744,6.3444 1.5445,0.9665 2.7127,2.4313 3.31156,4.1521 0.16038,0.4608 0.62996,0.7386 1.11111,0.6573 0.48114,-0.0813 0.83333,-0.4981 0.83333,-0.986 v -5.392 c 0,-0.7386 0.18182,-1.4659 0.52941,-2.1176 l 0.47059,-0.8824 c 0.39394,-0.7386 0.6,-1.5629 0.6,-2.4 v -0.1 h 11.8 v 0.1 c 0,0.8371 0.20606,1.6614 0.6,2.4 l 0.47059,0.8824 c 0.34759,0.6517 0.52941,1.379 0.52941,2.1176 v 5.392 c 0,0.4879 0.35219,0.9047 0.83333,0.986 0.48115,0.0813 0.95073,-0.1965 1.11111,-0.6573 0.59886,-1.7208 1.76706,-3.1856 3.31156,-4.1521 2.2054,-1.3802 3.6019,-3.7467 3.744,-6.3444 v -0.8742 c 0.0114,-1.4944 0.5801,-2.93079 1.5949,-4.02798 1.9375,-2.09507 2.0807,-5.28242 0.3389,-7.54282 -1.3605,-1.76549 -2.2025,-3.875009 -2.4314,-6.092109"
+             vector-effect="non-scaling-stroke"
+             id="path4442"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 146.78313,107.17391 c 0,1.57401 -1.276,2.85 -2.85,2.85 -1.574,0 -2.85,-1.27599 -2.85,-2.85 0,-1.57401 1.276,-2.85 2.85,-2.85 1.574,0 2.85,1.27599 2.85,2.85"
+             vector-effect="non-scaling-stroke"
+             id="path4446"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 174.38313,107.17391 c 0,1.57401 -1.276,2.85 -2.85,2.85 -1.574,0 -2.85,-1.27599 -2.85,-2.85 0,-1.57401 1.276,-2.85 2.85,-2.85 1.574,0 2.85,1.27599 2.85,2.85"
+             vector-effect="non-scaling-stroke"
+             id="path4450"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 162.53313,104.52391 v 2 h -4 v -2 h 4"
+             vector-effect="non-scaling-stroke"
+             id="path4454"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 162.53313,100.72391 v 2 h -4 v -2 h 4"
+             vector-effect="non-scaling-stroke"
+             id="path4458"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 154.53313,101.37391 c 0,0.55228 -0.44772,1 -1,1 -0.55228,0 -1,-0.44772 -1,-1 0,-0.55228 0.44772,-1 1,-1 0.55228,0 1,0.44772 1,1"
+             vector-effect="non-scaling-stroke"
+             id="path4462"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 140.04946,126.55365 2.47487,-2.47488 1.41422,1.41422 1.41421,-1.41422 -5.65685,-5.65685 -1.41422,1.41421 1.41422,1.41422 -2.47488,2.47487 2.82843,2.82843"
+             vector-effect="non-scaling-stroke"
+             id="path4466"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 158.73313,121.44489 v 3.5 h -2 v 2 h 8 v -2 h -2 v -3.5 h -4"
+             vector-effect="non-scaling-stroke"
+             id="path4470"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+        <path
+             fill-rule="evenodd"
+             d="m 158.49163,121.49309 v -3.5 h 2 v -2 h -8 v 2 h 2 v 3.5 h 4"
+             vector-effect="non-scaling-stroke"
+             id="path4474"
+             style="font-style:normal;font-weight:400;font-size:42.3333px;font-family:'Noto Sans';fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none" />
+    </g>
+</svg>
