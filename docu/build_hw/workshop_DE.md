@@ -13,7 +13,14 @@ die länge lässt sich mit dem Seitenschneider am besten an den Holz-Schichten a
 ![Positionierungsstifte](<./01 prepare wood/20230914_131637.jpg>)
 
 nun die oberen Teile Zusammenleimen
-![obere Teile leimen](<./01 prepare wood/20230914_132415.jpg>)
+![prepare wood - top layer glueing](<01 prepare wood/20240821_120350 case glue.jpg>)
+![prepare wood - top layer glueing](<01 prepare wood/20240821_120355 case glue detail.jpg>)
+![prepare wood - top layer glueing](<01 prepare wood/20240821_120938 case glue clamping.jpg>)
+
+WICHTIG:
+Layer 1 & 2 werden miteinander verleimt.
+und Layer 3 & 4 werden miteinader verleimt.
+Allerdings möchten die Positionierungsstifte durch alle 4 Durchgehen..
 
 dann das gleiche spiel mit den unteren teilen
 ![untere Teile Leimen](<./01 prepare wood/20230914_132658.jpg>)
@@ -33,6 +40,14 @@ mit hilfe der gummies auch die box leimen
 hier darauf achten das diese rechtwinkelig ist.
 ![box leimen](<./01 prepare wood/20230914_133952.jpg>)
 
+### Cover
+
+Falls Vorhanden
+als letztes noch die _cover-layer_ miteinander verleimen..
+dabei sehr sehr sorgfältig arbeiten so das die Holz-Stößel sich frei bewegen können...
+![prepare wood - ](<01 prepare wood/20240821_131404 cover details buttons.jpg>)
+![prepare wood - ](<01 prepare wood/20240821_131430 cover details buttons.jpg>)
+
 ## Elektronik vorbereiten
 
 <!-- LED-Streifen
@@ -45,22 +60,18 @@ adapter
 alle bauteile zurecht legen
 ![electronic parts](<./03 test electronics/20230922_181443.jpg>)
 
-### Touch Buttons
+In den Fotos sind noch \*Touch-Buttons zu sehen.
+Diese habe ich wegen unzuverlässigkeit raus genommen.
 
-![Enameled copper wire lengths](<./02 solder electronics/20230915_122823_mod.png>)
-bitte die lackierung mit feinem Schleifpapier (320) an beiden Enden entfernen:
-
--   Seite1 5mm
--   Seite2 40-50mm
-
-vom Kupferband 3x 50mm Stücke abschneiden.
 ### Beschleunigungssensor
 
 ![sensor](<./03 test electronics/20230923_001833.jpg>)
+
 im bild oben rechts ist die Power-LED sichtbar.
 Unten auf der Platine ist `VIN` aufgedruckt.
 auf dieser Seite möchte das Kabel eingesteckt werden.
 schon mal etwas vorsichtig umbiegen wie im bild hilft später für die Positionierung.
+
 ## Elektronik testen
 
 ### LED-Streifen
@@ -77,14 +88,18 @@ dabei auf die beschriftungen auf der Controller-Platine achten:
 
 das freie Ende nun in den Controller stecken
 
-### Touch Buttons
-die drei Buttons kommen in die Pins mit den Namen 
-- `SDA` unterster Button
-- `SCL` mittlerer Button
-- `TX`  oberer Button
+### Buttons
+
+falls vorhanden:
+die drei Buttons kommen in die Pins mit den Namen
+
+-   `SDA` unterster Button
+-   `SCL` mittlerer Button
+-   `TX` oberer Button
 
 ### alle bauteile zusammengesteckt
-![alle bauteile zusammengesteckt](<./03 test electronics/20230923_011729.jpg>) 
+
+![alle bauteile zusammengesteckt](<./03 test electronics/20230923_011729.jpg>)
 
 vorsichtig das sich keine metallteile berühren!
 
@@ -95,57 +110,61 @@ und....
 ![und einmal testen](<./03 test electronics/20230923_011821.jpg>)
 und alles geht :-)
 
-Test: 
-- erst sollte auf dem Controller die LED in verschiedenen Farben Leuchten.
-- dann der Streifen einen grünen *ladebalken* anzeigen
-- dann einmal vorsichtig den Sensor in der Y-Achse schütteln
-- darauf hin sollte der Streifen flackern
-- dann den Taster D0 auf dem Controller drücken
-- dies schaltet in den Lampen modus um
-- nun leuchtet eine LED ganz am ende des Streifens
-- nun den längsten Draht / Button *oben* mehrfach berühren
-- darauf hin sollten auf dem Streifen immer mehr LEDs an gehen / es wird heller
-- beim mittleren Button sollten diese wieder ausgehen / dunkler werden
-- beim untersten Button sollte die Helligkeit wieder auf minimum (1 LED) springen
+Test:
 
-damit sind alle Funktionen  getestet.
+-   erst sollte auf dem Controller die LED in verschiedenen Farben Leuchten.
+-   dann der Streifen einen grünen _ladebalken_ anzeigen
+-   dann einmal vorsichtig den Sensor in der Y-Achse schütteln
+-   darauf hin sollte der Streifen flackern
+-   dann den Taster D0 auf dem Controller drücken
+-   dies schaltet in den Lampen modus um
+-   nun leuchtet eine LED ganz am ende des Streifens
+-   nun den längsten Draht / Button _oben_ mehrfach berühren
+-   darauf hin sollten auf dem Streifen immer mehr LEDs an gehen / es wird heller
+-   beim mittleren Button sollten diese wieder ausgehen / dunkler werden
+-   beim untersten Button sollte die Helligkeit wieder auf minimum (1 LED) springen
+
+damit sind alle Funktionen getestet.
 → Power-Schalter wieder ausschalten und Powerbank abziehen
 
 → Bauteile wieder auseinander stecken !!
+
 ## zusammen bauen Teil1
 
 ein Stück Schrumpfschlauch auf Länge schneiden und bereit legen
+
 ### LED-streifen
-als erstes den LED-Streifen von unten durch das Loch im Oberen holz schieben bis alle LEDs herausschauen und dieser gut auf dem Holz aufliegt.
+
+als erstes den LED-Streifen so positionieren das alle LEDs herausschauen und dieser gut auf dem Holz aufliegt.
+
+### Buttons
+
+die Buttons in die Aussparung im Gehäuse legen und dann die obersten beiden Layer zusammen stecken.
 
 ### Sensor
-die Sensor platine von Unten auf dem oberen Ende des Stabes positionieren - eventuell mit etwas kleber dort fixieren.
+
+die Sensor Platine von Unten auf dem oberen Ende des Stabes positionieren - 
+eventuell mit etwas Kleber dort fixieren.
 das Kabel am Stab entlang durch das Loch nach oben führen (siehe auch nächstes Bild)
-
-### Touch-Buttons
-Nun die Kupfer-Klebe-Folie auf den Draht-Enden auf die Rückseite des Stabes auf das Sensor-Kabel Kleben.
-Am besten dabei die Kupfer-Dräthe tendenziell unter dem Sensor-Kabel *verlegen*.
-
-Es hilft hier von Oben während dessen schon den Schrumpfschlauch Stück für Stück über den Stab zu schieben.
 
 ### Oberer Stab fertig Vorbereitet
 
 Das ganze sollte nun so in etwa Ausschauen:
-![build](<./04 build/20230915_124936.jpg>) 
+![build](<./04 build/20230915_124936.jpg>)
 
 zum Schluss alle steck-elemente nach oben führen
-![alle steck-elemente nach oben führen](<./04 build/20230915_125104.jpg>) 
+![alle steck-elemente nach oben führen](<./04 build/20230915_125104.jpg>)
 
 ## zusammen bauen Teil2
 
 nun werden wir den USB-Stecker und Power-Schalter im Mittleren Holz-Stück befestigen.
 
-
 ## zusammen bauen Teil3
+
 nun wird alles vereint
 
 als erstes den controller vorsichtig hindurch fädeln
-![controller einbau](<./04 build/20230915_125136.jpg>) 
+![controller einbau](<./04 build/20230915_125136.jpg>)
 
 controller fertig durchgefädelt
 ![controller fertig durchgefädelt](<./04 build/20230915_125200.jpg>)
@@ -158,9 +177,9 @@ und dann den controller vorsichtig in den stab drücken
 
 <!-- BILD einfügen -->
 
-nun noch von Unten zwei Muttern in die löcher einfügen 
+nun noch von Unten zwei Muttern in die löcher einfügen
 
-Wenn hier noch Zeit übrig ist kann gern aus dem Kuststoff oder Schrumpfschlauch eine Abdeckung ausgeschnitten werden. (siehe [*layer-4 cover* Schnitt-Vorlage](./../../hw/case/export/case_layer-4_mod_small_cover.svg))
+Wenn hier noch Zeit übrig ist kann gern aus dem Kuststoff oder Schrumpfschlauch eine Abdeckung ausgeschnitten werden. (siehe [_layer-4 cover_ Schnitt-Vorlage](./../../hw/case/export/case_layer-4_mod_small_cover.svg))
 diese wird dann auch mit den Schrauben fixiert.
 
 von Oben die Schrauben durchstecken und mit einem 1,5mm Imbus fest ziehen.
@@ -171,4 +190,3 @@ Fertig ist dein Zauberstab :-)
 ## Programmieren
 
 <!-- TODO -->
-
