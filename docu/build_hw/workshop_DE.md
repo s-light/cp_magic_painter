@@ -1,5 +1,18 @@
 # MYS MakerFestival 2023 Workshop
 
+<style>
+    html, body {
+        background: hsl(270,100%,10%);
+        color: hsl(40, 100%, 50%);
+        font-size: 1.2em;
+    }
+    img {
+        max-width: 100vw;
+        max-height: 80vh;
+    }
+</style>
+
+
 Workshop Anleitung
 
 ## Holz Vorbereitung
