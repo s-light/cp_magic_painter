@@ -85,16 +85,18 @@ class RGBLamp(ModeBaseClass):
         print(42 * "*")
 
         self.config_extend_with_defaults(defaults=self.config_defaults)
-        self.print(self.config)
+        # self.print(self.config)
         # print(self.__class__, "config extended:")
         self.num_pixels = self.config["hw"]["pixel_count"]
 
         # effect base
+        # print("    prepare effect")
         self.effect_active = self.config["RGBLamp"]["effect_active"]
         self.effect_duration = self.config["RGBLamp"]["effect_duration"]
         self.effect_start_cycle()
         self._offset = 0
 
+        # print("    prepare color")
         self.color_range = self.config["RGBLamp"]["color_range"]
         self.hue_min = self.color_range["min"].hue
         self.hue_max = self.color_range["max"].hue
@@ -111,6 +113,7 @@ class RGBLamp(ModeBaseClass):
             "y_to_brightness"
         ]
 
+        # print("    prepare brightness")
         # brightness
         self.brightness_map_mask = [
             # in , out
@@ -123,6 +126,7 @@ class RGBLamp(ModeBaseClass):
         self.mask_pixel_active_count = self.num_pixels
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
 
+        # print("    spi_init")
         self.spi_init()
 
         # self.print("brightness mapping test:")
@@ -131,14 +135,18 @@ class RGBLamp(ModeBaseClass):
 
         self.brightness = self.config["RGBLamp"]["brightness"]
 
+        # print("    main_loop")
         # run animation rendering one time.
         self.main_loop()
 
+        # print("    spi_deinit")
         self.spi_deinit()
+        # print("    spi_deinit done.")
 
         # we need to to this as last action -
         # otherwise we get into dependency hell as not all things shown in status line are initialized..
         self.print = print_fn
+        print("rgblamp init done.")
 
     ##########################################
     # properties
@@ -230,7 +238,18 @@ class RGBLamp(ModeBaseClass):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
 
-    def handle_user_input(self, event):
+    def handle_user_input_touch(self, event):
+        if event.touch.rose:
+            # self.print("RGBLamp - handle_user_input: ", touch_id)
+            if event.touch_id == 0:
+                self.brightness += 0.05
+            elif event.touch_id == 1:
+                self.brightness -= 0.05
+            elif event.touch_id == 2:
+                self.brightness = 0.01
+            self.print("(touch ", event.touch_id, ") brightness", self.brightness)
+            # self.print("pixels.brightness", self.pixels.brightness)
+        self.button_event.pressed
         if event.touch.rose:
             # self.print("RGBLamp - handle_user_input: ", touch_id)
             if event.touch_id == 0:
@@ -242,13 +261,37 @@ class RGBLamp(ModeBaseClass):
             self.print("(touch ", event.touch_id, ") brightness", self.brightness)
             # self.print("pixels.brightness", self.pixels.brightness)
 
+    def handle_user_input_button(self, event):
+        self.print("RGBLamp - handle_user_input_button: ", event)
+        if event.pressed:
+            if event.key_number == 1:
+                self.hue_min += 0.025
+                self.hue_max += 0.025
+                # wrap around
+                # not really needed as teh HSV conversion takes care of this..
+                # if self.hue_min > 1.0:
+                #     self.hue_min -= 1.0
+                # if self.hue_max > 1.0:
+                #     self.hue_max -= 1.0
+            elif event.key_number == 2:
+                self.hue_min -= 0.025
+                self.hue_max -= 0.025
+                # if self.hue_min < 1.0:
+                #     self.hue_min += 1.0
+                # if self.hue_max < 1.0:
+                #     self.hue_max += 1.0
+            elif event.key_number == 3:
+                self.hue_min = self.color_range["min"].hue
+                self.hue_max = self.color_range["max"].hue
+
     def handle_gesture(self, event):
         if event.gesture == TILT_RIGHT:
             self.brightness += 0.1
         elif event.gesture == TILT_LEFT:
             self.brightness -= 0.1
 
-    statusline_template = "color: {color} "
+    # statusline_template = "color: {color} "
+    statusline_template = "color: hue_min {hue_min:>4.3f}, hue_max {hue_max:>4.3f} "
 
     def statusline_fn(self):
         """
@@ -259,7 +302,9 @@ class RGBLamp(ModeBaseClass):
         """
 
         statusline = self.statusline_template.format(
-            color=self.color_range,
+            # color=self.color_range,
+            hue_min=self.hue_min,
+            hue_max=self.hue_max,
         )
 
         return statusline

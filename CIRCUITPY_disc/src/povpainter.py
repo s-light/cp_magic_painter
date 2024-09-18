@@ -215,7 +215,11 @@ class POVPainter(ModeBaseClass):
     @property
     def brightness(self):
         # return super(ModeBaseClass, self).brightness * 2
-        return ModeBaseClass.brightness
+        return helper.map_to_01(
+            ModeBaseClass.brightness,
+            self.brightness_range[0],
+            self.brightness_range[1],
+        )
 
     @brightness.setter
     def brightness(self, value):
@@ -228,13 +232,17 @@ class POVPainter(ModeBaseClass):
         # self._brightness = value
 
         # Remap brightness from 0.0-1.0 to brightness_range.
-        ModeBaseClass.brightness = helper.map_01_to(
+        ModeBaseClass.brightness = helper.map_01_to_constrained(
             value,
             self.brightness_range[0],
             self.brightness_range[1],
         )
         if self.spi_init_done:
             self.load_image()
+
+    @property
+    def brightness_mapped(self):
+        return ModeBaseClass.brightness
 
     ##########################################
     # sub system init
@@ -279,6 +287,8 @@ class POVPainter(ModeBaseClass):
         self.spi_init_done = True
 
     def spi_deinit(self):
+        # https://github.com/adafruit/Adafruit_CircuitPython_DotStar/pull/65
+        self.dotstar.unlock()
         self.dotstar.deinit()
         self.spi_init_done = False
 
@@ -505,7 +515,7 @@ class POVPainter(ModeBaseClass):
                         idx += 1
                         for color in order:
                             self.image_buffer[idx] = int(
-                                pow((color * self.brightness) / 255, 2.7) * 255
+                                pow((color * self.brightness_mapped) / 255, 2.7) * 255
                                 + 0.5
                                 # pow((color * 1.0) / 255, 2.7) * 255 + 0.5
                             )
@@ -628,7 +638,7 @@ class POVPainter(ModeBaseClass):
                     image_filename,
                     self.tempfile,
                     rows,
-                    self.brightness,
+                    self.brightness_mapped,
                     self.loop,
                     self.load_progress,
                 )
@@ -725,21 +735,25 @@ class POVPainter(ModeBaseClass):
         # elif direction == -1:
         #     self.handle_paintrequest_do_paint(backwards=True)
 
-    def handle_user_input(self, event):
+    def handle_user_input_touch(self, event):
         if event.touch.rose:
-            print("POVPainter - handle_user_input: ", event.touch_id)
-            # if touch_id == 0:
-            #     self.switch_image()
-            # if touch_id == 0:
-            #     print("brightness ++")
-            #     self.brightness += 0.1
-            # elif touch_id == 1:
-            #     print("brightness --")
-            #     self.brightness -= 0.1
-            # elif touch_id == 2:
-            # if touch_id == 2:
-            #     self.switch_image()
-        # pass
+            if touch_id == 0:
+                self.switch_image()
+            elif touch_id == 1:
+                print("brightness ++")
+                self.brightness += 0.1
+            elif touch_id == 2:
+                print("brightness --")
+                self.brightness -= 0.1
+
+    def handle_user_input_button(self, event):
+        if event.pressed:
+            if event.key_number == 1:
+                self.brightness -= 0.2
+            elif event.key_number == 2:
+                self.brightness += 0.2
+            elif event.key_number == 3:
+                self.switch_image()
 
     def handle_gesture(self, event):
         if event.gesture == DIRECTION_CHANGED:
@@ -768,6 +782,7 @@ class POVPainter(ModeBaseClass):
         self.load_image(self.filename)
 
     statusline_template = (
+        "b_raw: {brightness_mapped:>4.3f} "
         "paint: {paint_duration:>4.0f}ms "
         "pixel delay: {pixel_delay:>5.2f}ms "
         "({pixel_delay_raw:>5.2f}ms) "
@@ -782,6 +797,7 @@ class POVPainter(ModeBaseClass):
         """
 
         statusline = self.statusline_template.format(
+            brightness_mapped=self.brightness_mapped,
             paint_duration=self.paint_duration * 1000,
             pixel_delay=self.pixel_delay * 1000,
             pixel_delay_raw=self.pixel_delay_raw * 1000,

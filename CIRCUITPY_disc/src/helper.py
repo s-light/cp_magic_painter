@@ -35,13 +35,17 @@ def map_range(x, in_min, in_max, out_min, out_max):
     """Map value from one range to another."""
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-
-def map_range_constrained(x, in_min, in_max, out_min, out_max):
-    """Map value from one range to another - constrain input range."""
+def constrain(x, in_min, in_max):
+    """constrain range."""
     if x < in_min:
         x = in_min
     elif x > in_max:
         x = in_max
+    return x
+
+def map_range_constrained(x, in_min, in_max, out_min, out_max):
+    """Map value from one range to another - constrain input range."""
+    x = constrain(x, in_min, in_max)
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 
@@ -49,10 +53,26 @@ def map_to_01(x, in_min, in_max):
     """Map value to 0..1 range."""
     return (x - in_min) / (in_max - in_min)
 
+def map_to_01_constrained(x, in_min, in_max):
+    """Map value to 0..1 range."""
+    x = constrain(x, in_min, in_max)
+    return map_to_01(x, in_min, in_max)
+
 
 def map_01_to(x, out_min, out_max):
     """Map value from 0..1 to given range."""
     return x * (out_max - out_min) / 1.0 + out_min
+
+def map_01_to_constrained(x, out_min, out_max):
+    """Map value from 0..1 to given range."""
+    print("x", x)
+    print("out_min", out_min)
+    print("out_max", out_max)
+    x = map_01_to(x, out_min, out_max)
+    print("x", x)
+    x = constrain(x, out_min, out_max)
+    print("x", x)
+    return x
 
 
 def map_to_11(x, in_min, in_max):

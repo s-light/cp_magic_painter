@@ -101,15 +101,19 @@ class MagicPainter(ConfigBaseClass):
         # print(self.__class__, "config extended:")
         # self.config_print()
 
+        self.modes = [ModeBaseClass(config={}, print_fn=self.print)]
+        self.mode = self.modes[0]
+
         self.userinput = UserInput(
             config=self.config,
             magicpainter=self,
-            callback_button=self.switch_to_next_mode,
+            callback_button=self.handle_button,
             callback_touch=self.handle_touch,
             callback_gesture=self.handle_gesture,
         )
         # UserInput overwrites the `self.print` function so that the status line is respected.
 
+        self.print("init modes..")
         self.modes = [
             RGBLamp(
                 config=self.config,
@@ -132,7 +136,9 @@ class MagicPainter(ConfigBaseClass):
         # self.config_print()
         # self.print(2 * "\n")
 
+        # self.print("mode.spi_init")
         self.mode.spi_init()
+        self.heartbeat_last = time.monotonic()
 
     # def setup_ui(self):
     #     # self.ui = ui.MagicPainterUI(magicpainter=self)
@@ -155,8 +161,17 @@ class MagicPainter(ConfigBaseClass):
         self.mode.spi_init()
         self.print("spi_init done.")
 
+    def handle_button(self, event):
+        # print("\n"*5)
+        # print(event)
+        # print("\n"*5)
+        if event.pressed and event.key_number == 0:
+            self.switch_to_next_mode()
+        else:
+            self.mode.handle_user_input_button(event)
+
     def handle_touch(self, event):
-        self.mode.handle_user_input(event)
+        self.mode.handle_user_input_touch(event)
 
     def handle_gesture(self, event):
         self.mode.handle_gesture(event)
@@ -171,6 +186,9 @@ class MagicPainter(ConfigBaseClass):
         self.mode.main_loop()
         # Small delay to keep things responsive but give time for interrupt processing.
         time.sleep(0)
+        # if (time.monotonic() - self.heartbeat_last) > 2:
+        #     self.heartbeat_last = time.monotonic()
+        #     print(self.heartbeat_last)
 
     def run(self):
         self.userinput.update()

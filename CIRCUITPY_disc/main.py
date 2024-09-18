@@ -49,6 +49,17 @@ def main():
     myMagicPainter = MagicPainter()
     myMagicPainter.run()
 
+    # start = time.monotonic()
+    # heartbeat_last = time.monotonic()
+    # while (time.monotonic() - start) < 10:
+    #     time.sleep(0.1)
+    #     if (time.monotonic() - heartbeat_last) > 1:
+    #         heartbeat_last = time.monotonic()
+    #         print(heartbeat_last)
+    print("done.")
+    wait_with_print(10)
+    print("\nexit.")
+
 
 ##########################################
 if __name__ == "__main__":

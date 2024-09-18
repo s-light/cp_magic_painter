@@ -30,7 +30,7 @@ class ModeBaseClass(ConfigBaseClass):
 
         # print("__init__ of ModeBaseClass....")
         # prepare internals
-        self._brightness = None
+        self._brightness = -42.0
 
         # all other init things
         # self.load_config()
@@ -61,6 +61,8 @@ class ModeBaseClass(ConfigBaseClass):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
 
+    statusline_template = ""
+
     def statusline_fn(self):
         """
         Generate statusline.
@@ -68,15 +70,16 @@ class ModeBaseClass(ConfigBaseClass):
         NO prints in this function!!
         (leads to infinity loops..)
         """
-        statusline_template = "brightness: {brightness: >4.2f} "
-
         statusline = self.statusline_template.format(
-            brightness=self.magicpainter.mode.brightness,
+            # brightness=self.brightness,
         )
 
         return statusline
 
-    def handle_user_input(self, event):
+    def handle_user_input_touch(self, event):
+        pass
+
+    def handle_user_input_button(self, event):
         pass
 
     def handle_gesture(self, event):

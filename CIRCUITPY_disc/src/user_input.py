@@ -5,6 +5,7 @@ import time
 
 import board
 
+import digitalio
 import touchio
 import keypad
 from adafruit_debouncer import Debouncer
@@ -60,6 +61,21 @@ class UserInput(object):
                 "threshold": 4000,
                 "auto_calibration_delay": 30,
             },
+            "button": {
+                "pins": [
+                    board.A0,
+                    board.A1,
+                    board.A2,
+                    # board.D5,
+                    # board.D6,
+                    # board.D7,
+                    # board.D8,
+                    # board.D9,
+                    # board.D17,
+                    # board.D18,
+                ],
+                "pin_gnd": board.D8,
+            },
             "accel_i2c_pins": {
                 "clock": "SCL1",
                 "data": "SDA1",
@@ -108,25 +124,30 @@ class UserInput(object):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def init_userInput(self):
-        # self.button_io = digitalio.DigitalInOut(board.BUTTON)
-        # self.button_io.switch_to_input(pull=digitalio.Pull.UP)
-        # self.button = Button(self.button_io)
-
         self.button_init()
 
         self.touch_init()
 
     def button_init(self):
+        print("button_init..")
         # https://learn.adafruit.com/key-pad-matrix-scanning-in-circuitpython/advanced-features#avoiding-storage-allocation-3099287
+        button_list = [board.BUTTON]
+        button_list.extend(self.config["hw"]["button"]["pins"])
+        print("  button_list", button_list)
+
+        self.button_GND = digitalio.DigitalInOut(self.config["hw"]["button"]["pin_gnd"])
+        self.button_GND.switch_to_output()
+        self.button_GND.value = 0
+
         self.button = keypad.Keys(
-            (board.BUTTON,),
+            button_list,
             value_when_pressed=False,
             pull=True,
         )
         self.button_event = keypad.Event()
 
     def touch_init(self):
-        print("touch init..")
+        print("touch_init..")
         self.touch_active = True
         self.touch_last_action = time.monotonic()
         self.touch_auto_calibration_delay = self.config["hw"]["touch"][
@@ -152,9 +173,11 @@ class UserInput(object):
                     touch.raw_value,
                 )
             )
+        print(f"setup {len(self.touch_pins)} touch inputs.")
 
     def accel_sensor_init(self):
         """Init the acceleration sensor."""
+        print("accel_sensor_init..")
         self.i2c = busio.I2C(
             scl=helper.get_pin(
                 config=self.config, bus_name="accel_i2c_pins", pin_name="clock"
@@ -164,11 +187,11 @@ class UserInput(object):
             ),
             frequency=400000,
         )
-        print("i2c scan:")
-        print("lock:", self.i2c.try_lock())
+        print("  i2c scan:")
+        print("  lock:", self.i2c.try_lock())
         i2c_address_list_hex = ["0x{:x}".format(adr) for adr in self.i2c.scan()]
-        print("i2c devices:", i2c_address_list_hex)
-        print("unlock:", self.i2c.unlock())
+        print("  i2c devices:", i2c_address_list_hex)
+        print("  unlock:", self.i2c.unlock())
         # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
 
         if "0x18" in i2c_address_list_hex:
@@ -202,7 +225,8 @@ class UserInput(object):
 
     def setup_serial(self):
         # make some space so that nothing is overwritten...
-        print("\n" * 3)
+        print("\n" * 4)
+        print("user_input setup_serial")
         self.my_input = nb_serial.NonBlockingSerialInput(
             input_handling_fn=self.userinput_event_handling,
             print_help_fn=self.userinput_print_help,
@@ -288,6 +312,17 @@ class UserInput(object):
         self.status_pixel.fill((0, 100, 0))
         self.callback_touch_main(event)
         self.status_pixel.fill((0, 0, 0))
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # buttons
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def button_update(self):
+        # button input
+        if self.button.events.get_into(self.button_event):
+            self.callback_button(self.button_event)
+            # if self.button_event.pressed:
+            # if self.button_event.key_number == 0:
+            #     self.callback_button()
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # gesture
@@ -390,6 +425,10 @@ class UserInput(object):
             y_active_color = terminal.ANSIColors.fg.pink
             y_stable = self.gesture.direction_y.durations.forward_avg.stable
 
+        # print(
+        #     "brightness:",
+        #     self.magicpainter.mode.brightness,
+        # )
         statusline = self.statusline_template.format(
             uptime=time.monotonic(),
             # gesture
@@ -438,11 +477,7 @@ class UserInput(object):
     # main api
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def update(self):
-        # button input
-        if self.button.events.get_into(self.button_event):
-            if self.button_event.pressed:
-                if self.button_event.key_number == 0:
-                    self.callback_button()
+        self.button_update()
         self.touch_update()
         # debug output
         # self.touch_print_status()
