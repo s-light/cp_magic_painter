@@ -1,4 +1,4 @@
-# MYS MakerFestival 2023 Workshop
+# MYS MakerFestival Workshop
 
 <style>
     html, body {

@@ -55,6 +55,7 @@ und hier als schritt für schritt text Anleitung:
 
 2. Gimp - einfügen und ausrichten
 
+-   [Gimp (GNU Image Manipulation Program) installieren](https://www.gimp.org/)
 -   Gimp Starten
 -   öffne das Beispielbild [`images/01_testpattern_smile.xcf`](./../../CIRCUITPY_disc/images/01_testpattern_smile.xcf) `Datei - Öffnen`
 -   dort gibt es nun ein _text_ object.
