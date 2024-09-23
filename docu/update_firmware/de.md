@@ -23,3 +23,4 @@ doch ich denke das du das gut auf dein eigenes System übertragen kannst..
 - es taucht ein neues USB-Massenspeicher-Laufwerk mit dem Namen `CIRCUITPY` auf
 - dort RechtsClick einfügen oder ShortCut `STrg+V`
 - abfrage: alles überschreiben? `JA`
+- prüfen das KEIN `code.py` vorhanden ist.

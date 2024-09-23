@@ -7,11 +7,10 @@
         font-size: 1.2em;
     }
     img {
-        max-width: 100vw;
-        max-height: 80vh;
+        max-width: 90vw;
+        max-height: 60vh;
     }
 </style>
-
 
 Workshop Anleitung
 
@@ -21,29 +20,55 @@ Workshop Anleitung
 
 ![alle einzelteile vorbereitet](<./01 prepare wood/20230914_131258.jpg>)
 
+### Positionierungsstifte
+
 Dann die Positionierung-Stifte vorbereiten.
 die länge lässt sich mit dem Seitenschneider am besten an den Holz-Schichten abmessen und direkt schneiden.
 ![Positionierungsstifte](<./01 prepare wood/20230914_131637.jpg>)
 
+### oben
+
 nun die oberen Teile Zusammenleimen
+
+> WICHTIG:
+> Layer 1 & 2 werden miteinander verleimt.
+> und Layer 3 & 4 werden miteinader verleimt.
+> Allerdings möchten die Positionierungsstifte durch alle 4 Durchgehen..
+
 ![prepare wood - top layer glueing](<01 prepare wood/20240821_120350 case glue.jpg>)
 ![prepare wood - top layer glueing](<01 prepare wood/20240821_120355 case glue detail.jpg>)
 ![prepare wood - top layer glueing](<01 prepare wood/20240821_120938 case glue clamping.jpg>)
 
-WICHTIG:
-Layer 1 & 2 werden miteinander verleimt.
-und Layer 3 & 4 werden miteinader verleimt.
-Allerdings möchten die Positionierungsstifte durch alle 4 Durchgehen..
+### unten
 
 dann das gleiche spiel mit den unteren teilen
+(drei layer)
+
 ![untere Teile Leimen](<./01 prepare wood/20230914_132658.jpg>)
 
-bei diesen Teilen werden nur Zwei Teile geklebt.
-die unteren Teile bleiben Lose und werden dann später nur auf die Stifte aufgesteckt.
+### USB-Slide-In
+
+hier werden wieder die jeweiligen zwei Layer mit einander verleimt -
+die unteren beiden Layer und die Oberen beiden Layer.
+diese beiden _Pakete_ werden dann später nur auf die Stifte aufgesteckt.
+
 ![einschub](<./01 prepare wood/20230914_132841.jpg>)
 
-zwischenstand
+#### obere layer
+
+![usb-einschub](<01 prepare wood/20240919_200016 case - usb slide in - bottom.jpg>)
+![usb-einschub](<01 prepare wood/20240919_200023 case - usb slide in - top.jpg>)
+
+#### untere layer
+
+![usb-einschub](<01 prepare wood/20240919_200112 case - usb slide in - overview.jpg>)
+![usb-einschub](<01 prepare wood/20240919_200351 case - usb slide in - parts glued.jpg>)
+
+### zwischenstand
+
 ![zwischenstand](<./01 prepare wood/20230914_133349.jpg>)
+
+### box
 
 wenn die oberen und unteren teile fest sind kommt als letzter schritt die box:
 
@@ -55,7 +80,8 @@ hier darauf achten das diese rechtwinkelig ist.
 
 ### Cover
 
-Falls Vorhanden
+> Falls Vorhanden
+
 als letztes noch die _cover-layer_ miteinander verleimen..
 dabei sehr sehr sorgfältig arbeiten so das die Holz-Stößel sich frei bewegen können...
 ![prepare wood - ](<01 prepare wood/20240821_131404 cover details buttons.jpg>)
@@ -114,7 +140,7 @@ die drei Buttons kommen in die Pins mit den Namen
 
 ![alle bauteile zusammengesteckt](<./03 test electronics/20230923_011729.jpg>)
 
-vorsichtig das sich keine metallteile berühren!
+> vorsichtig das sich keine metallteile berühren!
 
 nun Vorsichtig die Powerbank anstecken..
 Schalter einschalten
@@ -123,7 +149,7 @@ und....
 ![und einmal testen](<./03 test electronics/20230923_011821.jpg>)
 und alles geht :-)
 
-Test:
+### Test
 
 -   erst sollte auf dem Controller die LED in verschiedenen Farben Leuchten.
 -   dann der Streifen einen grünen _ladebalken_ anzeigen
@@ -156,7 +182,7 @@ die Buttons in die Aussparung im Gehäuse legen und dann die obersten beiden Lay
 
 ### Sensor
 
-die Sensor Platine von Unten auf dem oberen Ende des Stabes positionieren - 
+die Sensor Platine von Unten auf dem oberen Ende des Stabes positionieren -
 eventuell mit etwas Kleber dort fixieren.
 das Kabel am Stab entlang durch das Loch nach oben führen (siehe auch nächstes Bild)
 
@@ -171,6 +197,11 @@ zum Schluss alle steck-elemente nach oben führen
 ## zusammen bauen Teil2
 
 nun werden wir den USB-Stecker und Power-Schalter im Mittleren Holz-Stück befestigen.
+![usb slide-in mounting ](<04 build/20240919_200541 case - usb slide in - electronic in - top.jpg>)
+![usb slide-in mounting ](<04 build/20240919_200558 case - usb slide in - electronic in - bottom.jpg>)
+![usb slide-in mounting ](<04 build/20240919_200619 case - usb slide in - electronic in - side.jpg>)
+![usb slide-in mounting ](<04 build/20240919_200709 case - usb slide in - electronic in - mounted - top.jpg>)
+![usb slide-in mounting ](<04 build/20240919_200727 case - usb slide in - electronic in - mounted - bottom.jpg>)
 
 ## zusammen bauen Teil3
 
@@ -190,6 +221,7 @@ und dann den controller vorsichtig in den stab drücken
 
 <!-- BILD einfügen -->
 
+## zusammen bauen Teil4
 nun noch von Unten zwei Muttern in die löcher einfügen
 
 Wenn hier noch Zeit übrig ist kann gern aus dem Kuststoff oder Schrumpfschlauch eine Abdeckung ausgeschnitten werden. (siehe [_layer-4 cover_ Schnitt-Vorlage](./../../hw/case/export/case_layer-4_mod_small_cover.svg))
@@ -199,7 +231,13 @@ von Oben die Schrauben durchstecken und mit einem 1,5mm Imbus fest ziehen.
 Somit ist das Mittlere Holz-Teil fixiert.
 
 Fertig ist dein Zauberstab :-)
-
+    
 ## Programmieren
 
 <!-- TODO -->
+....
+schau mal in die documente:
+- [verwendung](/docu/usage/de.md)
+- [eigene bilder aufspielen](/docu/prepare_images/de.md)
+- [software aktuallisieren](/docu/update_firmware/de.md)
+

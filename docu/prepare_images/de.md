@@ -45,12 +45,8 @@ und hier als schritt für schritt text Anleitung:
     ![openmoji.org search](<openmoji.org search.png>)
 -   und öffne die detail Ansicht des emoji
     ![openmoji.org candle](<openmoji.org candle.png>)
--   selektiere die kleine Unicode representation mit der mouse
-    -   am besten fängst du auf der rechten Seite an und drückst die Maustaste
-    -   hältst gedrückt und ziehst nach links bis knapp über das Bild
-    -   dann kannst du die maustaste wieder loslassen
-    -   und das emoji sollte selektiert sein
-        ![openmoji.org candle selected](<openmoji.org candle selected.png>)
+-   kopiere das *Unicode-Zeichen* mit dem kleinen *CopyButton*
+        ![openmoji.org candle selected](<openmoji.org candle unicode copy.png>)
 -   dann einfach mit Rechtsclick und `copy` oder ShortCut `Strg+C` in die zwischenablage kopieren
 
 2. Gimp - einfügen und ausrichten
