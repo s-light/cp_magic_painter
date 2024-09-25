@@ -1,3 +1,17 @@
+
+<style>
+    html, body {
+        background: hsl(270,100%,10%);
+        color: hsl(40, 100%, 50%);
+        font-size: 1.2em;
+    }
+    img {
+        max-width: 80vw;
+        max-height: 50vh;
+    }
+</style>
+
+
 # Vorbereitung der Bilder
 
 Momentan werden Bilder in Folgendem Format unterstützt:
@@ -44,16 +58,22 @@ und hier als schritt für schritt text Anleitung:
 -   suche nach einem begriff (englisch)
     ![openmoji.org search](<openmoji.org search.png>)
 -   und öffne die detail Ansicht des emoji
-    ![openmoji.org candle](<openmoji.org candle.png>)
--   kopiere das *Unicode-Zeichen* mit dem kleinen *CopyButton*
-        ![openmoji.org candle selected](<openmoji.org candle unicode copy.png>)
--   dann einfach mit Rechtsclick und `copy` oder ShortCut `Strg+C` in die zwischenablage kopieren
+-   nun in die zwischenablage kopiere 
+    ![openmoji.org candle](<./openmoji.org candle unicode copy.png>)
+-   das *Unicode-Zeichen* mit dem kleinen *CopyButton*
+    <!-- - **oder** alternative das openmoji Bild mit Strg + click auf den PNG button -->
+
 
 2. Gimp - einfügen und ausrichten
 
+ich verwende hier [Gimp (GNU Image Manipulation Program)](https://www.gimp.org/).
+dies ist ein Frei Verfügbares Bild-Bearbeitungsprogramm welches auf allen gängigen PCs laufen sollte.
+die Schritte können jedoch ansich auch mit jedem anderen Grafik-Program durchgeführt werden.
+
 -   [Gimp (GNU Image Manipulation Program) installieren](https://www.gimp.org/)
 -   Gimp Starten
--   öffne das Beispielbild [`images/01_testpattern_smile.xcf`](./../../CIRCUITPY_disc/images/01_testpattern_smile.xcf) `Datei - Öffnen`
+-   lade das Beispielbild [`images/01_testpattern_smile.xcf`](./../../CIRCUITPY_disc/images/01_testpattern_smile.xcf) herunter
+-   das Beispielbild `01_testpattern_smile.xcf` öffnen: `Datei - Öffnen`
 -   dort gibt es nun ein _text_ object.
 -   aktivieren des `text tool` (shortcut: `t`):
     ![text tool anwählen](<gimp text tool.png>)

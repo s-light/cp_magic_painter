@@ -22,3 +22,22 @@ this project / Workshop was first created for the [`Make Your School MakerFestiv
 it is based on these two excellent Adafruit tutorials:
 - [circuitpython painter](https://learn.adafruit.com/circuitpython-painter)
 - [clue light paintstick](https://learn.adafruit.com/clue-light-paintstick)
+
+
+## needed circuitpython libraries
+
+- nonblocking_serialinput
+- adafruit_lis3dh
+- adafruit_pioasm
+- adafruit_debouncer
+- adafruit_pixelbuf
+- adafruit_neopxl8
+- adafruit_dotstar
+- adafruit_ticks
+- neopixel
+- adafruit_msa3xx
+- adafruit_bus_device
+- ansi_escape_code
+- adafruit_fancyled
+- adafruit_imageload
+- adafruit_register

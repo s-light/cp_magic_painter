@@ -2,7 +2,7 @@
 # project specific
 temp
 
-
+docu/*/*.pdf
 
 
 # For PCBs designed using KiCad: http://www.kicad-pcb.org/
@@ -163,6 +163,7 @@ ipython_config.py
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
+
 
 # Celery stuff
 celerybeat-schedule
