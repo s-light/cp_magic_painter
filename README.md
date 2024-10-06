@@ -1,4 +1,4 @@
-# cp_magic_painter - Malen mit Licht 
+# cp_magic_painter - Malen mit Licht
 POV (Persistance Of Vision) Zauberstab
 
 ![Zauberstab (CAD)](hw/case/case_assembly_screenshots/overview.png)
@@ -41,3 +41,11 @@ it is based on these two excellent Adafruit tutorials:
 - adafruit_fancyled
 - adafruit_imageload
 - adafruit_register
+
+
+## HW
+have a look in [hw/](./hw/)
+
+- uC: [Adafruit QT Py S3](https://learn.adafruit.com/adafruit-qt-py-esp32-s3/)
+- sensor: [Adafruit LIS3DH Triple-Axis Accelerometer Breakout](https://learn.adafruit.com/adafruit-lis3dh-triple-axis-accelerometer-breakout/overview)
+- LEDs: APA102 / Dotstar ([z.B. this one](https://www.adafruit.com/product/2241) - we need 36Pixel (25cm))
