@@ -38,6 +38,9 @@ class ModeBaseClass(ConfigBaseClass):
         # print("ModeBaseClass", "config extended:")
         # self.config_print()
 
+        # self.statusline_template = "brightness: {brightness: >4.2f} "
+        # self.statusline_template = ""
+
         # we need to to this as last action -
         # otherwise we get into dependency hell as not all things shown in status line are initialized..
         self.print = print_fn
@@ -76,10 +79,7 @@ class ModeBaseClass(ConfigBaseClass):
 
         return statusline
 
-    def handle_user_input_touch(self, event):
-        pass
-
-    def handle_user_input_button(self, event):
+    def handle_user_input(self, event):
         pass
 
     def handle_gesture(self, event):

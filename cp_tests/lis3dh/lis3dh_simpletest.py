@@ -7,7 +7,7 @@ import busio
 import adafruit_lis3dh
 
 # uses board.SCL and board.SDA
-i2c = board.I2C()
+i2c = board.STEMMA_I2C()
 lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
 
 # Set range of accelerometer (can be RANGE_2_G, RANGE_4_G, RANGE_8_G or RANGE_16_G).

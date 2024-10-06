@@ -37,6 +37,7 @@ from gesture_detector import (
     SHAKE_Z,
 )
 
+
 class TouchEvent(object):
     def __init__(self, *, touch_id, touch):
         self.touch_id = touch_id
@@ -193,18 +194,10 @@ class UserInput(object):
         print("  unlock:", self.i2c.unlock())
         # self.accel_sensor = slight_lsm303d_accel.LSM303D_Accel(self.i2c)
 
-        if ("0x18" in i2c_address_list_hex) or ("0x19" in i2c_address_list_hex):
-            # 0x18 == default
-            # 0x19 == jumper closed
-            if "0x18" in i2c_address_list_hex:
-                address = 0x18
-            if "0x19" in i2c_address_list_hex:
-                address = 0x19
-
+        if "0x18" in i2c_address_list_hex:
             import adafruit_lis3dh
 
-            self.accel_sensor = adafruit_lis3dh.LIS3DH_I2C(i2c=self.i2c, address=address)
-
+            self.accel_sensor = adafruit_lis3dh.LIS3DH_I2C(self.i2c)
             self.accel_sensor.range = adafruit_lis3dh.RANGE_16_G
             self.accel_sensor.data_rate = (
                 adafruit_lis3dh.DATARATE_LOWPOWER_5KHZ
@@ -228,9 +221,7 @@ class UserInput(object):
 
             self.accel_sensor = self.bno
         else:
-            raise IOError(
-                "No Acceleration sensor found! please check your connections."
-            )
+            raise "No Acceleration sensor found! please check your connections."
 
     def setup_serial(self):
         # make some space so that nothing is overwritten...

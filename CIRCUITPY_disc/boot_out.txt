@@ -1,3 +1,4 @@
-Adafruit CircuitPython 8.0.0 on 2023-02-06; ESP32-S3-DevKitC-1-N8 with ESP32S3
-Board ID:espressif_esp32s3_devkitc_1_n8
-UID:434B2707024F
+Adafruit CircuitPython 9.1.4 on 2024-09-17; Adafruit QT Py ESP32-S3 4MB Flash 2MB PSRAM with ESP32S3
+Board ID:adafruit_qtpy_esp32s3_4mbflash_2mbpsram
+UID:4F21AFA558CC
+boot.py output:
