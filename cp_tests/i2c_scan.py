@@ -6,7 +6,9 @@ import board
 import busio
 
 print("\n\n")
+print("CircuitPython I2C Device Address Scan")
 print("board.board_id:", board.board_id)
+
 
 i2c = None
 

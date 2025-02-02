@@ -262,7 +262,7 @@ class POVPainter(ModeBaseClass):
 
     def spi_init(self):
         # deactivate internal displays...
-        displayio.release_displays()
+        # displayio.release_displays()
         self.dotstar = busio.SPI(
             clock=helper.get_pin(
                 config=self.config, bus_name="pixel_spi_pins", pin_name="clock"

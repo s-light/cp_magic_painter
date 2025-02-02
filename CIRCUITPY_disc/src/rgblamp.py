@@ -3,6 +3,7 @@
 # https://learn.adafruit.com/circuitpython-essentials/circuitpython-dotstar
 
 """RGB Lamp"""
+import os
 import time
 import math
 
@@ -13,6 +14,17 @@ import adafruit_fancyled.adafruit_fancyled as fancy
 import adafruit_dotstar
 
 from adafruit_fancyled.adafruit_fancyled import CHSV, CRGB
+
+import socketpool
+import wifi
+import adafruit_ntp
+import rtc
+
+import displayio
+import terminalio
+from adafruit_bitmap_font import bitmap_font
+from adafruit_display_text import label
+
 import helper
 
 from mode_base import ModeBaseClass
@@ -126,6 +138,9 @@ class RGBLamp(ModeBaseClass):
         self.mask_pixel_active_count = self.num_pixels
         self.mask_pixel_black_count = self.num_pixels - self.mask_pixel_active_count
 
+        self.setup_rtc()
+        self.setup_display()
+
         # print("    spi_init")
         self.spi_init()
 
@@ -217,7 +232,7 @@ class RGBLamp(ModeBaseClass):
 
     def spi_init(self):
         # deactivate internal displays...
-        displayio.release_displays()
+        # displayio.release_displays()
         self.pixels = adafruit_dotstar.DotStar(
             helper.get_pin(
                 config=self.config, bus_name="pixel_spi_pins", pin_name="clock"
@@ -234,6 +249,56 @@ class RGBLamp(ModeBaseClass):
 
     def spi_deinit(self):
         self.pixels.deinit()
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # display time
+
+    def setup_rtc(self):
+        # Get wifi AP credentials from a settings.toml file
+        wifi_ssid = os.getenv("CIRCUITPY_WIFI_SSID")
+        wifi_password = os.getenv("CIRCUITPY_WIFI_PASSWORD")
+        if wifi_ssid is None:
+            print("WiFi credentials are kept in settings.toml, please add them there!")
+            raise ValueError("SSID not found in environment variables")
+
+        try:
+            wifi.radio.connect(wifi_ssid, wifi_password)
+        except ConnectionError:
+            print("Failed to connect to WiFi with provided credentials")
+            raise
+
+        pool = socketpool.SocketPool(wifi.radio)
+        ntp = adafruit_ntp.NTP(pool, tz_offset=0, cache_seconds=3600)
+
+        # NOTE: This changes the system time so make sure you aren't assuming that time
+        # doesn't jump.
+        rtc.RTC().datetime = ntp.datetime
+
+    def setup_display(self):
+        # font = terminalio.FONT
+        font = bitmap_font.load_font("/Overlock-Bold-40.bdf")
+        current = time.localtime()
+        time_display = "{:02d}:{:02d}:{:02d}".format(
+            current.tm_hour, current.tm_min, current.tm_sec
+        )
+        self.text_area = label.Label(font, text=time_display)
+
+        display = board.DISPLAY
+        # Make the display context
+        splash = displayio.Group()
+        display.root_group = splash
+
+        FONTSCALE = 1
+
+        # scale and center
+        text_width = self.text_area.bounding_box[2] * FONTSCALE
+        text_group = displayio.Group(
+            scale=FONTSCALE,
+            x=display.width // 2 - text_width // 2,
+            y=display.height // 2,
+        )
+        text_group.append(self.text_area)  # Subgroup for text scaling
+        splash.append(text_group)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # user interface
@@ -398,6 +463,13 @@ class RGBLamp(ModeBaseClass):
                 self.fx__y_to_brightness[1],
             )
 
+    def display_update(self):
+        current = time.localtime()
+        time_text = "{:02d}:{:02d}:{:02d}".format(
+            current.tm_hour, current.tm_min, current.tm_sec
+        )
+        self.text_area.text = time_text
+
     def main_loop(self):
         self.fx_extra_update()
 
@@ -409,3 +481,5 @@ class RGBLamp(ModeBaseClass):
 
         self.handle_brightness_mask()
         self.pixels.show()
+
+        self.display_update()

@@ -40,11 +40,11 @@ def main():
     print(42 * "*")
 
     # deactivate display.
-    if hasattr(board, "DISPLAY"):
-        # print("deactivate display backlight.")
-        # board.DISPLAY.brightness = 0
-        print("deactivate display.")
-        displayio.release_displays()
+    # if hasattr(board, "DISPLAY"):
+    #     # print("deactivate display backlight.")
+    #     # board.DISPLAY.brightness = 0
+    #     print("deactivate display.")
+    #     displayio.release_displays()
 
     myMagicPainter = MagicPainter()
     myMagicPainter.run()

@@ -38,6 +38,10 @@ from gesture_detector import (
 )
 
 
+class AccelerationSensorNotFound(TypeError):
+    pass
+
+
 class TouchEvent(object):
     def __init__(self, *, touch_id, touch):
         self.touch_id = touch_id
@@ -63,9 +67,9 @@ class UserInput(object):
             },
             "button": {
                 "pins": [
-                    board.A0,
-                    board.A1,
-                    board.A2,
+                    # board.A0,
+                    # board.A1,
+                    # board.A2,
                     # board.D5,
                     # board.D6,
                     # board.D7,
@@ -91,6 +95,22 @@ class UserInput(object):
         self.print("init UserInput..")
 
         self.config = config
+        ##########################################
+        # handle board specific i2c pin usage
+
+        if not self.config.get("hw"):
+            self.config["hw"] = {
+                "accel_i2c_pins": {
+                    "clock": "SCL",
+                    "data": "SDA",
+                }
+            }
+
+            if "qtpy_esp32s3" in board.board_id:
+                self.config["hw"]["accel_i2c_pins"] = {
+                    "clock": "SCL1",
+                    "data": "SDA1",
+                }
         extend_deep(self.config, self.config_defaults.copy())
 
         self.magicpainter = magicpainter
@@ -221,7 +241,9 @@ class UserInput(object):
 
             self.accel_sensor = self.bno
         else:
-            raise "No Acceleration sensor found! please check your connections."
+            raise AccelerationSensorNotFound(
+                "No Acceleration sensor found! please check your connections."
+            )
 
     def setup_serial(self):
         # make some space so that nothing is overwritten...

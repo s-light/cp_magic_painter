@@ -6,9 +6,7 @@ config = {
     # in wich mode to start: (RGBLamp | POVPainter)
     "start_mode": "RGBLamp",
     # "start_mode": "POVPainter",
-    "POVPainter": {
-        "brightness": 0.99,
-    },
+    "POVPainter": {"brightness": 0.5},
     # light painting
     # "RGBLamp": {
     #     "brightness": 1.0,
@@ -25,7 +23,7 @@ config = {
     #     },
     # },
     "RGBLamp": {
-        "brightness": 0.5,
+        "brightness": 0.3,
         # effect duration in seconds
         "effect_duration": 3 * 60,
         "effect_active": True,
@@ -41,7 +39,7 @@ config = {
         # warm orange
         "color_range": {
             "min": CHSV(0.08),
-            "max": CHSV(0.12),
+            "max": CHSV(0.14),
         },
         # extra effects...
         "extra_effects": {
@@ -50,28 +48,16 @@ config = {
             # "y_to_brightness": (0.3, 0.7),
         },
     },
+    "hw": {
+        "pixel_color_order": "bgr",
+        "pixel_count": 144,
+        "pixel_spi_pins": {
+            "clock": "D11",
+            "data": "D12",
+        },
+        "accel_i2c_pins": {
+            "clock": "SCL",
+            "data": "SDA",
+        },
+    },
 }
-
-
-#
-
-#
-
-#
-
-
-##########################################
-# handle board specific i2c pin usage
-
-config["hw"] = {
-    "accel_i2c_pins": {
-        "clock": "SCL",
-        "data": "SDA",
-    }
-}
-
-if "qtpy_esp32s3" in board.board_id:
-    config["hw"]["accel_i2c_pins"] = {
-        "clock": "SCL1",
-        "data": "SDA1",
-    }

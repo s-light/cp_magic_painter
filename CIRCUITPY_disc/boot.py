@@ -59,7 +59,7 @@ import displayio
 # if hasattr(board, "DISPLAY"):
 #     print("deactivate display backlight.")
 #     board.DISPLAY.brightness = 0
-displayio.release_displays()
+# displayio.release_displays()
 
 
 # USB things...
